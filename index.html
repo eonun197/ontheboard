@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
-<title>인터멘토 — 교환학생 정보 격차 해소</title>
+<title>온더보드 — 교환학생 정보 격차 해소</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"><style>
@@ -25,11 +25,12 @@
 
   /* ============ 상단 네비 ============ */
   header{background:var(--paper); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:100;}
-  .topnav{max-width:1240px; margin:0 auto; padding:24px 32px; display:flex; align-items:center; gap:40px;}
+  .topnav{max-width:1120px; margin:0 auto; padding:24px 32px; display:flex; align-items:center; gap:40px;}
   .brand{display:flex; align-items:center; gap:11px; cursor:pointer;}
   .brand .logo{height:38px; width:auto; display:block; transition:.15s;}
   .brand:hover .logo{opacity:.72;}
-  .brand .bt{font-family:var(--serif); font-weight:700; font-size:21px; color:var(--navy);}
+  .brand .bt{font-family:var(--serif); font-weight:800; font-size:20px; color:var(--navy); line-height:1.04; display:flex; flex-direction:column;}
+  .brand .bt small{font-size:9.5px; font-weight:600; color:var(--muted); letter-spacing:1.4px; margin-top:2px;}
   .menu{display:flex; align-items:center; gap:20px; flex:1;}
   .navitem{position:relative;}
   .navitem .top{cursor:pointer; background:none; border:none; padding:8px 6px 11px;
@@ -54,7 +55,7 @@
   .dropdown button .dot{width:6px; height:6px; border-radius:50%; background:var(--yellow-d); flex-shrink:0;}
 
   /* ============ 본문 공통 ============ */
-  main{max-width:1240px; margin:0 auto; padding:34px 28px 96px;}
+  main{max-width:1120px; margin:0 auto; padding:34px 28px 96px;}
   section{display:none;} section.on{display:block; animation:fade .28s ease;}
   @keyframes fade{from{opacity:0; transform:translateY(10px);} to{opacity:1;}}
   .crumb{font-size:13px; color:var(--muted); margin-bottom:6px;}
@@ -109,13 +110,25 @@
   .calann .ar.cert .ad{background:var(--blue);}
   .calann .ar.appl .ad{background:#d64545;}
   .calann .ar .am{font-weight:700; color:var(--navy); margin-right:5px;}
+  /* 기간 바 — 세로 타임라인 (국제교류팀=파랑 / 조형대=노랑, 색으로 구분) */
+  .vtl{position:relative;}
+  .vtl .evt{position:relative; display:grid; grid-template-columns:22px 1fr; gap:12px; align-items:start; padding:9px 0;}
+  .vtl::before{content:""; position:absolute; left:10px; top:16px; bottom:16px; width:2px; background:var(--line); z-index:0;}
+  .vtl .evt .dot{width:13px; height:13px; border-radius:50%; margin:3px auto 0; position:relative; z-index:1; border:3px solid #fff; box-shadow:0 0 0 1.5px var(--line);}
+  .vtl .evt.k .dot{background:var(--blue);}
+  .vtl .evt.j .dot{background:var(--yellow-d);}
+  .vtl .evt .lab{font-size:14px; color:var(--ink); line-height:1.55;}
+  .vtl .evt .lab .m{font-weight:700; margin-right:6px;}
+  .vtl .evt.k .lab .m{color:var(--blue-d);}
+  .vtl .evt.j .lab .m{color:var(--yellow-deep);}
+  .vtl .evt.hl .dot{transform:scale(1.3); box-shadow:0 0 0 5px rgba(247,216,91,.6);}
   .boards{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
-  .board{padding:24px 26px; display:flex; flex-direction:column;}
-  .board .bh{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;}
+  .board{padding:24px 26px; display:flex; flex-direction:column; cursor:pointer; transition:.18s;}
+  .board:hover{transform:translateY(-3px); box-shadow:0 12px 34px rgba(40,80,160,.15); border-color:var(--blue-l);}
+  .board .bh{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; gap:10px;}
   .board .bh h3{margin:0; font-size:18px; color:var(--navy);}
-  .board .more{width:30px; height:30px; border-radius:50%; background:var(--blue-soft); border:none; cursor:pointer;
-    color:var(--blue); font-size:17px; display:flex; align-items:center; justify-content:center; transition:.15s; flex-shrink:0;}
-  .board .more:hover{background:var(--blue); color:#fff;}
+  .board .bgo{flex-shrink:0; color:var(--blue); font-size:14px; font-weight:600; white-space:nowrap; transition:.15s;}
+  .board:hover .bgo{transform:translateX(2px);}
   .voiceitem{padding:13px 0; border-bottom:1px dashed var(--line); font-size:14.5px; color:#46546e; display:flex; gap:10px;}
   .voiceitem:last-child{border-bottom:none;}
   .voiceitem .qq{color:var(--yellow-deep); font-family:var(--serif); font-size:18px; line-height:1.2;}
@@ -278,7 +291,7 @@
   .lk .chan{display:inline-block; margin-top:9px; font-size:12px; font-weight:600; color:var(--blue-d); background:var(--blue-soft); border-radius:999px; padding:3px 11px;}
   footer{border-top:1px solid var(--line); margin-top:60px; padding:22px; color:var(--muted); font-size:12.5px; text-align:center; line-height:1.7;}
 
-  /* ============ 모바일 ============ */
+  /* ============ 모바일 (≤880px) ============ */
   @media(max-width:880px){
     html,body{overflow-x:hidden;}
     .topnav{flex-wrap:wrap; gap:10px 14px; padding:12px 18px;}
@@ -321,7 +334,7 @@
   <div class="topnav">
     <div class="brand" data-go="home">
       <img class="logo" src="assets/kmu_navy.png" alt="국민대학교 KMU">
-      <span class="bt">인터멘토</span>
+      <span class="bt">온더보드<small>ON THE BOARD</small></span>
     </div>
     <nav class="menu">
       <div class="navitem has-sub" data-top="content">
@@ -356,8 +369,7 @@
   <!-- ============ 메인 대시보드 ============ -->
   <section id="home" class="on">
     <div class="hero">
-      <h1 id="heroName">인터멘토</h1>
-      <p>준비하기 막막한 교환학생 준비 과정을 돕는 인터멘토입니다.<br>교환학생을 가고 싶다는 막연한 생각만 들고 뭘 어떻게 해야할지 모르겠다면, 인터멘토를 따라 준비해보아요!</p>
+      <p>준비하기 막막한 교환학생 준비 과정을 돕는 온더보드입니다.<br>교환학생을 가고 싶다는 막연한 생각만 들고 뭘 어떻게 해야할지 모르겠다면, 온더보드를 따라 준비해보아요!</p>
     </div>
 
     <div class="card barcard" data-go="diagnose">
@@ -369,19 +381,19 @@
     </div>
 
     <div class="boards">
-      <div class="card board">
+      <div class="card board" data-go="voice">
         <div class="bh">
           <h3>선배들이 해주고 싶은 이야기</h3>
-          <button class="more" data-go="voice" title="더 보기">+</button>
+          <span class="bgo">더 보기 →</span>
         </div>
         <div class="voiceitem"><span class="qq">“</span><span>비자 준비 잘 알아보세요 (기간 주의)</span></div>
         <div class="voiceitem"><span class="qq">“</span><span>교환학생인만큼, 회화 연습은 미리미리 해두시는게 좋아요</span></div>
         <div class="voiceitem"><span class="qq">“</span><span>국제교류팀도 정보가 많은 편은 아닌데, 단과대는 더더욱 없어서 여기저기 물어보는 수밖에 없어요ㅠㅠ</span></div>
       </div>
-      <div class="card board">
+      <div class="card board" data-go="route">
         <div class="bh">
           <h3>지원 서류 한눈에 <span style="font-size:13px;color:var(--muted);font-weight:400">· 국제교류팀</span></h3>
-          <button class="more" data-go="route" title="더 보기">+</button>
+          <span class="bgo">더 보기 →</span>
         </div>
         <div class="doclist">
           <div class="doc"><span class="pct">40%</span> 학점 — 평점 3.0 이상</div>
@@ -623,12 +635,6 @@
     <h1 class="page">현 상태 파악</h1>
     <p class="lead">현재 학년·학기와 가고 싶은 시기를 고르면, 지금 무엇을 준비해야 할지 알려드려요.</p>
 
-    <div class="card barcard" style="cursor:default; margin-top:16px">
-      <div class="bhead"><h3>교환학생 모집 일정</h3></div>
-      <div class="cal" id="diagTimeline"></div>
-      <div id="calAnn" class="calann" style="display:none"></div>
-    </div>
-
     <div class="card quiz">
       <div class="qblock">
         <div class="ql">현재 학년</div>
@@ -663,6 +669,12 @@
         </div>
       </div>
       <div id="dzResult"><p class="qhint">현재 학년·학기와 갈 시기를 고르면 맞춤 안내가 떠요 ✈️</p></div>
+    </div>
+
+    <div class="card barcard" style="cursor:default; margin-top:16px">
+      <div class="bhead"><h3>교환학생 모집 일정</h3></div>
+      <div class="cal" id="diagTimeline"></div>
+      <div id="calAnn" class="calann" style="display:none"></div>
     </div>
   </section>
 
@@ -708,7 +720,7 @@
 </main>
 
 <footer>
-  인터멘토 · 교환학생 정보 격차 해소 프로젝트 (미디어디자인2)<br>
+  온더보드 · 교환학생 정보 격차 해소 프로젝트 (미디어디자인2)<br>
   국가별 데이터는 국민대 전체 수학보고서(2023~2025) 실제 집계, 조언·사례는 실제 선배 후기를 정리한 것입니다.
 </footer>
 
@@ -746,19 +758,12 @@
     {lane:'j', month:3, m:'3월 · 조형대', t:'다음 학기 교환학생 공지 (예상)'},
     {lane:'j', month:9, m:'9월 · 조형대', t:'다음 학기 교환학생 공지 (예상)'}
   ];
-  function evtHtml(e){
-    const left = ((e.month-0.5)/12*100).toFixed(2);
-    return '<div class="evt" data-month="'+e.month+'" style="left:'+left+'%"><div class="dot"></div>'+
-      '<div class="lab"><span class="m">'+e.m+'</span>'+e.t+'</div></div>';
-  }
   function renderTimeline(el){
     if(!el) return;
-    const k = EVENTS.filter(e=>e.lane==='k').map(evtHtml).join('');
-    const j = EVENTS.filter(e=>e.lane==='j').map(evtHtml).join('');
-    el.innerHTML =
-      '<div class="lane k"><div class="line"></div>'+k+'</div>'+
-      '<div class="lane j"><div class="line"></div>'+j+'</div>'+
-      '<div class="calfoot"><span>1월</span><span>6월</span><span>12월</span></div>';
+    const sorted = EVENTS.slice().sort((a,b)=>a.month-b.month);
+    el.innerHTML = '<div class="vtl">' + sorted.map(e=>
+      '<div class="evt '+e.lane+'" data-month="'+e.month+'"><div class="dot"></div>'+
+      '<div class="lab"><span class="m">'+e.m+'</span>'+e.t+'</div></div>').join('') + '</div>';
   }
   renderTimeline(document.getElementById('mainTimeline'));
   renderTimeline(document.getElementById('diagTimeline'));
