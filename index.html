@@ -25,7 +25,7 @@
 
   /* ============ 상단 네비 ============ */
   header{background:var(--paper); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:100;}
-  .topnav{max-width:1120px; margin:0 auto; padding:24px 32px; display:flex; align-items:center; gap:40px;}
+  .topnav{max-width:760px; margin:0 auto; padding:24px 32px; display:flex; align-items:center; gap:40px;}
   .brand{display:flex; align-items:center; gap:11px; cursor:pointer;}
   .brand .logo{height:38px; width:auto; display:block; transition:.15s;}
   .brand:hover .logo{opacity:.72;}
@@ -55,7 +55,7 @@
   .dropdown button .dot{width:6px; height:6px; border-radius:50%; background:var(--yellow-d); flex-shrink:0;}
 
   /* ============ 본문 공통 ============ */
-  main{max-width:1120px; margin:0 auto; padding:34px 28px 96px;}
+  main{max-width:760px; margin:0 auto; padding:34px 28px 96px;}
   section{display:none;} section.on{display:block; animation:fade .28s ease;}
   @keyframes fade{from{opacity:0; transform:translateY(10px);} to{opacity:1;}}
   .crumb{font-size:13px; color:var(--muted); margin-bottom:6px;}
@@ -122,29 +122,34 @@
   .vtl .evt.k .lab .m{color:var(--blue-d);}
   .vtl .evt.j .lab .m{color:var(--yellow-deep);}
   .vtl .evt.hl .dot{transform:scale(1.3); box-shadow:0 0 0 5px rgba(247,216,91,.6);}
-  /* 자가진단 — 모집 일정 바를 크게·중앙·그라디언트 반짝임으로 강조 */
-  #diagnose .barcard{padding:34px 30px 40px;}
-  #diagnose .barcard .bhead{justify-content:center;}
-  #diagnose .barcard .bhead h3{font-size:21px;}
-  #diagnose #diagTimeline{max-width:540px; margin:14px auto 0;}
-  #diagTimeline .vtl .evt{grid-template-columns:32px 1fr; gap:16px; padding:16px 0;}
-  #diagTimeline .vtl::before{left:14px; width:5px; border-radius:3px;
-    background:linear-gradient(180deg, var(--blue-l), var(--blue) 55%, var(--navy));
-    box-shadow:0 0 16px rgba(39,103,214,.4); top:14px; bottom:14px;}
-  #diagTimeline .vtl::after{content:""; position:absolute; left:14px; width:5px; height:52px; border-radius:3px;
+  .vtl .evt.chk .dot{background:var(--yellow-d);}
+  .vtl .evt.chk .lab{color:var(--yellow-deep); font-weight:600;}
+  .vtl .evt.chk .lab .m{color:var(--yellow-deep);}
+  /* 계획 가이드 — 태그 축소 */
+  #diagnose .quiz{padding:18px 22px;}
+  #diagnose .qrow{display:flex; gap:22px; flex-wrap:wrap;}
+  #diagnose .qrow .qblock{flex:1; min-width:150px; margin:8px 0;}
+  #diagnose .qblock .ql{font-size:14px; margin-bottom:7px;}
+  #diagnose .opt{padding:6px 13px; font-size:12.5px;}
+  /* 모집 일정 — 페이지를 가르는 큰 세로 타임라인(연혁형, 중앙 레일·좌우 교차) */
+  #diagTimeline{max-width:700px; margin:8px auto 0;}
+  #diagTimeline .vtl{position:relative; padding:6px 0;}
+  #diagTimeline .vtl::before{content:""; position:absolute; left:50%; top:6px; bottom:6px; width:5px; transform:translateX(-50%);
+    background:linear-gradient(180deg, var(--blue-l), var(--blue) 55%, var(--navy)); border-radius:3px; box-shadow:0 0 16px rgba(39,103,214,.4);}
+  #diagTimeline .vtl::after{content:""; position:absolute; left:50%; transform:translateX(-50%); width:5px; height:54px; border-radius:3px;
     background:linear-gradient(180deg, transparent, rgba(255,255,255,.95), transparent);
     animation:railshine 3s ease-in-out infinite; pointer-events:none; z-index:3;}
-  @keyframes railshine{0%{top:-52px; opacity:0;} 12%{opacity:.85;} 88%{opacity:.85;} 100%{top:calc(100% + 12px); opacity:0;}}
-  #diagTimeline .vtl .evt .dot{width:18px; height:18px; margin-top:1px;
-    box-shadow:0 0 0 2px #fff, 0 0 0 3px var(--line), 0 3px 10px rgba(39,103,214,.28);}
-  #diagTimeline .vtl .evt .lab{font-size:16.5px;}
-  #diagTimeline .vtl .evt .lab .m{font-size:17px;}
-  #diagTimeline .vtl .evt.hl .dot{transform:scale(1.22);}
-  /* 태그 비중 축소 */
-  #diagnose .quiz{padding:22px 26px;}
-  #diagnose .qblock{margin:13px 0;}
-  #diagnose .qblock .ql{font-size:15.5px; margin-bottom:8px;}
-  #diagnose .opt{padding:7px 15px; font-size:13px;}
+  @keyframes railshine{0%{top:-54px; opacity:0;} 12%{opacity:.85;} 88%{opacity:.85;} 100%{top:calc(100% + 12px); opacity:0;}}
+  #diagTimeline .vtl .evt{display:block; width:50%; box-sizing:border-box; padding:18px 28px; position:relative;}
+  #diagTimeline .vtl .evt:nth-child(odd){margin-left:0; text-align:right;}
+  #diagTimeline .vtl .evt:nth-child(even){margin-left:50%; text-align:left;}
+  #diagTimeline .vtl .evt .dot{position:absolute; top:20px; width:18px; height:18px; margin:0; border:4px solid #fff;
+    box-shadow:0 0 0 2px var(--line), 0 2px 8px rgba(39,103,214,.3); z-index:2;}
+  #diagTimeline .vtl .evt:nth-child(odd) .dot{right:-9px;}
+  #diagTimeline .vtl .evt:nth-child(even) .dot{left:-9px;}
+  #diagTimeline .vtl .evt .lab{font-size:15px; line-height:1.5;}
+  #diagTimeline .vtl .evt .lab .m{display:block; font-size:16px; margin-bottom:2px;}
+  #diagTimeline .vtl .evt.hl .dot{transform:scale(1.25); box-shadow:0 0 0 5px rgba(247,216,91,.6);}
   .boards{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
   .board{padding:24px 26px; display:flex; flex-direction:column; cursor:pointer; transition:.18s;}
   .board:hover{transform:translateY(-3px); box-shadow:0 12px 34px rgba(40,80,160,.15); border-color:var(--blue-l);}
@@ -172,7 +177,8 @@
   .cmprow{display:grid; grid-template-columns:118px 1fr 1fr; border-top:1px solid var(--line);}
   .cmprow .asp{padding:16px; font-weight:600; color:var(--navy); background:var(--blue-soft);
     display:flex; align-items:center; font-size:16px;}
-  .cmprow .cell{padding:16px; font-size:15.5px; color:#46546e; border-left:1px solid var(--line); line-height:1.6;}
+  .cmprow .cell{padding:16px; font-size:15.5px; color:#46546e; border-left:1px solid var(--line); line-height:1.65; word-break:keep-all;}
+  .doccol .ditem p, .doccol .ditem li, .fitcard li{word-break:keep-all;}
   .cmprow .cell .who{display:none; font-weight:700; font-size:12px; margin-bottom:6px;}
   .cmprow .cell.k .who{color:var(--blue);}
   .cmprow .cell.j .who{color:var(--yellow-deep);}
@@ -216,20 +222,12 @@
   .tip .q{font-size:30px; color:var(--yellow-d); font-family:var(--serif); position:absolute; top:14px; left:18px; opacity:.55; line-height:1;}
   .tip p{margin:0; font-size:16.5px; padding-left:32px; color:var(--ink); line-height:1.6;}
   /* 선배 조언 — 에타/SNS 피드 */
-  .feed{display:flex; flex-direction:column; gap:14px; margin-top:14px;}
-  .post{background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 20px; box-shadow:0 2px 14px rgba(40,80,160,.05);}
-  .post .ph{display:flex; align-items:center; gap:11px; margin-bottom:11px;}
-  .post .av{width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
-  .post .av svg{width:22px; height:22px; fill:#fff;}
-  .post .av.b1{background:var(--blue);} .post .av.b2{background:var(--blue-l);}
-  .post .av.b3{background:var(--navy);} .post .av.b4{background:var(--yellow-deep);}
-  .post .pmeta{display:flex; flex-direction:column; line-height:1.25;}
-  .post .who{font-weight:700; color:var(--navy); font-size:15px;}
-  .post .who .sub{font-weight:400; font-size:12px; color:var(--muted); margin-left:6px;}
-  .post .ptxt{margin:0; font-size:16.5px; color:var(--ink); line-height:1.65;}
-  .post .react{display:flex; gap:18px; margin-top:13px; padding-top:11px; border-top:1px solid var(--line);}
-  .post .rc{font-size:13.5px; color:var(--muted); display:flex; align-items:center; gap:5px;}
-  .post .rc.like{color:#e06a8b;}
+  .feed{display:flex; flex-direction:column; margin-top:12px; border-top:1px solid var(--line);}
+  .post{background:transparent; border:none; border-bottom:1px solid var(--line); border-radius:0; padding:18px 4px; box-shadow:none;}
+  .post .pcountry{display:inline-block; font-size:12px; font-weight:600; color:var(--sub); background:#eef1f5; border-radius:6px; padding:2px 9px; margin-bottom:8px;}
+  .post .ptitle{display:block; font-size:17px; font-weight:700; color:var(--navy); margin:0 0 5px;}
+  .post .ptxt{margin:0 0 9px; font-size:15.5px; color:var(--sub); line-height:1.55; word-break:keep-all;}
+  .post .pmeta{font-size:12.5px; color:var(--muted);}
 
   /* 사례(후기) */
   .story{background:var(--paper); border:1px solid var(--line); border-radius:var(--r); padding:28px 32px; margin-top:18px;}
@@ -271,7 +269,7 @@
   .stat .l{font-size:13px; color:var(--muted);}
   h3.blockt{color:var(--navy); margin:28px 0 4px; font-size:18px;}
   h3.blockt .s{font-weight:400; font-size:15.5px; color:var(--muted);}
-  .semchart{display:flex; align-items:flex-end; gap:14px; height:160px; padding:10px 4px 0; margin:12px 0 2px;}
+  .semchart{display:flex; align-items:flex-end; gap:5px; height:150px; padding:10px 2px 0; margin:12px 0 2px;}
   .semchart .sc{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%;}
   .semchart .scbar{width:100%; max-width:58px; background:var(--blue-l); border-radius:8px 8px 0 0; transition:height .5s ease;}
   .semchart .sc:nth-child(-n+2) .scbar{background:#bcd2f6;}
@@ -317,7 +315,7 @@
   .ylegend span{display:inline-flex; align-items:center; gap:6px;}
   .ylegend i{width:12px; height:12px; border-radius:3px; display:inline-block;}
 
-  /* 더 많은 정보 — 링크 카드 */
+  /* 더보기 — 링크 카드 */
   .links{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:18px;}
   .lk{display:block; background:var(--paper); border:1px solid var(--line); border-radius:var(--r); padding:22px 24px; transition:.16s;}
   a.lk:hover{border-color:var(--blue); transform:translateY(-3px); box-shadow:0 10px 26px rgba(40,80,160,.12); text-decoration:none;}
@@ -390,7 +388,7 @@
         <button class="top" data-go="diagnose">계획 가이드</button>
       </div>
       <div class="navitem" data-top="more">
-        <button class="top" data-go="more">더 많은 정보</button>
+        <button class="top" data-go="more">더보기</button>
       </div>
     </nav>
   </div>
@@ -415,7 +413,7 @@
     <div class="boards">
       <div class="card board" data-go="community">
         <div class="bh">
-          <h3>선배들이 해주고 싶은 이야기</h3>
+          <h3>합격자 커뮤니티</h3>
           <span class="bgo">더 보기 →</span>
         </div>
         <div class="voiceitem"><span class="qq">“</span><span>비자 준비 잘 알아보세요 (기간 주의)</span></div>
@@ -450,29 +448,29 @@
         <div class="h j">조형대<small>단과대 주관 · strate 대학</small></div>
       </div>
       <div class="cmprow">
-        <div class="asp">정보 획득 경로</div>
-        <div class="cell k"><span class="who">국제교류팀</span>홈페이지·온국민·인터넷 등에서 확인 가능. 방학 중엔 설명회도 있고, 담당 팀에 전화 문의도 가능. 작년 공지도 확인돼요.</div>
-        <div class="cell j"><span class="who">조형대</span>홈페이지에도 내용이 부족하고 작년 공지 확인이 어려움 — 카카오톡으로 공지해서.</div>
+        <div class="asp">정보 획득<br>경로</div>
+        <div class="cell k"><span class="who">국제교류팀</span>공식 홈페이지, 온국민 포털, 인터넷 커뮤니티 등을 통한 상시 확인 가능. 방학 중 오프라인 설명회 개최 및 담당 부서 유선 문의 활성화. 과년도 모집 공지 상시 열람 가능.</div>
+        <div class="cell j"><span class="who">조형대</span>공식 홈페이지 내 안내 정보 부족. 모집 공지가 카카오톡 플러스친구 등을 통해 제한적으로 전파되어 과년도 공지 확인 및 아카이빙 불가.</div>
       </div>
       <div class="cmprow">
         <div class="asp">평가 기준</div>
-        <div class="cell k"><span class="who">국제교류팀</span>학점 40 · 어학 30 · 서류 30. 학점도 어학도 모두 중요해요.</div>
-        <div class="cell j"><span class="who">조형대</span>학점 3.5는 넘어야 하지만 그렇게 빡세진 않음. strate는 면접이 없고 자기소개 영상을 찍어야 함. 어학은 있으면 좋다.</div>
+        <div class="cell k"><span class="who">국제교류팀</span>학점 40% + 어학 30% + 서류 30% 반영. 정량 평가 비중이 높아 학점과 어학 성적 모두 균형 있는 관리 필수.</div>
+        <div class="cell j"><span class="who">조형대</span>평균 학점 3.5 이상 충족 시 지원 가능. 정량적 점수 경쟁 압박은 다소 낮은 편. (Strate 대학의 경우 면접 없이 자체 자기소개 영상 제출로 대체, 어학 성적 소지 시 우대.)</div>
       </div>
       <div class="cmprow">
         <div class="asp">어학 성적</div>
-        <div class="cell k"><span class="who">국제교류팀</span>중요함. 학교별 기준은 홈페이지에 있으나, 더 높을수록 좋아요.</div>
-        <div class="cell j"><span class="who">조형대</span>어학을 안 보는 경우도 있음. 그러나 혹시 모르니 따두는 걸 권장..</div>
+        <div class="cell k"><span class="who">국제교류팀</span>선발에 미치는 영향력 매우 높음. 홈페이지 기재 기준은 최저 자격 요건일 뿐이며, 합격 안정권 확보를 위해 기준점 이상의 고고익선 점수 취득 필요.</div>
+        <div class="cell j"><span class="who">조형대</span>어학 성적 미반영 전형 존재로 중요도 상대적 낮음. 다만 현지 수학 및 행정 리스크 방지를 위한 사전 취득 권장.</div>
       </div>
       <div class="cmprow">
         <div class="asp">면접</div>
-        <div class="cell k"><span class="who">국제교류팀</span>좀 빡센 편 — 토론을 하기도 함..</div>
-        <div class="cell j"><span class="who">조형대</span>널널함. 면접 없음.</div>
+        <div class="cell k"><span class="who">국제교류팀</span>높은 난이도의 심층 면접. 단순 질의응답 외에 집단 토론 형식 도입으로 철저한 사전 대비 요망.</div>
+        <div class="cell j"><span class="who">조형대</span>대면 면접 전형 없음. 평가 부담 없는 원만한 진행.</div>
       </div>
       <div class="cmprow">
         <div class="asp">타임라인</div>
-        <div class="cell k"><span class="who">국제교류팀</span>지원부터 면접까지 빠르게 진행 — 한 달도 안 되는 2~3주 만에? 주로 방학 중.</div>
-        <div class="cell j"><span class="who">조형대</span>지원은 학기 초, 그 후 연락은 늦게 와요. 한두 달 뒤쯤.</div>
+        <div class="cell k"><span class="who">국제교류팀</span>주로 방학 기간 중 진행. 지원서 접수부터 면접까지 약 2~3주(한 달 이내) 소요되는 단기 프로세스.</div>
+        <div class="cell j"><span class="who">조형대</span>학기 초 지원서 접수. 접수 마감 후 최종 결과 통보까지 약 1~2개월 소요되는 장기 대기형 프로세스.</div>
       </div>
     </div>
 
@@ -501,46 +499,46 @@
         <p class="sub">학점 40% · 어학 30% · 기타 서류 30%</p>
         <div class="ditem">
           <div class="dt"><b>학점</b><span class="pct">40%</span></div>
-          <p>평점 3.0이 넘어야 지원할 수 있지만, 3.0과 비슷하면 붙기 어려울 수 있어요! 대비할 수 있는 한 잘 대비해두는 것이 좋습니다.</p>
+          <p>평점 3.0 이상 시 지원 가능. 단, 3.0 근접 시 합격 불안정 — 가능한 한 철저한 사전 관리 필수.</p>
         </div>
         <div class="ditem">
           <div class="dt"><b>어학</b><span class="pct">30%</span></div>
           <ul>
-            <li>주로 토플·아이엘츠 — 토익보다 난이도가 있는 시험들이에요.</li>
-            <li>무엇을 따야 하는지 찾아보고, 준비 기간을 고려해 미리미리 따두기.</li>
-            <li>실물 성적표가 필요하다는 점도 고려해야 합니다.</li>
+            <li>주로 토플·아이엘츠 등 토익 대비 고난도 시험 요구.</li>
+            <li>응시 종목 사전 확인 및 준비 기간 고려한 조기 취득 필요.</li>
+            <li>실물 성적표 제출 요건 고려 필수.</li>
           </ul>
         </div>
         <div class="ditem">
           <div class="dt"><b>기타 지원 서류</b><span class="pct">30%</span><span style="font-size:12px;color:var(--muted)">포트폴리오 X</span></div>
           <ul>
-            <li>본교 지원서엔 포트폴리오가 포함되지 않아요.</li>
-            <li>지원 동기 등을 쓰는 게 중요!</li>
-            <li>생각보다 정성을 들여야 하는 과정이니 미리 써두는 것도 좋아요.</li>
+            <li>본교 지원서 내 포트폴리오 미포함.</li>
+            <li>지원 동기 등 서류 작성 비중 높음.</li>
+            <li>예상보다 공들여야 하는 과정으로 사전 작성 권장.</li>
           </ul>
         </div>
       </div>
       <div class="doccol j">
         <h3>🎨 조형대 <span style="font-size:13px;color:var(--muted)">(strate 기준)</span></h3>
-        <p class="sub">전체적으로 널널한 편 — 그래도 국제교류팀보다 여유</p>
+        <p class="sub">전반적으로 여유로운 편 — 국제교류팀 대비 낮은 부담</p>
         <div class="ditem">
           <span class="looser">전반적으로 널널</span>
-          <p>준비 기준이 국제교류팀보다 확실히 여유로운 편이에요.</p>
+          <p>국제교류팀 대비 전반적으로 여유로운 지원 기준.</p>
         </div>
         <div class="ditem">
           <div class="dt"><b>어학</b></div>
           <ul>
-            <li>없어도 가는 경우가 종종 있지만, 있는 것이 좋아요.</li>
-            <li>토익·토플·오픽·아이엘츠 등 공공기관에서 공식 성적표가 나오는 시험이면 가능.</li>
-            <li>과거엔 널널했으나 앞으로도 그러리란 보장은 없어, 낮더라도 따두기를 권장 (토익 기준 700점대 정도는).</li>
+            <li>미소지 합격 사례 존재. 단, 소지 시 유리.</li>
+            <li>토익·토플·오픽·아이엘츠 등 공공기관 공식 성적표 발급 시험 인정.</li>
+            <li>향후 기준 강화 가능성 존재로 낮은 점수라도 사전 취득 권장 (토익 700점대 수준).</li>
           </ul>
         </div>
         <div class="ditem">
           <div class="dt"><b>포트폴리오</b></div>
           <ul>
-            <li>거의 안 보는 수준이에요.</li>
-            <li>있어야 붙여주긴 하는데, 형식 제한도 없었고 퀄리티를 크게 따지지 않았어요.</li>
-            <li>포폴 &lt; 자소서·학점으로 추정돼요.</li>
+            <li>평가 비중 매우 낮음.</li>
+            <li>제출은 필수이나 형식 제한 및 퀄리티 심사 미비.</li>
+            <li>포트폴리오 &lt; 자소서·학점 순의 영향력으로 추정.</li>
           </ul>
         </div>
       </div>
@@ -551,28 +549,21 @@
   <section id="country">
     <div class="crumb">프로그램 비교 <b>›</b> 국가 별</div>
     <h1 class="page">국가 별 비교</h1>
-    <p class="lead">티오(모집 인원)는 해마다 달라 고정값이 없습니다. 대신 <b>실제로 몇 명이 갔는지</b>를 보면 그 나라가 그동안 얼마나 열려 있었는지를 가늠할 수 있어요.</p>
-    <div class="band real">✓ <b>실제 데이터</b> — 국민대 전체 수학보고서(2023~2025, 교환학생 598명) 기반.</div>
+    <p class="lead">티오(모집 인원)는 해마다 달라 고정값이 없습니다. 대신 <b>실제로 몇 명이 갔는지</b>를 보면 그 나라가 그동안 얼마나 열려 있었는지를 가늠할 수 있어요. <span style="color:var(--muted)">(국제교류팀 수학보고서 기준)</span></p>
     <div class="stat-row">
-      <div class="stat"><div class="n">598</div><div class="l">최근 3년 교환학생(명)</div></div>
-      <div class="stat"><div class="n">22</div><div class="l">파견 국가 수</div></div>
-      <div class="stat"><div class="n">독일</div><div class="l">최다 파견국 (180명·30%)</div></div>
-      <div class="stat"><div class="n">~100</div><div class="l">매 학기 평균(명)</div></div>
+      <div class="stat"><div class="n">1,042</div><div class="l">전체 교환학생(명)</div></div>
+      <div class="stat"><div class="n">28</div><div class="l">파견 국가 수</div></div>
+      <div class="stat"><div class="n">독일</div><div class="l">최다 파견국 (282명·27%)</div></div>
+      <div class="stat"><div class="n">~58</div><div class="l">매 학기 평균(명)</div></div>
     </div>
-    <h3 class="blockt">학기별 파견 인원 <span class="s">(2023~2025 전체)</span></h3>
+    <h3 class="blockt">학기별 파견 인원 <span class="s">(2017~2025 전체)</span></h3>
     <div class="semchart" id="semChart"></div>
-    <p class="chart-cap">매 학기 약 100명 안팎으로 꾸준 — 교환은 ‘특별한 소수’가 아니라 매 학기 열리는 기회.</p>
 
     <h3 class="blockt">국가별 파견 인원 비교 <span class="s">— 연도·학기·국가를 골라 비교하세요</span></h3>
-    <p style="color:var(--muted); font-size:12.5px; margin:5px 0 0;">연도·학기는 안 고르면 전체 기준이에요. 여러 연도를 고르면 맨 앞에 <b style="color:var(--yellow-deep)">평균</b> 태그가 생겨 연도 평균으로도 볼 수 있어요.</p>
     <div class="filters">
       <div class="fgroup">
         <span class="flabel">연도</span>
-        <div class="ftags" data-f="year" id="yearTags">
-          <button class="ftag" data-v="2025">2025</button>
-          <button class="ftag" data-v="2024">2024</button>
-          <button class="ftag" data-v="2023">2023</button>
-        </div>
+        <div class="ftags" data-f="year" id="yearTags"></div>
       </div>
       <div class="fgroup">
         <span class="flabel">학기</span>
@@ -624,7 +615,7 @@
       </div>
     </div>
 
-    <h2 class="sechead">선배들이 해주고 싶은 이야기</h2>
+    <h2 class="sechead">선배들의 경험담</h2>
     <p class="lead">교환학생을 다녀 온 선배들의 조언들이에요!</p>
     <div class="feed" id="tipFeed"></div>
   </section>
@@ -632,57 +623,59 @@
   <!-- ============ 자가진단 > 현 상태 파악 ============ -->
   <section id="diagnose">
     <div class="crumb">계획 가이드</div>
-    <h1 class="page">현 상태 파악</h1>
-    <p class="lead">현재 학년·학기와 가고 싶은 시기를 고르면, 지금 무엇을 준비해야 할지 알려드려요.</p>
+    <h1 class="page">개별 가이드</h1>
+    <p class="lead">현재 상황과 가고 싶은 시기를 고르면, 아래 모집 일정에 내 시점이 표시돼요.</p>
 
     <div class="card quiz">
-      <div class="qblock">
-        <div class="ql">현재 학년</div>
-        <div class="opts" data-key="curY">
-          <button class="opt" data-v="1">1학년</button>
-          <button class="opt" data-v="2">2학년</button>
-          <button class="opt" data-v="3">3학년</button>
-          <button class="opt" data-v="4">4학년 이상</button>
+      <div class="qrow">
+        <div class="qblock">
+          <div class="ql">현재 학년</div>
+          <div class="opts" data-key="curY">
+            <button class="opt" data-v="1">1학년</button>
+            <button class="opt" data-v="2">2학년</button>
+            <button class="opt" data-v="3">3학년</button>
+            <button class="opt" data-v="4">4학년+</button>
+          </div>
+        </div>
+        <div class="qblock">
+          <div class="ql">현재 시기</div>
+          <div class="opts" data-key="curT">
+            <button class="opt" data-v="1">1학기</button>
+            <button class="opt" data-v="2">2학기</button>
+          </div>
         </div>
       </div>
-      <div class="qblock">
-        <div class="ql">현재 시기</div>
-        <div class="opts" data-key="curT">
-          <button class="opt" data-v="1">1학기</button>
-          <button class="opt" data-v="2">2학기</button>
+      <div class="qrow">
+        <div class="qblock">
+          <div class="ql">갈 학년</div>
+          <div class="opts" data-key="goY">
+            <button class="opt" data-v="1">1학년</button>
+            <button class="opt" data-v="2">2학년</button>
+            <button class="opt" data-v="3">3학년</button>
+            <button class="opt" data-v="4">4학년+</button>
+          </div>
+        </div>
+        <div class="qblock">
+          <div class="ql">갈 학기</div>
+          <div class="opts" data-key="goT">
+            <button class="opt" data-v="1">1학기</button>
+            <button class="opt" data-v="2">2학기</button>
+          </div>
         </div>
       </div>
-      <div class="qblock">
-        <div class="ql">갈 시기 — 학년</div>
-        <div class="opts" data-key="goY">
-          <button class="opt" data-v="1">1학년</button>
-          <button class="opt" data-v="2">2학년</button>
-          <button class="opt" data-v="3">3학년</button>
-          <button class="opt" data-v="4">4학년 이상</button>
-        </div>
-      </div>
-      <div class="qblock">
-        <div class="ql">갈 시기 — 학기</div>
-        <div class="opts" data-key="goT">
-          <button class="opt" data-v="1">1학기</button>
-          <button class="opt" data-v="2">2학기</button>
-        </div>
-      </div>
-      <div id="dzResult"><p class="qhint">현재 학년·학기와 갈 시기를 고르면 맞춤 안내가 떠요 ✈️</p></div>
     </div>
 
-    <div class="card barcard" style="cursor:default; margin-top:16px">
-      <div class="bhead"><h3>교환학생 모집 일정</h3></div>
-      <div class="cal" id="diagTimeline"></div>
-      <div id="calAnn" class="calann" style="display:none"></div>
-    </div>
+    <div id="dzResult" style="margin-top:6px"></div>
+
+    <h2 class="sechead" style="text-align:center; margin-top:34px">교환학생 모집 일정</h2>
+    <div class="cal" id="diagTimeline"></div>
   </section>
 
-  <!-- ============ 더 많은 정보 ============ -->
+  <!-- ============ 더보기 ============ -->
   <section id="more">
-    <div class="crumb">더 많은 정보</div>
-    <h1 class="page">더 많은 정보</h1>
-    <p class="lead">여기서 다 담지 못한 공식 정보는 아래 채널에서 직접 확인하세요. <b>↗</b> 아이콘이 있는 항목은 누르면 해당 페이지로 이동해요.</p>
+    <div class="crumb">더보기</div>
+    <h1 class="page">더보기</h1>
+    <p class="lead">계획을 어느 정도 세우셨다면, 각자에게 필요한 정보를 더 탐색해보세요!</p>
     <div class="links">
       <a class="lk" href="https://iat.kookmin.ac.kr/international/community/notice/" target="_blank" rel="noopener">
         <div class="lkh"><h3>설명회 신청</h3><span class="ext"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></div>
@@ -758,149 +751,131 @@
     {lane:'j', month:3, m:'3월 · 조형대', t:'다음 학기 교환학생 공지 (예상)'},
     {lane:'j', month:9, m:'9월 · 조형대', t:'다음 학기 교환학생 공지 (예상)'}
   ];
-  function renderTimeline(el){
+  function renderTimeline(el, extra){
     if(!el) return;
-    const sorted = EVENTS.slice().sort((a,b)=>a.month-b.month);
-    el.innerHTML = '<div class="vtl">' + sorted.map(e=>
+    const all = EVENTS.concat(extra||[]).slice().sort((a,b)=>a.month-b.month);
+    el.innerHTML = '<div class="vtl">' + all.map(e=>
       '<div class="evt '+e.lane+'" data-month="'+e.month+'"><div class="dot"></div>'+
       '<div class="lab"><span class="m">'+e.m+'</span>'+e.t+'</div></div>').join('') + '</div>';
   }
   renderTimeline(document.getElementById('mainTimeline'));
   renderTimeline(document.getElementById('diagTimeline'));
 
-  /* ===== 자가진단 (현 상태 파악) ===== */
+  /* ===== 개별 가이드 — 태그 → 모집 일정 강조 + 시기차 안내 + 체크리스트 ===== */
   const dz = {curY:null, curT:null, goY:null, goT:null};
-  const gradeMsg = {
-    1:'본교에서 1학기 이상은 수학해야 지원할 수 있어요!',
-    2:'많이 준비하는 시기에요!',
-    3:'많이 가는 시기에요!',
-    4:'잔여학기가 있어야 지원할 수 있어요! (졸업 연기 1회 가능)'
-  };
-  // (갈 시기) − (현재 시기) = N학기 → 멘트
   const diffMsg = {
     0:['가장 빨리 지원할 수 있는 시기는 다음 학기에요!'],
     1:['지원을 아직 안 하셨다면, 조형대 교환학생을 지원할 수 있어요!'],
-    2:['국제교류팀, 조형대 교환학생 모두 지원 준비를 할 수 있어요!','어학성적이 없으시다면, 학점을 챙길 수 있는 선에서 최대한 빠른 시일 내에 준비하는 걸 권장해요!'],
-    3:['국제교류팀, 조형대 교환학생 모두 지원 준비를 할 수 있어요!','다음 학기 방학에 어학성적을 미리 따두는 것을 권장해요!'],
-    4:['국제교류팀, 조형대 교환학생 모두 지원 준비를 할 수 있어요!','국제교류팀에 지원하실 예정이라면 학점과 어학이 모두 중요하기 때문에 잘 준비해두시면 좋아요!']
+    2:['국교팀, 조형대 교환학생 모두 지원 준비를 할 수 있어요!','어학성적이 없으시다면, 학점을 챙길 수 있는 선에서 최대한 빠른 시일 내에 준비하는걸 권장해요!'],
+    3:['국교팀, 조형대 교환학생 모두 지원 준비를 할 수 있어요!','다음 학기 방학에 어학성적을 미리 따두는 것을 권장해요!'],
+    4:['국교팀, 조형대 교환학생 모두 지원 준비를 할 수 있어요!','국교팀에 지원하실 예정이라면 학점과 어학이 모두 중요하기 때문에 잘 준비해두시면 좋아요!']
   };
-  function semIndex(y,t){ return (y-1)*2 + t; } // 학기 기준 환산
-  function updateCalAnn(){
-    const cal = document.getElementById('diagTimeline');
-    const box = document.getElementById('calAnn');
-    if(!cal || !box) return;
-    cal.querySelectorAll('.evt').forEach(e=>e.classList.remove('hl'));
-    if(!dz.goT){ box.style.display='none'; box.innerHTML=''; return; }
-    const M = dz.goT===1 ? 8 : 2;            // 모집 월 (1학기 파견→8월, 2학기 파견→2월)
-    const langM = ((M-6+11)%12)+1;           // 직전전 방학
-    const certM = ((M-1+11)%12)+1;           // 모집 한 달 전
-    const hlMonths = dz.goT===1 ? [8,9] : [2,3];
-    cal.querySelectorAll('.evt').forEach(e=>{ if(hlMonths.includes(parseInt(e.dataset.month,10))) e.classList.add('hl'); });
-    box.style.display='flex';
-    box.innerHTML =
-      '<div class="at">📌 내 모집 시기 기준 체크리스트</div>'+
-      '<div class="ar lang"><span class="ad"></span><span><span class="am">'+langM+'월경</span>어학성적은 미리 따두면 좋아요! <span style="color:var(--muted)">· 가려는 학기 직전전 방학</span></span></div>'+
-      '<div class="ar cert"><span class="ad"></span><span><span class="am">'+certM+'월경</span>실물 성적표가 필요해요! <span style="color:var(--muted)">· 모집 약 한 달 전</span></span></div>'+
-      '<div class="ar appl"><span class="ad"></span><span><span class="am">'+M+'~'+(M+1)+'월</span>모집 공고 확인이 중요해요! ⭐ <span style="color:var(--muted)">· 가장 중요</span></span></div>';
+  function semIndex(y,t){ return (y-1)*2 + t; }
+  function buildChecklist(){
+    if(!dz.goT) return [];
+    const M = dz.goT===1 ? 8 : 2, langM = ((M-6+11)%12)+1, certM = ((M-1+11)%12)+1;
+    return [
+      {month:langM, m:langM+'월', t:'어학성적 미리 따두기', lane:'chk'},
+      {month:certM, m:certM+'월', t:'실물 성적표 준비', lane:'chk'},
+      {month:M, m:M+'~'+(M+1)+'월', t:'📢 모집 공고 확인 (가장 중요)', lane:'chk'}
+    ];
   }
   function renderDz(){
+    renderTimeline(document.getElementById('diagTimeline'), buildChecklist());
     const box = document.getElementById('dzResult');
     if(!box) return;
-    updateCalAnn();
-    if(!dz.curY){
-      box.innerHTML = '<p class="qhint">현재 학년·학기와 갈 시기를 고르면 맞춤 안내가 떠요 ✈️</p>';
-      return;
-    }
-    let html = '<div class="result"><h3>현 상태 진단 ✈️</h3>';
-    html += '<div class="rrow"><span class="tg">현재 '+dz.curY+'학년</span>'+gradeMsg[dz.curY]+'</div>';
-    if(dz.curT && dz.goY && dz.goT){
+    let html = '';
+    if(dz.curY && dz.curT && dz.goY && dz.goT){
       const diff = semIndex(dz.goY,dz.goT) - semIndex(dz.curY,dz.curT);
       if(diff < 0){
-        html += '<div class="rrow"><span class="tg">시기</span>갈 시기가 현재보다 빠를 순 없어요. ‘갈 시기’를 다시 골라주세요.</div>';
+        html += '<div class="result"><div class="rrow">갈 시기가 현재보다 빠를 순 없어요. ‘갈 시기’를 다시 골라주세요.</div></div>';
       } else {
         const lines = diffMsg[Math.min(diff,4)];
-        html += '<div class="rrow"><span class="tg">갈 시기까지 '+diff+'학기</span>'+lines[0]+'</div>';
+        html += '<div class="result"><div class="rrow"><span class="tg">갈 시기까지 '+diff+'학기</span>'+lines[0]+'</div>';
         for(let i=1;i<lines.length;i++) html += '<div class="rrow" style="padding-left:8px">· '+lines[i]+'</div>';
+        html += '</div>';
       }
-    } else {
-      html += '<div class="rrow" style="color:var(--muted)">현재 시기·갈 시기를 모두 고르면 시기별 안내도 떠요.</div>';
     }
-    html += '</div>';
     box.innerHTML = html;
   }
   document.querySelectorAll('#diagnose .opts').forEach(group=>{
     const key = group.dataset.key;
     group.querySelectorAll('.opt').forEach(b=>b.addEventListener('click', ()=>{
       const v = parseInt(b.dataset.v,10);
-      if(dz[key]===v){ dz[key]=null; b.classList.remove('on'); }           // 재클릭 → 선택 취소
+      if(dz[key]===v){ dz[key]=null; b.classList.remove('on'); }
       else { dz[key]=v; group.querySelectorAll('.opt').forEach(x=>x.classList.toggle('on', x===b)); }
       renderDz();
     }));
   });
 
   /* ===== 국가별 실제 데이터 ===== */
-  const SEM = [['2023-1',111],['2023-2',93],['2024-1',94],['2024-2',104],['2025-1',100],['2025-2',96]];
-  const semMax = 111;
+  const SEM = [['2017-1',23],['2017-2',1],['2018-1',53],['2018-2',36],['2019-1',67],['2019-2',59],['2020-1',54],['2020-2',7],['2021-1',3],['2021-2',21],['2022-1',45],['2022-2',75],['2023-1',111],['2023-2',93],['2024-1',94],['2024-2',104],['2025-1',100],['2025-2',96]];
+  const semMax = Math.max.apply(null, SEM.map(x=>x[1]));
   const sc = document.getElementById('semChart');
   if(sc){ sc.innerHTML = SEM.map(([k,v])=>
-    '<div class="sc"><span class="scv">'+v+'</span><div class="scbar" style="height:'+(v/semMax*100)+'%"></div><span class="scl">'+k+'</span></div>').join(''); }
+    '<div class="sc"><span class="scv">'+v+'</span><div class="scbar" style="height:'+(v/semMax*100)+'%"></div><span class="scl">'+k.slice(2)+'</span></div>').join(''); }
 
-  /* 국가 × 연도-학기 실제 파견 데이터 (2023~2025, 598명) */
+  /* 국가 × 연도-학기 실제 파견 데이터 (전체 연도 2017~2025, 교환학생 1042명) */
   const COUNTRY = [
-    {n:'독일', u:'Chemnitz 공대 · Deggendorf · Kempten (응용과학대 중심)', s:{'2023-1':36,'2023-2':25,'2024-1':27,'2024-2':31,'2025-1':33,'2025-2':28}},
-    {n:'미국', u:'Univ. of Nevada Reno · Temple', s:{'2023-1':14,'2023-2':16,'2024-1':16,'2024-2':17,'2025-1':14,'2025-2':14}},
-    {n:'일본', u:'Showa Women’s · 나고야 외대', s:{'2023-1':17,'2023-2':14,'2024-1':13,'2024-2':10,'2025-1':13,'2025-2':18}},
-    {n:'스페인', u:'Univ. of Jaén · Nebrija', s:{'2023-1':10,'2023-2':7,'2024-1':5,'2024-2':9,'2025-1':8,'2025-2':10}},
-    {n:'중국', u:'화동정법대 · Zhejiang Yuexiu', s:{'2023-1':5,'2023-2':6,'2024-1':6,'2024-2':12,'2025-1':10,'2025-2':10}},
-    {n:'프랑스', u:'Université Paris Cité', s:{'2023-1':4,'2023-2':6,'2024-1':3,'2024-2':6,'2025-1':6,'2025-2':4}},
-    {n:'체코', u:'Palacký Univ. Olomouc · Brno 공대', s:{'2023-1':5,'2023-2':5,'2024-1':5,'2024-2':5,'2025-1':1,'2025-2':4}},
-    {n:'이탈리아', u:'Carlo Cattaneo · Siena 외국인대', s:{'2023-1':6,'2023-2':4,'2024-1':2,'2024-2':5,'2025-1':3,'2025-2':1}},
-    {n:'호주', u:'RMIT', s:{'2023-1':2,'2023-2':2,'2024-1':2,'2024-2':2,'2025-1':2,'2025-2':1}},
-    {n:'영국', u:'York St John University', s:{'2023-1':3,'2023-2':3,'2024-1':3,'2025-2':1}},
-    {n:'타이완', u:'National Taiwan Univ. of Sci & Tech', s:{'2023-1':4,'2023-2':2,'2024-1':1,'2024-2':1,'2025-1':1}},
+    {n:'독일', u:'Augsburg UAS · Chemnitz 공대', s:{'2018-1':8,'2018-2':6,'2019-1':16,'2019-2':14,'2020-1':7,'2020-2':4,'2021-1':3,'2021-2':10,'2022-1':12,'2022-2':22,'2023-1':36,'2023-2':25,'2024-1':27,'2024-2':31,'2025-1':33,'2025-2':28}},
+    {n:'미국', u:'Univ. of Nevada, Reno · Temple Univ.', s:{'2017-1':1,'2018-1':2,'2018-2':8,'2019-1':11,'2019-2':21,'2020-1':21,'2020-2':2,'2021-2':7,'2022-1':12,'2022-2':13,'2023-1':14,'2023-2':16,'2024-1':16,'2024-2':17,'2025-1':14,'2025-2':14}},
+    {n:'일본', u:'Showa Women’s Univ. · Nagoya 외대', s:{'2017-1':3,'2018-1':7,'2018-2':2,'2019-1':11,'2020-1':3,'2022-1':7,'2022-2':15,'2023-1':17,'2023-2':14,'2024-1':13,'2024-2':10,'2025-1':13,'2025-2':18}},
+    {n:'스페인', u:'Univ. of Jaen · Nebrija Univ.', s:{'2017-1':2,'2018-1':9,'2018-2':3,'2019-1':1,'2019-2':11,'2020-1':6,'2021-2':1,'2022-1':5,'2022-2':7,'2023-1':10,'2023-2':7,'2024-1':5,'2024-2':9,'2025-1':8,'2025-2':10}},
+    {n:'중국', u:'Shandong Univ. at Weihai · Zhejiang Yuexiu', s:{'2017-1':8,'2018-1':5,'2018-2':2,'2019-1':4,'2023-1':5,'2023-2':6,'2024-1':6,'2024-2':12,'2025-1':10,'2025-2':10}},
+    {n:'체코', u:'Brno 공대 · Palacky Univ. Olomouc', s:{'2018-1':3,'2018-2':2,'2019-1':2,'2019-2':2,'2020-1':3,'2022-1':5,'2022-2':6,'2023-1':5,'2023-2':5,'2024-1':5,'2024-2':5,'2025-1':1,'2025-2':4}},
+    {n:'프랑스', u:'Université Paris Cité · ESTICE', s:{'2018-1':3,'2019-1':4,'2019-2':3,'2020-1':1,'2020-2':1,'2021-2':1,'2022-1':3,'2022-2':2,'2023-1':4,'2023-2':6,'2024-1':3,'2024-2':6,'2025-1':6,'2025-2':4}},
+    {n:'이탈리아', u:'Carlo Cattaneo · Siena 외국인대', s:{'2018-1':2,'2018-2':2,'2019-1':1,'2019-2':1,'2022-2':1,'2023-1':6,'2023-2':4,'2024-1':2,'2024-2':5,'2025-1':3,'2025-2':1}},
+    {n:'러시아', u:'Kazan Federal Univ. · HSE', s:{'2017-1':5,'2018-1':3,'2018-2':2,'2019-1':4,'2020-1':1,'2021-2':1,'2022-1':1,'2023-1':1,'2024-1':1,'2025-1':4}},
+    {n:'타이완', u:'Nat. Taiwan Univ. of Sci & Tech · Fu Jen', s:{'2017-1':1,'2018-1':1,'2019-1':1,'2020-1':3,'2022-2':2,'2023-1':4,'2023-2':2,'2024-1':1,'2024-2':1,'2025-1':1}},
+    {n:'호주', u:'RMIT', s:{'2017-2':1,'2019-1':1,'2019-2':1,'2022-2':2,'2023-1':2,'2023-2':2,'2024-1':2,'2024-2':2,'2025-1':2,'2025-2':1}},
+    {n:'영국', u:'York St John Univ.', s:{'2022-2':3,'2023-1':3,'2023-2':3,'2024-1':3,'2025-2':1}},
+    {n:'말레이시아', u:'Tunku Abdul Rahman · Malaya', s:{'2018-2':1,'2019-1':3,'2020-1':2,'2023-2':1,'2024-1':3,'2024-2':1,'2025-1':1}},
+    {n:'벨라루스', u:'Belarusian State Univ. of Foreign Languages', s:{'2018-1':4,'2018-2':2,'2019-1':2,'2020-1':2,'2021-2':1}},
     {n:'네덜란드', u:'Hanze UAS Groningen', s:{'2023-1':2,'2023-2':1,'2024-1':1,'2024-2':2,'2025-1':1,'2025-2':1}},
-    {n:'헝가리', u:'Eötvös Loránd (ELTE)', s:{'2024-1':2,'2024-2':1,'2025-1':2,'2025-2':1}},
-    {n:'러시아', u:'HSE · St. Petersburg', s:{'2023-1':1,'2024-1':1,'2025-1':4}},
-    {n:'말레이시아', u:'Taylor’s · Malaya', s:{'2023-2':1,'2024-1':3,'2024-2':1,'2025-1':1}},
+    {n:'스웨덴', u:'Lulea 공대', s:{'2017-1':1,'2018-1':1,'2019-1':3,'2019-2':2}},
+    {n:'헝가리', u:'Eotvos Lorand Univ.', s:{'2024-1':2,'2024-2':1,'2025-1':2,'2025-2':1}},
+    {n:'카자흐스탄', u:'Al-Farabi Kazakh Nat. · KIMEP', s:{'2017-1':1,'2018-1':1,'2018-2':2,'2019-1':1,'2024-2':1}},
+    {n:'페루', u:'San Ignacio de Loyola', s:{'2018-1':1,'2018-2':1,'2019-1':1,'2019-2':1,'2020-1':1,'2024-1':1}},
+    {n:'베트남', u:'Hanoi Univ.', s:{'2018-1':2,'2018-2':1,'2020-1':2,'2022-2':1}},
+    {n:'캐나다', u:'Memorial Univ. of Newfoundland', s:{'2018-2':1,'2020-1':1,'2023-1':1,'2025-1':1,'2025-2':1}},
     {n:'멕시코', u:'Tecnológico de Monterrey', s:{'2023-2':1,'2024-1':1,'2025-2':2}},
-    {n:'캐나다', u:'Memorial Univ. of Newfoundland', s:{'2023-1':1,'2025-1':1,'2025-2':1}},
-    {n:'핀란드', u:'Univ. of Tampere', s:{'2024-1':2}},
+    {n:'핀란드', u:'Univ. of Tampere', s:{'2017-1':1,'2019-2':1,'2024-1':2}},
+    {n:'리투아니아', u:'Vilnius Univ.', s:{'2018-1':1,'2019-2':2,'2020-1':1}},
+    {n:'벨기에', u:'Artevelde UAS', s:{'2019-1':1,'2022-2':1}},
     {n:'싱가포르', u:'PSB Academy', s:{'2024-2':1}},
-    {n:'카자흐스탄', u:'Al-Farabi Kazakh National', s:{'2024-2':1}},
-    {n:'페루', u:'San Ignacio de Loyola', s:{'2024-1':1}},
-    {n:'타이', u:'Thammasat University', s:{'2023-1':1}}
+    {n:'타이', u:'Thammasat Univ.', s:{'2023-1':1}},
+    {n:'아이슬란드', u:'Reykjavik Univ.', s:{'2018-2':1}}
   ];
-  const ALLKEYS = ['2023-1','2023-2','2024-1','2024-2','2025-1','2025-2'];
+  const YEARS = ['2025','2024','2023','2022','2021','2020','2019','2018','2017'];
+  const ALLKEYS = []; YEARS.forEach(y=>['1','2'].forEach(s=>ALLKEYS.push(y+'-'+s)));
   const state = {year:new Set(), sem:new Set(), country:new Set(COUNTRY.map(c=>c.n)), avg:false};
+
+  // 연도 태그 + 상시 평균 태그
+  const yearTags = document.getElementById('yearTags');
+  if(yearTags) yearTags.innerHTML =
+    YEARS.map(y=>'<button class="ftag" data-v="'+y+'">'+y+'</button>').join('') +
+    '<button class="ftag avg" data-v="__avg" title="연도 평균으로 보기">평균</button>';
 
   const countryTags = document.getElementById('countryTags');
   if(countryTags) countryTags.innerHTML = COUNTRY.map(c=>'<button class="ftag on" data-v="'+c.n+'">'+c.n+'</button>').join('');
 
-  const avgBtn = document.createElement('button');
-  avgBtn.className='ftag avg'; avgBtn.textContent='평균'; avgBtn.dataset.v='__avg';
-  function updateAvgTag(){
-    const yt = document.getElementById('yearTags'); if(!yt) return;
-    if(state.year.size>=2){ if(!yt.contains(avgBtn)) yt.insertBefore(avgBtn, yt.firstChild); }
-    else { if(yt.contains(avgBtn)) yt.removeChild(avgBtn); state.avg=false; }
-    avgBtn.classList.toggle('on', state.avg);
-  }
   function includedKeys(){
     return ALLKEYS.filter(k=>{
       const p = k.split('-');
       return (state.year.size===0||state.year.has(p[0])) && (state.sem.size===0||state.sem.has(p[1]));
     });
   }
+  function yearsInScope(){ return state.year.size ? state.year.size : YEARS.length; }
   function cval(c){
     const ks = includedKeys(); let t=0; for(const k of ks) t+=(c.s[k]||0);
-    if(state.avg && state.year.size>=2) return t/state.year.size;
-    return t;
+    return state.avg ? t/yearsInScope() : t;
   }
   function fmt(v){ return Number.isInteger(v)? v : (Math.round(v*10)/10).toFixed(1); }
 
   function renderAll(){
     const list = COUNTRY.filter(c=>state.country.has(c.n)).map(c=>({n:c.n,u:c.u,v:cval(c)})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v);
     const max = list.length? list[0].v : 1;
-    const unit = (state.avg && state.year.size>=2) ? '명/년' : '명';
+    const unit = state.avg ? '명/년' : '명';
     const chart = document.getElementById('countryChart');
     if(chart){
       chart.innerHTML = list.length
@@ -916,10 +891,10 @@
     }
     const fs = document.getElementById('fsummary');
     if(fs){
-      const yTxt = state.year.size? [...state.year].sort().join('·')+'년' : '2023~2025 전체';
+      const yTxt = state.year.size? [...state.year].sort().join('·')+'년' : '전체 연도(2017~2025)';
       const sTxt = state.sem.size? [...state.sem].sort().map(s=>s+'학기').join('·') : '전체 학기';
-      if(state.avg && state.year.size>=2){
-        fs.innerHTML = '조건: <b>'+yTxt+'</b> · <b>'+sTxt+'</b> · 국가 <b>'+list.length+'개</b> · <b>연도 평균</b> 표시 ('+state.year.size+'개 연도 평균)';
+      if(state.avg){
+        fs.innerHTML = '조건: <b>'+yTxt+'</b> · <b>'+sTxt+'</b> · 국가 <b>'+list.length+'개</b> · <b>연도 평균</b> 표시';
       } else {
         const sum = list.reduce((a,b)=>a+b.v,0);
         fs.innerHTML = '조건: <b>'+yTxt+'</b> · <b>'+sTxt+'</b> · 국가 <b>'+list.length+'개</b> · 총 <b>'+sum+'명</b>';
@@ -931,11 +906,10 @@
     const f = group.dataset.f;
     group.addEventListener('click', e=>{
       const b = e.target.closest('.ftag'); if(!b) return;
-      if(b.dataset.v==='__avg'){ state.avg=!state.avg; avgBtn.classList.toggle('on', state.avg); renderAll(); return; }
+      if(b.dataset.v==='__avg'){ state.avg=!state.avg; b.classList.toggle('on', state.avg); renderAll(); return; }
       const v = b.dataset.v;
       if(state[f].has(v)) state[f].delete(v); else state[f].add(v);
       b.classList.toggle('on');
-      if(f==='year') updateAvgTag();
       renderAll();
     });
   });
@@ -954,32 +928,47 @@
 
   renderAll();
 
-  /* ===== 선배 조언 피드 (에타/SNS 스타일) ===== */
-  const TIPS = [
-    '비자 준비 잘 알아보세요 (기간 주의)',
-    '수업에서 무언가를 얻는다는 기대는 하지 마세요 대신 해외 경험은 좋음',
-    '디자인 뿐 아니라, 연극이나 무용 등 한다거나 외국어를 써서 알바를 한다거나 다양한 경험을 쌓을 수 있어요',
-    '교환학생인만큼, 회화 연습은 미리미리 해두시는게 좋아요',
-    '스트라트는 프랑스 내 다른 학교에 비해 학기 시작과 끝이 늦은 편이라서 비자 신청에 필요한 입학허가증같은게 늦게 나와요!',
-    '비자 신청이 늦어지면 집 구하기도 늦어진답니다.. (프랑스는 보통 캠퍼스 내에 기숙사가 없습니다)',
-    '미국으로 갈거면 국제교류팀 통해서 가야하는데, 점수가 좀 높은걸로 알고 있어요!',
-    '조형대에서는 독일로 많이 가는 것 같아용',
-    '가서 무언가를 얻는다는 느낌보다는 쉰다는 느낌으로 다녀와도 좋아요~ 추천합니당',
-    '담당 교수님도 잘은 모르십니다..',
-    '국제교류팀도 정보가 많은 편은 아닌데, 단과대는 더더욱 없어서 여기저기 물어보는 수밖에 없어요ㅠㅠ'
-  ];
+  /* ===== 선배 후기 피드 — 형식: {country, title, body} ===== */
   const PERSON_SVG = '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 20.5c0-4.4 4-7 8.5-7s8.5 2.6 8.5 7z"/></svg>';
-  const AVB = ['b1','b2','b3','b4'];
+  const POSTS = [
+    {country:'프랑스', title:'수업 기대는 낮추기', body:'수업에서 무언가를 얻는다는 기대는 하지 마세요 대신 해외 경험은 좋음'},
+    {country:'프랑스', title:'다양한 경험 쌓기', body:'국민대에서 하던거 절반만 해도 충분하고, 디자인 뿐 아니라, 연극이나 무용 등 한다거나 외국어를 써서 알바를 한다거나 다양한 경험을 쌓을 수 있어요'},
+    {country:'일본', title:'회화 연습은 미리미리', body:'교환학생인만큼, 회화 연습은 미리미리 해두시는게 좋아요'},
+    {country:'일본', title:'면접 준비 기간', body:'면접 준비 기간이 체감상 그렇게 길지는 않을거에용'},
+    {country:'프랑스', title:'strate는 입학허가증이 늦어요', body:'strate는 프랑스 내 다른 학교에 비해 학기 시작과 끝이 늦은 편이라서 비자 신청에 필요한 입학허가증같은게 늦게 나와요!'},
+    {country:'프랑스', title:'비자가 늦으면 집도 늦어요', body:'비자 신청이 늦어지면 집 구하기도 늦어진답니다.. (프랑스는 보통 캠퍼스 내에 기숙사가 없습니다)'},
+    {country:'프랑스', title:'조형대는 거의 strate 공지', body:'조형대에서는 거의 프랑스 strate 대학 공지만 떠요'},
+    {country:'프랑스', title:'미국은 국교팀으로', body:'미국으로 갈거면 국교팀 통해서 가야하는데, 점수가 좀 높은걸로 알고 있어요!'},
+    {country:'스페인', title:'조형대는 독일을 많이 가요', body:'조형대에서는 독일로 많이 가는 것 같아용 아니면 프랑스? 유럽이 이곳저곳 돌아다니기 좋아서 그런듯'},
+    {country:'독일', title:'쉬다 온다는 느낌으로', body:'가서 무언가를 얻는다는 느낌보다는 쉰다는 느낌으로 다녀와도 좋아요~ 추천합니당'},
+    {country:'프랑스', title:'정보는 직접 발품', body:'국제교류팀도 정보가 많은 편은 아닌데, 단과대는 더더욱 없어서 여기저기 물어봐야해요'},
+    {country:'프랑스', title:'교수님도 잘 모를 수 있어요', body:'담당 교수님도 잘 모르실 확률이 높음 애초에 풀린 정보가 많이 없어서..'}
+  ];
   const feed = document.getElementById('tipFeed');
   if(feed){
-    feed.innerHTML = TIPS.map((t,i)=>{
-      const likes=(i*7+11)%34+6, cmts=(i*3+1)%5+1;
-      return '<div class="post"><div class="ph"><span class="av '+AVB[i%4]+'">'+PERSON_SVG+'</span>'+
-        '<span class="who">익명<span class="sub">교환 다녀온 선배</span></span></div>'+
-        '<p class="ptxt">'+t+'</p>'+
-        '<div class="react"><span class="rc like">♥ '+likes+'</span><span class="rc">💬 '+cmts+'</span></div></div>';
-    }).join('');
+    feed.innerHTML = POSTS.map(p=>
+      '<div class="post">'+
+        '<span class="pcountry">'+p.country+'</span>'+
+        '<span class="ptitle">'+p.title+'</span>'+
+        '<p class="ptxt">'+p.body+'</p>'+
+        '<div class="pmeta">익명 · 교환 다녀온 선배</div>'+
+      '</div>').join('');
   }
+
+  /* 비교 셀·서류: 온점(". ") 뒤 줄바꿈 (단어 중간은 keep-all로 처리) */
+  document.querySelectorAll('.cmprow .cell, .doccol .ditem > p').forEach(el=>{
+    Array.from(el.childNodes).forEach(node=>{
+      if(node.nodeType===3 && node.textContent.indexOf('. ')>-1){
+        const parts = node.textContent.split('. ');
+        const frag = document.createDocumentFragment();
+        parts.forEach((p,i)=>{
+          frag.appendChild(document.createTextNode(i<parts.length-1 ? p+'.' : p));
+          if(i<parts.length-1) frag.appendChild(document.createElement('br'));
+        });
+        node.replaceWith(frag);
+      }
+    });
+  });
 
   /* 해시 라우팅 */
   const ids = ['home','route','country','community','diagnose','more'];
