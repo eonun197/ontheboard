@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>인터멘토 — 교환학생 정보 격차 해소</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"><style>
+  :root{
+    --blue:#2767d6; --blue-d:#1d52b4; --blue-l:#5b93ef; --blue-soft:#e7f0fd;
+    --navy:#13214a; --ink:#3c485e; --sub:#586a82; --muted:#9aa8bc;
+    --yellow:#f7d85b; --yellow-d:#edc12f; --yellow-deep:#bf8f10; --yellow-soft:#fdf8e8;
+    --bg:#eef3fa; --line:#e1e9f3; --paper:#ffffff;
+    --r:22px; --r-sm:14px;
+    --serif:"Pretendard","Apple SD Gothic Neo",sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",sans-serif; line-height:1.6;}
+  h1,h2,h3{font-family:var(--serif); font-weight:600; letter-spacing:0;}
+  button{font-family:inherit;}
+  a{color:var(--blue); text-decoration:none;}
+
+  /* ============ 상단 네비 ============ */
+  header{background:var(--paper); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:100;}
+  .topnav{max-width:1240px; margin:0 auto; padding:24px 32px; display:flex; align-items:center; gap:40px;}
+  .brand{display:flex; align-items:center; gap:11px; cursor:pointer;}
+  .brand .logo{height:38px; width:auto; display:block; transition:.15s;}
+  .brand:hover .logo{opacity:.72;}
+  .brand .bt{font-family:var(--serif); font-weight:700; font-size:21px; color:var(--navy);}
+  .menu{display:flex; align-items:center; gap:20px; flex:1;}
+  .navitem{position:relative;}
+  .navitem .top{cursor:pointer; background:none; border:none; padding:8px 6px 11px;
+    font-weight:600; font-size:16.5px; color:#46546e; display:flex; align-items:center; gap:6px;
+    position:relative; transition:color .2s ease;}
+  .navitem .top::after{content:""; position:absolute; left:6px; right:6px; bottom:0; height:3px;
+    background:var(--blue); border-radius:2px; transform:scaleX(0); transform-origin:center; transition:transform .24s ease;}
+  .navitem .top:hover{color:var(--blue);}
+  .navitem .top:hover::after{transform:scaleX(1);}
+  .navitem.active .top{color:var(--blue); font-weight:700;}
+  .navitem.active .top::after{transform:scaleX(1);}
+  .navitem .top .car{font-size:10px; transition:.2s; opacity:.7;}
+  .navitem.open .top .car{transform:rotate(180deg);}
+  .dropdown{position:absolute; top:calc(100% + 10px); left:0; background:var(--paper);
+    border:1px solid var(--line); border-radius:var(--r-sm); box-shadow:0 14px 38px rgba(40,80,160,.16);
+    padding:8px; min-width:236px; display:none; flex-direction:column; gap:2px; z-index:120; animation:pop .16s ease;}
+  .navitem.open .dropdown{display:flex;}
+  @keyframes pop{from{opacity:0; transform:translateY(-6px);} to{opacity:1;}}
+  .dropdown button{text-align:left; background:none; border:none; cursor:pointer; padding:12px 14px;
+    border-radius:10px; font-size:15px; color:#48566c; display:flex; align-items:center; gap:10px; transition:.12s;}
+  .dropdown button:hover{background:var(--blue-soft); color:var(--blue);}
+  .dropdown button .dot{width:6px; height:6px; border-radius:50%; background:var(--yellow-d); flex-shrink:0;}
+
+  /* ============ 본문 공통 ============ */
+  main{max-width:1240px; margin:0 auto; padding:34px 28px 96px;}
+  section{display:none;} section.on{display:block; animation:fade .28s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(10px);} to{opacity:1;}}
+  .crumb{font-size:13px; color:var(--muted); margin-bottom:6px;}
+  .crumb b{color:var(--blue);}
+  h1.page{font-size:28px; color:var(--navy); margin:0 0 8px;}
+  .lead{color:var(--sub); max-width:760px; margin:0 0 14px; font-size:15.5px;}
+  .band{border-radius:var(--r-sm); padding:11px 17px; font-size:13px; margin:16px 0 4px;}
+  .band.real{background:var(--blue-soft); color:var(--blue-d);}
+  .band.real b{color:var(--blue-d);}
+  .ph{color:var(--muted); font-size:13.5px; background:#fff; border:1px dashed var(--line);
+    border-radius:var(--r-sm); padding:16px 18px; margin-top:16px;}
+  .note{color:var(--blue-d); font-size:13.5px; background:var(--blue-soft);
+    border-radius:var(--r-sm); padding:13px 17px; margin:22px 0;}
+  .sechead{margin:34px 0 2px; font-size:21px; color:var(--navy);}
+  .card{background:var(--paper); border:1px solid var(--line); border-radius:var(--r); box-shadow:0 4px 22px rgba(40,80,160,.06);}
+
+  /* ============ 메인 대시보드 ============ */
+  .hero{margin:4px 0 26px;}
+  .hero h1{font-size:31px; color:var(--navy); margin:0 0 10px; line-height:1.34; font-weight:700;}
+  .hero h1 .hl{position:relative; color:var(--blue);}
+  .hero h1 .hl::after{content:""; position:absolute; left:-2px; right:-2px; bottom:3px; height:11px;
+    background:var(--yellow); z-index:-1; border-radius:4px;}
+  .hero p{color:var(--sub); font-size:16px; max-width:640px; margin:0;}
+  .barcard{padding:26px 30px; cursor:pointer; transition:.18s; margin-bottom:22px;}
+  .barcard:hover{transform:translateY(-3px); box-shadow:0 12px 34px rgba(40,80,160,.15); border-color:var(--blue-l);}
+  .barcard .bhead{display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:8px;}
+  .barcard .bhead h3{margin:0; font-size:18px; color:var(--navy);}
+  .barcard .bhead .cta{font-size:14px; color:var(--blue); font-weight:600; display:flex; align-items:center; gap:6px;}
+  /* 연간 모집 일정 (기간 바) */
+  .cal{padding:6px 10px 2px;}
+  .lane{position:relative; height:74px;}
+  .lane .line{position:absolute; left:6px; right:6px; top:50%; height:3px; border-radius:2px; transform:translateY(-50%);}
+  .lane.k .line{background:#cfe0fa;}
+  .lane.j .line{background:#f6ecc9;}
+  .lane .evt{position:absolute; top:50%; left:0; transform:translate(-50%,-50%);}
+  .lane .evt .dot{width:14px; height:14px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 0 1.5px var(--line);}
+  .lane.k .evt .dot{background:var(--blue);}
+  .lane.j .evt .dot{background:var(--yellow-d);}
+  .lane .evt .lab{position:absolute; left:50%; transform:translateX(-50%); width:158px; text-align:center; font-size:11.5px; line-height:1.4; color:var(--sub);}
+  .lane .evt .lab .m{font-weight:700; display:block; margin-bottom:1px;}
+  .lane.k .evt .lab{bottom:18px;}
+  .lane.j .evt .lab{top:18px;}
+  .lane.k .evt .lab .m{color:var(--blue-d);}
+  .lane.j .evt .lab .m{color:var(--yellow-deep);}
+  .calfoot{display:flex; justify-content:space-between; color:var(--muted); font-size:11px; padding:0 6px; margin-top:2px;}
+  .lane .evt.hl .dot{transform:scale(1.25); box-shadow:0 0 0 5px rgba(247,216,91,.6);}
+  .calann{margin-top:16px; border-top:1px solid var(--line); padding-top:15px; display:flex; flex-direction:column; gap:10px;}
+  .calann .at{font-family:var(--serif); font-weight:600; color:var(--navy); font-size:14px; margin-bottom:1px;}
+  .calann .ar{display:flex; gap:10px; align-items:flex-start; font-size:13.5px; color:var(--ink); line-height:1.5;}
+  .calann .ar .ad{width:10px; height:10px; border-radius:50%; margin-top:5px; flex-shrink:0;}
+  .calann .ar.lang .ad{background:var(--yellow-d);}
+  .calann .ar.cert .ad{background:var(--blue);}
+  .calann .ar.appl .ad{background:#d64545;}
+  .calann .ar .am{font-weight:700; color:var(--navy); margin-right:5px;}
+  .boards{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  .board{padding:24px 26px; display:flex; flex-direction:column;}
+  .board .bh{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;}
+  .board .bh h3{margin:0; font-size:18px; color:var(--navy);}
+  .board .more{width:30px; height:30px; border-radius:50%; background:var(--blue-soft); border:none; cursor:pointer;
+    color:var(--blue); font-size:17px; display:flex; align-items:center; justify-content:center; transition:.15s; flex-shrink:0;}
+  .board .more:hover{background:var(--blue); color:#fff;}
+  .voiceitem{padding:13px 0; border-bottom:1px dashed var(--line); font-size:14.5px; color:#46546e; display:flex; gap:10px;}
+  .voiceitem:last-child{border-bottom:none;}
+  .voiceitem .qq{color:var(--yellow-deep); font-family:var(--serif); font-size:18px; line-height:1.2;}
+  .doclist{display:flex; flex-direction:column; gap:9px;}
+  .doc{display:flex; align-items:center; gap:11px; padding:11px 14px; background:#f7faff; border:1px solid var(--line);
+    border-radius:12px; font-size:14.5px; color:var(--ink);}
+  .doc .pct{font-size:12px; font-weight:700; background:var(--blue); color:#fff; border-radius:999px; padding:2px 9px; flex-shrink:0;}
+  .doc .pct.g{background:var(--yellow-d); color:var(--navy);}
+
+  /* ============ 비교 (국제교류팀 vs 조형대) ============ */
+  .cmp{margin-top:16px; border:1px solid var(--line); border-radius:var(--r); overflow:hidden; background:var(--paper);}
+  .cmphead{display:grid; grid-template-columns:118px 1fr 1fr;}
+  .cmphead .h{padding:15px 16px; font-weight:700; font-size:15px; text-align:center; font-family:var(--serif);}
+  .cmphead .h.k{background:var(--blue); color:#fff;}
+  .cmphead .h.j{background:var(--yellow-d); color:var(--navy);}
+  .cmphead .sp{background:var(--paper);}
+  .cmprow{display:grid; grid-template-columns:118px 1fr 1fr; border-top:1px solid var(--line);}
+  .cmprow .asp{padding:16px; font-weight:600; color:var(--navy); background:var(--blue-soft);
+    display:flex; align-items:center; font-size:14.5px;}
+  .cmprow .cell{padding:16px; font-size:14px; color:#46546e; border-left:1px solid var(--line); line-height:1.6;}
+  .cmprow .cell .who{display:none; font-weight:700; font-size:12px; margin-bottom:6px;}
+  .cmprow .cell.k .who{color:var(--blue);}
+  .cmprow .cell.j .who{color:var(--yellow-deep);}
+
+  /* 이런 분께 좋아요 */
+  .fit{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:16px;}
+  .fitcard{border-radius:var(--r); padding:22px 24px; border:2px solid;}
+  .fitcard.k{border-color:var(--blue); background:var(--blue-soft);}
+  .fitcard.j{border-color:var(--yellow-d); background:var(--yellow-soft);}
+  .fitcard .badge{font-size:12px; font-weight:700; border-radius:999px; padding:4px 12px; display:inline-block; margin-bottom:12px;}
+  .fitcard.k .badge{background:var(--blue); color:#fff;}
+  .fitcard.j .badge{background:var(--yellow-d); color:var(--navy);}
+  .fitcard h3{margin:0 0 12px; font-size:16px; color:var(--navy);}
+  .fitcard ul{margin:0; padding:0; list-style:none;}
+  .fitcard li{padding:8px 0 8px 26px; position:relative; font-size:14.5px; color:var(--ink);}
+  .fitcard li::before{content:"✓"; position:absolute; left:0; top:8px; font-weight:700;}
+  .fitcard.k li::before{color:var(--blue);}
+  .fitcard.j li::before{color:var(--yellow-deep);}
+
+  /* 지원 서류 비교 */
+  .docs2{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:14px;}
+  .doccol{border:1px solid var(--line); border-radius:var(--r); padding:24px 26px; background:var(--paper);}
+  .doccol.k{border-top:4px solid var(--blue);}
+  .doccol.j{border-top:4px solid var(--yellow-d);}
+  .doccol > h3{margin:0 0 6px; font-size:18px; color:var(--navy);}
+  .doccol > .sub{color:var(--muted); font-size:13px; margin:0 0 14px;}
+  .ditem{padding:15px 0; border-top:1px dashed var(--line);}
+  .ditem:first-of-type{border-top:none;}
+  .ditem .dt{display:flex; align-items:center; gap:9px; margin-bottom:7px; flex-wrap:wrap;}
+  .ditem .dt b{font-size:15px; color:var(--navy);}
+  .ditem .pct{font-size:12px; font-weight:700; background:var(--blue); color:#fff; border-radius:999px; padding:2px 10px;}
+  .ditem p{margin:0; font-size:14px; color:var(--sub); line-height:1.65;}
+  .ditem ul{margin:6px 0 0; padding-left:18px; font-size:14px; color:var(--sub); line-height:1.6;}
+  .ditem li{margin:4px 0;}
+  .looser{display:inline-block; background:var(--yellow-soft); color:var(--yellow-deep); font-weight:700;
+    font-size:13px; border-radius:999px; padding:4px 13px; margin-bottom:6px;}
+
+  /* 조언 카드 */
+  .tips{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:16px;}
+  .tip{background:var(--paper); border:1px solid var(--line); border-radius:var(--r-sm); padding:22px 24px 20px; position:relative;}
+  .tip .q{font-size:30px; color:var(--yellow-d); font-family:var(--serif); position:absolute; top:14px; left:18px; opacity:.55; line-height:1;}
+  .tip p{margin:0; font-size:15px; padding-left:32px; color:var(--ink); line-height:1.6;}
+
+  /* 사례(후기) */
+  .story{background:var(--paper); border:1px solid var(--line); border-radius:var(--r); padding:28px 32px; margin-top:18px;}
+  .story .meta{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;}
+  .chip{background:var(--blue-soft); color:var(--blue-d); font-size:12.5px; font-weight:600; border-radius:999px; padding:5px 13px;}
+  .chip.y{background:var(--yellow-soft); color:var(--yellow-deep);}
+  .story h2{font-size:20px; color:var(--navy); margin:0 0 14px;}
+  .qa{margin:16px 0; padding-left:16px; border-left:3px solid var(--line);}
+  .qa .qq{font-family:var(--serif); color:var(--blue-d); font-size:15.5px; margin:0 0 4px; font-weight:600;}
+  .qa p{margin:0; font-size:14.5px; color:#46546e;}
+  .cases3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:14px;}
+  .ccase{background:var(--paper); border:1px solid var(--line); border-radius:var(--r); padding:24px; box-shadow:0 4px 22px rgba(40,80,160,.06);}
+  .ccase .cnum{width:30px; height:30px; border-radius:50%; background:var(--blue); color:#fff;
+    font-family:var(--serif); font-weight:700; display:flex; align-items:center; justify-content:center; font-size:15px; margin-bottom:13px;}
+  .ccase h3{margin:0 0 9px; font-size:16px; color:var(--navy); line-height:1.42;}
+  .ccase p{margin:0; font-size:14px; color:var(--sub); line-height:1.7;}
+
+  /* 자가진단 */
+  .quiz{padding:26px 30px; margin-top:18px;}
+  .qblock{margin:20px 0;}
+  .qblock .ql{font-family:var(--serif); color:var(--blue-d); font-size:15.5px; margin-bottom:10px; font-weight:600;}
+  .opts{display:flex; flex-wrap:wrap; gap:10px;}
+  .opt{cursor:pointer; border:1.5px solid var(--line); background:#fff; color:#48566c;
+    border-radius:999px; padding:9px 18px; font-size:14px; font-weight:500; transition:.15s;}
+  .opt:hover{border-color:var(--blue); color:var(--blue);}
+  .opt.on{background:var(--blue); border-color:var(--blue); color:#fff;}
+  #quizResult{margin-top:6px;}
+  .result{background:var(--blue-soft); border-radius:var(--r-sm); padding:20px 22px; animation:fade .3s;}
+  .result h3{margin:0 0 10px; color:var(--blue-d); font-size:17px;}
+  .rrow{margin:9px 0; font-size:14.5px; color:#46546e;}
+  .rrow .tg{display:inline-block; background:var(--yellow-d); color:var(--navy); font-weight:700; border-radius:7px; padding:2px 10px; font-size:13px; margin-right:4px;}
+  .rrow b{color:var(--blue-d);}
+  .qhint{color:var(--muted); font-size:14px; padding:16px 0 4px;}
+
+  /* 국가별 차트/표 */
+  .stat-row{display:flex; gap:14px; flex-wrap:wrap; margin:16px 0 4px;}
+  .stat{background:var(--paper); border:1px solid var(--line); border-radius:var(--r-sm); padding:16px 22px; flex:1; min-width:140px;}
+  .stat .n{font-family:var(--serif); font-weight:700; font-size:26px; color:var(--blue);}
+  .stat .l{font-size:13px; color:var(--muted);}
+  h3.blockt{color:var(--navy); margin:28px 0 4px; font-size:18px;}
+  h3.blockt .s{font-weight:400; font-size:14px; color:var(--muted);}
+  .semchart{display:flex; align-items:flex-end; gap:14px; height:160px; padding:10px 4px 0; margin:12px 0 2px;}
+  .semchart .sc{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%;}
+  .semchart .scbar{width:100%; max-width:58px; background:var(--blue-l); border-radius:8px 8px 0 0; transition:height .5s ease;}
+  .semchart .sc:nth-child(-n+2) .scbar{background:#bcd2f6;}
+  .semchart .sc:nth-child(n+5) .scbar{background:var(--navy);}
+  .semchart .scv{font-size:13px; color:#46546e; font-weight:700; margin-bottom:5px;}
+  .semchart .scl{font-size:12.5px; color:var(--sub); margin-top:7px;}
+  .chart{margin:12px 0 4px;}
+  .chart .crow{display:grid; grid-template-columns:84px minmax(0,1fr); align-items:center; gap:12px; margin:6px 0;}
+  .chart .cn{font-size:14px; color:var(--ink); text-align:right; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .chart .cwrap{display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:9px; min-width:0;}
+  .chart .cbr{height:20px; background:var(--blue); border-radius:6px; min-width:3px; transition:width .5s ease;}
+  .chart .crow.top .cbr{background:var(--navy);}
+  .chart .cv{font-size:13px; color:#46546e; font-weight:700;}
+  .chart-cap{color:var(--muted); font-size:12.5px; margin:4px 0 0 96px;}
+  /* 국가별 비교 필터 */
+  .filters{background:var(--paper); border:1px solid var(--line); border-radius:var(--r); padding:18px 20px; margin:14px 0 4px; display:flex; flex-direction:column; gap:14px;}
+  .fgroup{display:flex; align-items:flex-start; gap:12px; flex-wrap:wrap;}
+  .flabel{font-family:var(--serif); font-weight:600; color:var(--navy); font-size:14px; min-width:54px; padding-top:6px; line-height:1.3;}
+  .flabel small{font-weight:400; color:var(--muted); font-size:11px;}
+  .ftags{display:flex; flex-wrap:wrap; gap:8px; flex:1;}
+  .ftag{cursor:pointer; border:1.5px solid var(--line); background:#fff; color:#7a8aa0; border-radius:999px; padding:7px 15px; font-size:13.5px; font-weight:500; transition:.13s;}
+  .ftag:hover{border-color:var(--blue); color:var(--blue);}
+  .ftag.on{background:var(--blue); border-color:var(--blue); color:#fff;}
+  .ftag.avg{border-color:var(--yellow-d); color:var(--yellow-deep); font-weight:700;}
+  .ftag.avg.on{background:var(--yellow-d); border-color:var(--yellow-d); color:var(--navy);}
+  .ctags .ftag{padding:6px 12px; font-size:12.5px;}
+  .ctags .ftag:not(.on){text-decoration:line-through; opacity:.5;}
+  .fbtns{display:flex; gap:8px;}
+  .minibtn{cursor:pointer; background:var(--blue-soft); border:none; color:var(--blue); border-radius:8px; padding:7px 13px; font-size:12.5px; font-weight:600; transition:.13s;}
+  .minibtn:hover{background:var(--blue); color:#fff;}
+  .fsummary{font-size:14px; color:var(--sub); margin:4px 0 12px; padding:11px 17px; background:var(--blue-soft); border-radius:var(--r-sm);}
+  .fsummary b{color:var(--blue-d);}
+  .tscroll{overflow-x:auto;}
+  table{width:100%; border-collapse:collapse; margin-top:12px; font-size:14px; background:var(--paper); border-radius:var(--r-sm); overflow:hidden;}
+  th,td{border:1px solid var(--line); padding:11px 13px; text-align:left;}
+  th{background:var(--blue-soft); color:var(--navy); font-weight:700;}
+  td.to{font-weight:700; color:var(--navy); white-space:nowrap;}
+  .ystack{display:flex; align-items:center; gap:8px;}
+  .ystack .yt{display:flex; height:14px; border-radius:5px; overflow:hidden; width:116px; background:var(--blue-soft);}
+  .ystack .y23{background:#bcd2f6;} .ystack .y24{background:var(--blue-l);} .ystack .y25{background:var(--navy);}
+  .ystack .yn{font-size:12.5px; color:var(--sub); white-space:nowrap;}
+  .ylegend{display:flex; gap:16px; align-items:center; font-size:12.5px; color:var(--sub); margin:12px 0 2px; flex-wrap:wrap;}
+  .ylegend span{display:inline-flex; align-items:center; gap:6px;}
+  .ylegend i{width:12px; height:12px; border-radius:3px; display:inline-block;}
+
+  /* 더 많은 정보 — 링크 카드 */
+  .links{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:18px;}
+  .lk{display:block; background:var(--paper); border:1px solid var(--line); border-radius:var(--r); padding:22px 24px; transition:.16s;}
+  a.lk:hover{border-color:var(--blue); transform:translateY(-3px); box-shadow:0 10px 26px rgba(40,80,160,.12); text-decoration:none;}
+  .lkh{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:9px;}
+  .lkh h3{margin:0; font-size:16.5px; color:var(--navy);}
+  .lk .ext{flex-shrink:0; color:var(--blue); width:28px; height:28px; border:1px solid var(--sky-line,var(--blue-soft)); border-radius:8px; display:flex; align-items:center; justify-content:center; background:var(--blue-soft);}
+  .lk p{margin:0; font-size:14px; color:var(--sub); line-height:1.6;}
+  .lk p b{color:var(--blue-d);}
+  .lk.static{background:#f7faff;}
+  .lk .chan{display:inline-block; margin-top:9px; font-size:12px; font-weight:600; color:var(--blue-d); background:var(--blue-soft); border-radius:999px; padding:3px 11px;}
+  footer{border-top:1px solid var(--line); margin-top:60px; padding:22px; color:var(--muted); font-size:12.5px; text-align:center; line-height:1.7;}
+
+  /* ============ 모바일 ============ */
+  @media(max-width:880px){
+    html,body{overflow-x:hidden;}
+    .topnav{flex-wrap:wrap; gap:10px 14px; padding:12px 18px;}
+    .menu{gap:4px 14px; width:100%; flex-wrap:wrap;}
+    .navitem .top{padding:8px 4px 10px; font-size:14.5px; white-space:nowrap;}
+    .navitem .top::after{left:4px; right:4px;}
+    main{padding:24px 18px 80px;}
+    .hero h1{font-size:27px;}
+    .boards,.twocol,.tips,.fit,.docs2,.cases3,.links{grid-template-columns:1fr;}
+    /* 통계 카드 2열 */
+    .stat{flex:1 1 calc(50% - 7px); min-width:0;}
+    /* 학기별 막대 — 좁게 */
+    .semchart{gap:6px; height:140px;}
+    .semchart .scl{font-size:10.5px;}
+    .semchart .scv{font-size:12px;}
+    /* 국가별 막대 — 라벨 칸 축소 */
+    .chart .crow{grid-template-columns:60px 1fr;}
+    .chart .cn{font-size:13px;}
+    .chart-cap{margin-left:0;}
+    /* 기간 바: 모바일은 세로 목록으로 */
+    .lane{height:auto;}
+    .lane .line{display:none;}
+    .lane .evt{position:static; transform:none; left:auto !important; display:flex; gap:11px; align-items:center; padding:9px 2px; border-bottom:1px dashed var(--line);}
+    .lane .evt .lab{position:static; transform:none; width:auto; text-align:left;}
+    .lane .evt .lab .m{display:inline; margin-right:5px;}
+    .calfoot{display:none;}
+    /* 비교 표 → 세로 스택 */
+    .cmphead{display:none;}
+    .cmprow{grid-template-columns:1fr;}
+    .cmprow .asp{background:var(--navy); color:#fff; padding:12px 16px; font-size:14px;}
+    .cmprow .cell{border-left:none; border-top:1px solid var(--line);}
+    .cmprow .cell .who{display:block;}
+    .cmprow .cell.j{background:var(--yellow-soft);}
+    .dropdown{right:0; left:auto;}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="topnav">
+    <div class="brand" data-go="home">
+      <img class="logo" src="assets/kmu_navy.png" alt="국민대학교 KMU">
+      <span class="bt">인터멘토</span>
+    </div>
+    <nav class="menu">
+      <div class="navitem has-sub" data-top="content">
+        <button class="top">내용 정리 <span class="car">▾</span></button>
+        <div class="dropdown">
+          <button data-go="route"><span class="dot"></span>국제교류팀 vs 조형대</button>
+          <button data-go="country"><span class="dot"></span>국가 별 비교</button>
+        </div>
+      </div>
+      <div class="navitem has-sub" data-top="senior">
+        <button class="top">선배들의 조언 <span class="car">▾</span></button>
+        <div class="dropdown">
+          <button data-go="voice"><span class="dot"></span>선배들이 해주고 싶은 이야기</button>
+          <button data-go="cases"><span class="dot"></span>다양한 교환학생의 사례</button>
+        </div>
+      </div>
+      <div class="navitem has-sub" data-top="diag">
+        <button class="top">자가진단 <span class="car">▾</span></button>
+        <div class="dropdown">
+          <button data-go="diagnose"><span class="dot"></span>현 상태 파악</button>
+        </div>
+      </div>
+      <div class="navitem" data-top="more">
+        <button class="top" data-go="more">더 많은 정보</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ 메인 대시보드 ============ -->
+  <section id="home" class="on">
+    <div class="hero">
+      <h1 id="heroName">인터멘토</h1>
+      <p>준비하기 막막한 교환학생 준비 과정을 돕는 인터멘토입니다.<br>교환학생을 가고 싶다는 막연한 생각만 들고 뭘 어떻게 해야할지 모르겠다면, 인터멘토를 따라 준비해보아요!</p>
+    </div>
+
+    <div class="card barcard" data-go="diagnose">
+      <div class="bhead">
+        <h3>교환학생 모집 일정</h3>
+        <span class="cta">눌러서 내 상황 진단하기 →</span>
+      </div>
+      <div class="cal" id="mainTimeline"></div>
+    </div>
+
+    <div class="boards">
+      <div class="card board">
+        <div class="bh">
+          <h3>선배들이 해주고 싶은 이야기</h3>
+          <button class="more" data-go="voice" title="더 보기">+</button>
+        </div>
+        <div class="voiceitem"><span class="qq">“</span><span>비자 준비 잘 알아보세요 (기간 주의)</span></div>
+        <div class="voiceitem"><span class="qq">“</span><span>교환학생인만큼, 회화 연습은 미리미리 해두시는게 좋아요</span></div>
+        <div class="voiceitem"><span class="qq">“</span><span>국제교류팀도 정보가 많은 편은 아닌데, 단과대는 더더욱 없어서 여기저기 물어보는 수밖에 없어요ㅠㅠ</span></div>
+      </div>
+      <div class="card board">
+        <div class="bh">
+          <h3>지원 서류 한눈에 <span style="font-size:13px;color:var(--muted);font-weight:400">· 국제교류팀</span></h3>
+          <button class="more" data-go="route" title="더 보기">+</button>
+        </div>
+        <div class="doclist">
+          <div class="doc"><span class="pct">40%</span> 학점 — 평점 3.0 이상</div>
+          <div class="doc"><span class="pct">30%</span> 어학 — 토플·아이엘츠</div>
+          <div class="doc"><span class="pct">30%</span> 기타 서류 — 자소서·지원동기 (포폴 X)</div>
+          <div class="doc"><span class="pct g">널널</span> 조형대(strate)는 전반적으로 여유로운 편</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 내용 정리 > 국제교류팀 vs 조형대 ============ -->
+  <section id="route">
+    <div class="crumb">내용 정리 <b>›</b> 국제교류팀 vs 조형대</div>
+    <h1 class="page">국제교류팀 vs 조형대</h1>
+    <p class="lead">미대생에겐 교환 경로가 둘입니다. <b>국제교류팀(학교 차원)</b>과 <b>조형대(단과대 차원)</b>. 정보량·성적·면접·준비 기간이 꽤 달라서, 내게 유리한 쪽을 먼저 알아야 해요.</p>
+    <div class="band real">✓ 실제 교환 선배 증언 기반 (조형대는 스트라트/파리 기준).</div>
+
+    <div class="cmp">
+      <div class="cmphead">
+        <div class="h sp"></div>
+        <div class="h k">국제교류팀</div>
+        <div class="h j">단과대 · 조형대 (strate)</div>
+      </div>
+      <div class="cmprow">
+        <div class="asp">정보량</div>
+        <div class="cell k"><span class="who">국제교류팀</span>홈페이지·온국민·인터넷 등에서 확인 가능. 방학 중엔 설명회도 있고, 담당 팀에 전화 문의도 가능. 작년 공지도 확인돼요.</div>
+        <div class="cell j"><span class="who">조형대</span>홈페이지에도 내용이 부족하고 작년 공지 확인이 어려움 — 카카오톡으로 공지해서.</div>
+      </div>
+      <div class="cmprow">
+        <div class="asp">성적</div>
+        <div class="cell k"><span class="who">국제교류팀</span>학점 40 · 어학 30 · 서류 30. 학점도 어학도 모두 중요해요.</div>
+        <div class="cell j"><span class="who">조형대</span>학점 3.5는 넘어야 하지만 그렇게 빡세진 않음. strate는 면접이 없고 자기소개 영상을 찍어야 함. 어학은 있으면 좋다.</div>
+      </div>
+      <div class="cmprow">
+        <div class="asp">성적 – 어학</div>
+        <div class="cell k"><span class="who">국제교류팀</span>중요함. 학교별 기준은 홈페이지에 있으나, 더 높을수록 좋아요.</div>
+        <div class="cell j"><span class="who">조형대</span>어학을 안 보는 경우도 있음. 그러나 혹시 모르니 따두는 걸 권장..</div>
+      </div>
+      <div class="cmprow">
+        <div class="asp">면접</div>
+        <div class="cell k"><span class="who">국제교류팀</span>좀 빡센 편 — 토론을 하기도 함..</div>
+        <div class="cell j"><span class="who">조형대</span>널널함. 면접 없음.</div>
+      </div>
+      <div class="cmprow">
+        <div class="asp">준비 기간</div>
+        <div class="cell k"><span class="who">국제교류팀</span>지원부터 면접까지 빠르게 진행 — 한 달도 안 되는 2~3주 만에? 주로 방학 중.</div>
+        <div class="cell j"><span class="who">조형대</span>지원은 학기 초, 그 후 연락은 늦게 와요. 한두 달 뒤쯤.</div>
+      </div>
+    </div>
+
+    <h2 class="sechead">이런 분들께 좋아요!</h2>
+    <div class="fit">
+      <div class="fitcard k">
+        <span class="badge">국제교류팀</span>
+        <ul>
+          <li>선택 폭이 넓은 게 좋아요!</li>
+          <li>같이 가는 학생 수가 많으면 좋겠어요!</li>
+        </ul>
+      </div>
+      <div class="fitcard j">
+        <span class="badge">단과대 · 조형대</span>
+        <ul>
+          <li>준비 기간이 빠듯하고, 성적을 높이기도 힘든 상황이에요!</li>
+          <li>나라는 크게 상관없고, 해외에 나가기만 해도 좋아요!</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 class="sechead">지원 서류 비교</h2>
+    <div class="docs2">
+      <div class="doccol k">
+        <h3>🏫 국제교류팀</h3>
+        <p class="sub">학점 40% · 어학 30% · 기타 서류 30%</p>
+        <div class="ditem">
+          <div class="dt"><b>학점</b><span class="pct">40%</span></div>
+          <p>평점 3.0이 넘어야 지원할 수 있지만, 3.0과 비슷하면 붙기 어려울 수 있어요! 대비할 수 있는 한 잘 대비해두는 것이 좋습니다.</p>
+        </div>
+        <div class="ditem">
+          <div class="dt"><b>어학</b><span class="pct">30%</span></div>
+          <ul>
+            <li>주로 토플·아이엘츠 — 토익보다 난이도가 있는 시험들이에요.</li>
+            <li>무엇을 따야 하는지 찾아보고, 준비 기간을 고려해 미리미리 따두기.</li>
+            <li>실물 성적표가 필요하다는 점도 고려해야 합니다.</li>
+          </ul>
+        </div>
+        <div class="ditem">
+          <div class="dt"><b>기타 지원 서류</b><span class="pct">30%</span><span style="font-size:12px;color:var(--muted)">포트폴리오 X</span></div>
+          <ul>
+            <li>본교 지원서엔 포트폴리오가 포함되지 않아요.</li>
+            <li>지원 동기 등을 쓰는 게 중요!</li>
+            <li>생각보다 정성을 들여야 하는 과정이니 미리 써두는 것도 좋아요.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="doccol j">
+        <h3>🎨 조형대 <span style="font-size:13px;color:var(--muted)">(strate 기준)</span></h3>
+        <p class="sub">전체적으로 널널한 편 — 그래도 국제교류팀보다 여유</p>
+        <div class="ditem">
+          <span class="looser">전반적으로 널널</span>
+          <p>준비 기준이 국제교류팀보다 확실히 여유로운 편이에요.</p>
+        </div>
+        <div class="ditem">
+          <div class="dt"><b>어학</b></div>
+          <ul>
+            <li>없어도 가는 경우가 종종 있지만, 있는 것이 좋아요.</li>
+            <li>토익·토플·오픽·아이엘츠 등 공공기관에서 공식 성적표가 나오는 시험이면 가능.</li>
+            <li>과거엔 널널했으나 앞으로도 그러리란 보장은 없어, 낮더라도 따두기를 권장 (토익 기준 700점대 정도는).</li>
+          </ul>
+        </div>
+        <div class="ditem">
+          <div class="dt"><b>포트폴리오</b></div>
+          <ul>
+            <li>거의 안 보는 수준이에요.</li>
+            <li>있어야 붙여주긴 하는데, 형식 제한도 없었고 퀄리티를 크게 따지지 않았어요.</li>
+            <li>포폴 &lt; 자소서·학점으로 추정돼요.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 내용 정리 > 국가 별 비교 ============ -->
+  <section id="country">
+    <div class="crumb">내용 정리 <b>›</b> 국가 별 비교</div>
+    <h1 class="page">국가 별 비교</h1>
+    <p class="lead">티오(모집 인원)는 해마다 달라 고정값이 없습니다. 대신 <b>실제로 몇 명이 갔는지</b>를 보면 그 나라가 그동안 얼마나 열려 있었는지를 가늠할 수 있어요.</p>
+    <div class="band real">✓ <b>실제 데이터</b> — 국민대 전체 수학보고서(2023~2025, 교환학생 598명) 기반.</div>
+    <div class="stat-row">
+      <div class="stat"><div class="n">598</div><div class="l">최근 3년 교환학생(명)</div></div>
+      <div class="stat"><div class="n">22</div><div class="l">파견 국가 수</div></div>
+      <div class="stat"><div class="n">독일</div><div class="l">최다 파견국 (180명·30%)</div></div>
+      <div class="stat"><div class="n">~100</div><div class="l">매 학기 평균(명)</div></div>
+    </div>
+    <h3 class="blockt">학기별 파견 인원 <span class="s">(2023~2025 전체)</span></h3>
+    <div class="semchart" id="semChart"></div>
+    <p class="chart-cap">매 학기 약 100명 안팎으로 꾸준 — 교환은 ‘특별한 소수’가 아니라 매 학기 열리는 기회.</p>
+
+    <h3 class="blockt">국가별 파견 인원 비교 <span class="s">— 연도·학기·국가를 골라 비교하세요</span></h3>
+    <p style="color:var(--muted); font-size:12.5px; margin:5px 0 0;">연도·학기는 안 고르면 전체 기준이에요. 여러 연도를 고르면 맨 앞에 <b style="color:var(--yellow-deep)">평균</b> 태그가 생겨 연도 평균으로도 볼 수 있어요.</p>
+    <div class="filters">
+      <div class="fgroup">
+        <span class="flabel">연도</span>
+        <div class="ftags" data-f="year" id="yearTags">
+          <button class="ftag" data-v="2025">2025</button>
+          <button class="ftag" data-v="2024">2024</button>
+          <button class="ftag" data-v="2023">2023</button>
+        </div>
+      </div>
+      <div class="fgroup">
+        <span class="flabel">학기</span>
+        <div class="ftags" data-f="sem">
+          <button class="ftag" data-v="1">1학기</button>
+          <button class="ftag" data-v="2">2학기</button>
+        </div>
+      </div>
+      <div class="fgroup">
+        <span class="flabel">국가<br><small>뺄 국가만 해제</small></span>
+        <div class="ftags ctags" data-f="country" id="countryTags"></div>
+      </div>
+      <div class="fgroup">
+        <span class="flabel"></span>
+        <div class="fbtns"><button class="minibtn" id="selAll">국가 전체 선택</button><button class="minibtn" id="selNone">전체 해제</button></div>
+      </div>
+    </div>
+    <div class="fsummary" id="fsummary"></div>
+    <div id="countryChart" class="chart"></div>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>국가</th><th>파견 인원</th><th>실제 최다 파견 대학</th></tr></thead>
+        <tbody id="countryTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ 선배 조언 > 해주고 싶은 이야기 ============ -->
+  <section id="voice">
+    <div class="crumb">선배들의 조언 <b>›</b> 선배들이 해주고 싶은 이야기</div>
+    <h1 class="page">선배들이 해주고 싶은 이야기</h1>
+    <p class="lead">먼저 다녀온 선배들이 남긴 솔직한 한마디. 공식 안내문엔 없는, 사석에서만 돌던 이야기들이에요.</p>
+    <div class="band real">✓ 교환 다녀온 선배들이 직접 전한 조언입니다.</div>
+    <div class="tips">
+      <div class="tip"><span class="q">“</span><p>비자 준비 잘 알아보세요 (기간 주의)</p></div>
+      <div class="tip"><span class="q">“</span><p>수업에서 무언가를 얻는다는 기대는 하지 마세요 대신 해외 경험은 좋음</p></div>
+      <div class="tip"><span class="q">“</span><p>디자인 뿐 아니라, 연극이나 무용 등 한다거나 외국어를 써서 알바를 한다거나 다양한 경험을 쌓을 수 있어요</p></div>
+      <div class="tip"><span class="q">“</span><p>교환학생인만큼, 회화 연습은 미리미리 해두시는게 좋아요</p></div>
+      <div class="tip"><span class="q">“</span><p>스트라트는 프랑스 내 다른 학교에 비해 학기 시작과 끝이 늦은 편이라서 비자 신청에 필요한 입학허가증같은게 늦게 나와요!</p></div>
+      <div class="tip"><span class="q">“</span><p>비자 신청이 늦어지면 집 구하기도 늦어진답니다.. (프랑스는 보통 캠퍼스 내에 기숙사가 없습니다)</p></div>
+      <div class="tip"><span class="q">“</span><p>미국으로 갈거면 국제교류팀 통해서 가야하는데, 점수가 좀 높은걸로 알고 있어요!</p></div>
+      <div class="tip"><span class="q">“</span><p>조형대에서는 독일로 많이 가는 것 같아용</p></div>
+      <div class="tip"><span class="q">“</span><p>가서 무언가를 얻는다는 느낌보다는 쉰다는 느낌으로 다녀와도 좋아요~ 추천합니당</p></div>
+      <div class="tip"><span class="q">“</span><p>담당 교수님도 잘은 모르십니다..</p></div>
+      <div class="tip"><span class="q">“</span><p>국제교류팀도 정보가 많은 편은 아닌데, 단과대는 더더욱 없어서 여기저기 물어보는 수밖에 없어요ㅠㅠ</p></div>
+    </div>
+  </section>
+
+  <!-- ============ 선배 조언 > 다양한 교환학생의 사례 ============ -->
+  <section id="cases">
+    <div class="crumb">선배들의 조언 <b>›</b> 다양한 교환학생의 사례</div>
+    <h1 class="page">다양한 교환학생의 사례</h1>
+    <p class="lead">조언보다 긴 호흡. 지원 동기부터 현지 생활, 후회 여부까지 — 한 사람의 교환 1년을 통째로 따라가 봅니다.</p>
+    <div class="band real">✓ 실제 교환 선배가 직접 작성한 후기를 정리한 것입니다.</div>
+    <div class="story">
+      <div class="meta">
+        <span class="chip">시각디자인 20학번</span>
+        <span class="chip">스트라트(Strate) · 파리캠퍼스</span>
+        <span class="chip y">조형대 차원 파견</span>
+      </div>
+      <h2>“디자인 슬럼프에 떠난 프랑스, 그래도 후회는 없어요”</h2>
+      <div class="qa"><p class="qq">왜 프랑스였나</p><p>원래 워홀로 파리에 가려던 차에, 시디과 페이스북에 스트라트 모집 공고가 떴어요. 남은 학기도 채울 겸 교환으로 노선을 바꿨습니다.</p></div>
+      <div class="qa"><p class="qq">지원 준비</p><p>자기소개서·CV·포트폴리오·자기소개영상을 영문으로. 포폴은 1~2학년 과제 중 4개만 추렸어요. 최근엔 구글폼 지원으로 바뀌었다는 얘기도.</p></div>
+      <div class="qa"><p class="qq">어학</p><p>제출이 선택인 줄 알고 안 냈다가, 교학팀 연락받고 급하게 오픽 응시. 성적은 Intermediate Mid 1이었는데 운 좋게 합격.</p></div>
+      <div class="qa"><p class="qq">캠퍼스</p><p>파리캠퍼스는 사실 파리 외곽 ‘세브르’ 마을. 디자인과만 있는 아담한 학교로, 컨테이너 쌓은 건물에 강의실이 흩어져 있어요.</p></div>
+      <div class="qa"><p class="qq">후회하나?</p><p>아니요. 디자인 슬럼프 시기였고 힘들었지만, ‘학생 신분’으로 유럽을 경험하고 비자·주거·알바까지 혼자 해본 게 자산이 됐어요.</p></div>
+    </div>
+    <h2 class="sechead">이런 경우도 있어요!</h2>
+    <div class="cases3">
+      <div class="ccase">
+        <div class="cnum">1</div>
+        <h3>교환학생을 1년 가는 경우</h3>
+        <p>한 학기를 먼저 가고, 해외에서 연장 신청을 합니다. 이 경우에는 서류도 또 작성해야 하고, 면접도 보는 등의 절차를 거칩니다.</p>
+      </div>
+      <div class="ccase">
+        <div class="cnum">2</div>
+        <h3>두 나라를 가는 경우</h3>
+        <p>말 그대로 교환학생을 한 번 다녀오고 한 번 더 신청해, 두 나라에서의 교환을 경험해볼 수도 있어요.</p>
+      </div>
+      <div class="ccase">
+        <div class="cnum">3</div>
+        <h3>학점 인정이 안 돼, 다녀온 후 학점을 많이 들은 경우</h3>
+        <p>어떤 과목이 학점으로 인정되는지 등은 중요한 요소이기 때문에 잘 체크해야 해요. 물론 현재는 시스템 정돈이 더 됐을 것이기 때문에, 사전에 체크를 잘 한다면 후에 꼬이는 일이 발생하지는 않을 거예요.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 자가진단 > 현 상태 파악 ============ -->
+  <section id="diagnose">
+    <div class="crumb">자가진단 <b>›</b> 현 상태 파악</div>
+    <h1 class="page">현 상태 파악</h1>
+    <p class="lead">현재 학년·학기와 가고 싶은 시기를 고르면, 지금 무엇을 준비해야 할지 알려드려요.</p>
+
+    <div class="card barcard" style="cursor:default; margin-top:16px">
+      <div class="bhead"><h3>교환학생 모집 일정</h3></div>
+      <div class="cal" id="diagTimeline"></div>
+      <div id="calAnn" class="calann" style="display:none"></div>
+    </div>
+
+    <div class="card quiz">
+      <div class="qblock">
+        <div class="ql">현재 학년</div>
+        <div class="opts" data-key="curY">
+          <button class="opt" data-v="1">1학년</button>
+          <button class="opt" data-v="2">2학년</button>
+          <button class="opt" data-v="3">3학년</button>
+          <button class="opt" data-v="4">4학년 이상</button>
+        </div>
+      </div>
+      <div class="qblock">
+        <div class="ql">현재 시기</div>
+        <div class="opts" data-key="curT">
+          <button class="opt" data-v="1">1학기</button>
+          <button class="opt" data-v="2">2학기</button>
+        </div>
+      </div>
+      <div class="qblock">
+        <div class="ql">갈 시기 — 학년</div>
+        <div class="opts" data-key="goY">
+          <button class="opt" data-v="1">1학년</button>
+          <button class="opt" data-v="2">2학년</button>
+          <button class="opt" data-v="3">3학년</button>
+          <button class="opt" data-v="4">4학년 이상</button>
+        </div>
+      </div>
+      <div class="qblock">
+        <div class="ql">갈 시기 — 학기</div>
+        <div class="opts" data-key="goT">
+          <button class="opt" data-v="1">1학기</button>
+          <button class="opt" data-v="2">2학기</button>
+        </div>
+      </div>
+      <div id="dzResult"><p class="qhint">현재 학년·학기와 갈 시기를 고르면 맞춤 안내가 떠요 ✈️</p></div>
+    </div>
+  </section>
+
+  <!-- ============ 더 많은 정보 ============ -->
+  <section id="more">
+    <div class="crumb">더 많은 정보</div>
+    <h1 class="page">더 많은 정보</h1>
+    <p class="lead">여기서 다 담지 못한 공식 정보는 아래 채널에서 직접 확인하세요. <b>↗</b> 아이콘이 있는 항목은 누르면 해당 페이지로 이동해요.</p>
+    <div class="links">
+      <a class="lk" href="https://iat.kookmin.ac.kr/international/community/notice/" target="_blank" rel="noopener">
+        <div class="lkh"><h3>설명회 신청</h3><span class="ext"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></div>
+        <p>설명회에선 지원 자격·지원 서류, 지원 방법, 선발 과정, 프로그램 정보 확인법, 프로그램별 주요사항, FAQ, 실시간 Q&amp;A까지 상세히 다뤄요.</p>
+        <span class="chan">학교 공지사항 참고</span>
+      </a>
+      <a class="lk" href="https://iat.kookmin.ac.kr/international/find" target="_blank" rel="noopener">
+        <div class="lkh"><h3>국가별 대학 · 어학 점수</h3><span class="ext"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></div>
+        <p>나라별 파견 가능 대학과 요구 어학 점수를 확인하세요.</p>
+        <span class="chan">학교 공식 홈페이지</span>
+      </a>
+      <a class="lk" href="https://iat.kookmin.ac.kr/international/tuition" target="_blank" rel="noopener">
+        <div class="lkh"><h3>등록금 · 장학금 안내</h3><span class="ext"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></div>
+        <p>파견 시 등록금 처리와 장학금 정보를 확인하세요.</p>
+        <span class="chan">학교 공식 홈페이지</span>
+      </a>
+      <a class="lk" href="https://kep.kookmin.ac.kr/nx/portal.html?menuId=M104196&amp;locale=ko" target="_blank" rel="noopener">
+        <div class="lkh"><h3>특정 국가의 후기</h3><span class="ext"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></div>
+        <p>먼저 다녀온 선배들의 후기를 가고 싶은 나라·학교별로 직접 검색해 보세요.</p>
+        <span class="chan">on국민 수학보고서</span>
+      </a>
+      <a class="lk" href="https://iat.kookmin.ac.kr/international/community/qna/?sc=" target="_blank" rel="noopener">
+        <div class="lkh"><h3>국제교류팀 교환학생 문의하고 싶어요!</h3><span class="ext"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></div>
+        <p>국제교류팀 Q&amp;A 게시판에 질문하세요.</p>
+        <span class="chan">국제교류 Q&amp;A</span>
+      </a>
+      <div class="lk static">
+        <div class="lkh"><h3>단과대 교환학생 문의하고 싶어요!</h3></div>
+        <p>조형대 차원 파견은 단과대 <b>교학팀</b>에 직접 문의하세요.</p>
+        <span class="chan">조형대 교학팀</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  인터멘토 · 교환학생 정보 격차 해소 프로젝트 (미디어디자인2)<br>
+  국가별 데이터는 국민대 전체 수학보고서(2023~2025) 실제 집계, 조언·사례는 실제 선배 후기를 정리한 것입니다.
+</footer>
+
+<script>
+  /* ===== 네비게이션 ===== */
+  const sections = document.querySelectorAll('main section');
+  const navitems = document.querySelectorAll('.navitem');
+  const PARENT = {home:'main', route:'content', country:'content', voice:'senior', cases:'senior', diagnose:'diag', more:'more'};
+  function closeDrops(){ navitems.forEach(n=>n.classList.remove('open')); }
+  function go(id){
+    sections.forEach(s=>s.classList.toggle('on', s.id===id));
+    navitems.forEach(n=>n.classList.toggle('active', n.dataset.top===PARENT[id]));
+    closeDrops();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  document.querySelectorAll('.navitem.has-sub > .top').forEach(btn=>{
+    btn.addEventListener('click', e=>{
+      e.stopPropagation();
+      const item = btn.parentElement;
+      const wasOpen = item.classList.contains('open');
+      closeDrops();
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
+  document.body.addEventListener('click', e=>{
+    const t = e.target.closest('[data-go]');
+    if(t){ e.stopPropagation(); go(t.dataset.go); }
+  });
+  document.addEventListener('click', closeDrops);
+
+  /* ===== 연간 모집 일정 (기간 바) ===== */
+  const EVENTS = [
+    {lane:'k', month:2, m:'2월 · 국제교류팀', t:'다음 연도 2학기 교환학생 모집'},
+    {lane:'k', month:8, m:'8월 · 국제교류팀', t:'다음 연도 1학기 교환학생 모집'},
+    {lane:'j', month:3, m:'3월 · 조형대', t:'다음 학기 교환학생 공지 (예상)'},
+    {lane:'j', month:9, m:'9월 · 조형대', t:'다음 학기 교환학생 공지 (예상)'}
+  ];
+  function evtHtml(e){
+    const left = ((e.month-0.5)/12*100).toFixed(2);
+    return '<div class="evt" data-month="'+e.month+'" style="left:'+left+'%"><div class="dot"></div>'+
+      '<div class="lab"><span class="m">'+e.m+'</span>'+e.t+'</div></div>';
+  }
+  function renderTimeline(el){
+    if(!el) return;
+    const k = EVENTS.filter(e=>e.lane==='k').map(evtHtml).join('');
+    const j = EVENTS.filter(e=>e.lane==='j').map(evtHtml).join('');
+    el.innerHTML =
+      '<div class="lane k"><div class="line"></div>'+k+'</div>'+
+      '<div class="lane j"><div class="line"></div>'+j+'</div>'+
+      '<div class="calfoot"><span>1월</span><span>6월</span><span>12월</span></div>';
+  }
+  renderTimeline(document.getElementById('mainTimeline'));
+  renderTimeline(document.getElementById('diagTimeline'));
+
+  /* ===== 자가진단 (현 상태 파악) ===== */
+  const dz = {curY:null, curT:null, goY:null, goT:null};
+  const gradeMsg = {
+    1:'본교에서 1학기 이상은 수학해야 지원할 수 있어요!',
+    2:'많이 준비하는 시기에요!',
+    3:'많이 가는 시기에요!',
+    4:'잔여학기가 있어야 지원할 수 있어요! (졸업 연기 1회 가능)'
+  };
+  // (갈 시기) − (현재 시기) = N학기 → 멘트
+  const diffMsg = {
+    0:['가장 빨리 지원할 수 있는 시기는 다음 학기에요!'],
+    1:['지원을 아직 안 하셨다면, 조형대 교환학생을 지원할 수 있어요!'],
+    2:['국제교류팀, 조형대 교환학생 모두 지원 준비를 할 수 있어요!','어학성적이 없으시다면, 학점을 챙길 수 있는 선에서 최대한 빠른 시일 내에 준비하는 걸 권장해요!'],
+    3:['국제교류팀, 조형대 교환학생 모두 지원 준비를 할 수 있어요!','다음 학기 방학에 어학성적을 미리 따두는 것을 권장해요!'],
+    4:['국제교류팀, 조형대 교환학생 모두 지원 준비를 할 수 있어요!','국제교류팀에 지원하실 예정이라면 학점과 어학이 모두 중요하기 때문에 잘 준비해두시면 좋아요!']
+  };
+  function semIndex(y,t){ return (y-1)*2 + t; } // 학기 기준 환산
+  function updateCalAnn(){
+    const cal = document.getElementById('diagTimeline');
+    const box = document.getElementById('calAnn');
+    if(!cal || !box) return;
+    cal.querySelectorAll('.evt').forEach(e=>e.classList.remove('hl'));
+    if(!dz.goT){ box.style.display='none'; box.innerHTML=''; return; }
+    const M = dz.goT===1 ? 8 : 2;            // 모집 월 (1학기 파견→8월, 2학기 파견→2월)
+    const langM = ((M-6+11)%12)+1;           // 직전전 방학
+    const certM = ((M-1+11)%12)+1;           // 모집 한 달 전
+    const hlMonths = dz.goT===1 ? [8,9] : [2,3];
+    cal.querySelectorAll('.evt').forEach(e=>{ if(hlMonths.includes(parseInt(e.dataset.month,10))) e.classList.add('hl'); });
+    box.style.display='flex';
+    box.innerHTML =
+      '<div class="at">📌 내 모집 시기 기준 체크리스트</div>'+
+      '<div class="ar lang"><span class="ad"></span><span><span class="am">'+langM+'월경</span>어학성적은 미리 따두면 좋아요! <span style="color:var(--muted)">· 가려는 학기 직전전 방학</span></span></div>'+
+      '<div class="ar cert"><span class="ad"></span><span><span class="am">'+certM+'월경</span>실물 성적표가 필요해요! <span style="color:var(--muted)">· 모집 약 한 달 전</span></span></div>'+
+      '<div class="ar appl"><span class="ad"></span><span><span class="am">'+M+'~'+(M+1)+'월</span>모집 공고 확인이 중요해요! ⭐ <span style="color:var(--muted)">· 가장 중요</span></span></div>';
+  }
+  function renderDz(){
+    const box = document.getElementById('dzResult');
+    if(!box) return;
+    updateCalAnn();
+    if(!dz.curY){
+      box.innerHTML = '<p class="qhint">현재 학년·학기와 갈 시기를 고르면 맞춤 안내가 떠요 ✈️</p>';
+      return;
+    }
+    let html = '<div class="result"><h3>현 상태 진단 ✈️</h3>';
+    html += '<div class="rrow"><span class="tg">현재 '+dz.curY+'학년</span>'+gradeMsg[dz.curY]+'</div>';
+    if(dz.curT && dz.goY && dz.goT){
+      const diff = semIndex(dz.goY,dz.goT) - semIndex(dz.curY,dz.curT);
+      if(diff < 0){
+        html += '<div class="rrow"><span class="tg">시기</span>갈 시기가 현재보다 빠를 순 없어요. ‘갈 시기’를 다시 골라주세요.</div>';
+      } else {
+        const lines = diffMsg[Math.min(diff,4)];
+        html += '<div class="rrow"><span class="tg">갈 시기까지 '+diff+'학기</span>'+lines[0]+'</div>';
+        for(let i=1;i<lines.length;i++) html += '<div class="rrow" style="padding-left:8px">· '+lines[i]+'</div>';
+      }
+    } else {
+      html += '<div class="rrow" style="color:var(--muted)">현재 시기·갈 시기를 모두 고르면 시기별 안내도 떠요.</div>';
+    }
+    html += '</div>';
+    box.innerHTML = html;
+  }
+  document.querySelectorAll('#diagnose .opts').forEach(group=>{
+    const key = group.dataset.key;
+    group.querySelectorAll('.opt').forEach(b=>b.addEventListener('click', ()=>{
+      const v = parseInt(b.dataset.v,10);
+      if(dz[key]===v){ dz[key]=null; b.classList.remove('on'); }           // 재클릭 → 선택 취소
+      else { dz[key]=v; group.querySelectorAll('.opt').forEach(x=>x.classList.toggle('on', x===b)); }
+      renderDz();
+    }));
+  });
+
+  /* ===== 국가별 실제 데이터 ===== */
+  const SEM = [['2023-1',111],['2023-2',93],['2024-1',94],['2024-2',104],['2025-1',100],['2025-2',96]];
+  const semMax = 111;
+  const sc = document.getElementById('semChart');
+  if(sc){ sc.innerHTML = SEM.map(([k,v])=>
+    '<div class="sc"><span class="scv">'+v+'</span><div class="scbar" style="height:'+(v/semMax*100)+'%"></div><span class="scl">'+k+'</span></div>').join(''); }
+
+  /* 국가 × 연도-학기 실제 파견 데이터 (2023~2025, 598명) */
+  const COUNTRY = [
+    {n:'독일', u:'Chemnitz 공대 · Deggendorf · Kempten (응용과학대 중심)', s:{'2023-1':36,'2023-2':25,'2024-1':27,'2024-2':31,'2025-1':33,'2025-2':28}},
+    {n:'미국', u:'Univ. of Nevada Reno · Temple', s:{'2023-1':14,'2023-2':16,'2024-1':16,'2024-2':17,'2025-1':14,'2025-2':14}},
+    {n:'일본', u:'Showa Women’s · 나고야 외대', s:{'2023-1':17,'2023-2':14,'2024-1':13,'2024-2':10,'2025-1':13,'2025-2':18}},
+    {n:'스페인', u:'Univ. of Jaén · Nebrija', s:{'2023-1':10,'2023-2':7,'2024-1':5,'2024-2':9,'2025-1':8,'2025-2':10}},
+    {n:'중국', u:'화동정법대 · Zhejiang Yuexiu', s:{'2023-1':5,'2023-2':6,'2024-1':6,'2024-2':12,'2025-1':10,'2025-2':10}},
+    {n:'프랑스', u:'Université Paris Cité', s:{'2023-1':4,'2023-2':6,'2024-1':3,'2024-2':6,'2025-1':6,'2025-2':4}},
+    {n:'체코', u:'Palacký Univ. Olomouc · Brno 공대', s:{'2023-1':5,'2023-2':5,'2024-1':5,'2024-2':5,'2025-1':1,'2025-2':4}},
+    {n:'이탈리아', u:'Carlo Cattaneo · Siena 외국인대', s:{'2023-1':6,'2023-2':4,'2024-1':2,'2024-2':5,'2025-1':3,'2025-2':1}},
+    {n:'호주', u:'RMIT', s:{'2023-1':2,'2023-2':2,'2024-1':2,'2024-2':2,'2025-1':2,'2025-2':1}},
+    {n:'영국', u:'York St John University', s:{'2023-1':3,'2023-2':3,'2024-1':3,'2025-2':1}},
+    {n:'타이완', u:'National Taiwan Univ. of Sci & Tech', s:{'2023-1':4,'2023-2':2,'2024-1':1,'2024-2':1,'2025-1':1}},
+    {n:'네덜란드', u:'Hanze UAS Groningen', s:{'2023-1':2,'2023-2':1,'2024-1':1,'2024-2':2,'2025-1':1,'2025-2':1}},
+    {n:'헝가리', u:'Eötvös Loránd (ELTE)', s:{'2024-1':2,'2024-2':1,'2025-1':2,'2025-2':1}},
+    {n:'러시아', u:'HSE · St. Petersburg', s:{'2023-1':1,'2024-1':1,'2025-1':4}},
+    {n:'말레이시아', u:'Taylor’s · Malaya', s:{'2023-2':1,'2024-1':3,'2024-2':1,'2025-1':1}},
+    {n:'멕시코', u:'Tecnológico de Monterrey', s:{'2023-2':1,'2024-1':1,'2025-2':2}},
+    {n:'캐나다', u:'Memorial Univ. of Newfoundland', s:{'2023-1':1,'2025-1':1,'2025-2':1}},
+    {n:'핀란드', u:'Univ. of Tampere', s:{'2024-1':2}},
+    {n:'싱가포르', u:'PSB Academy', s:{'2024-2':1}},
+    {n:'카자흐스탄', u:'Al-Farabi Kazakh National', s:{'2024-2':1}},
+    {n:'페루', u:'San Ignacio de Loyola', s:{'2024-1':1}},
+    {n:'타이', u:'Thammasat University', s:{'2023-1':1}}
+  ];
+  const ALLKEYS = ['2023-1','2023-2','2024-1','2024-2','2025-1','2025-2'];
+  const state = {year:new Set(), sem:new Set(), country:new Set(COUNTRY.map(c=>c.n)), avg:false};
+
+  const countryTags = document.getElementById('countryTags');
+  if(countryTags) countryTags.innerHTML = COUNTRY.map(c=>'<button class="ftag on" data-v="'+c.n+'">'+c.n+'</button>').join('');
+
+  const avgBtn = document.createElement('button');
+  avgBtn.className='ftag avg'; avgBtn.textContent='평균'; avgBtn.dataset.v='__avg';
+  function updateAvgTag(){
+    const yt = document.getElementById('yearTags'); if(!yt) return;
+    if(state.year.size>=2){ if(!yt.contains(avgBtn)) yt.insertBefore(avgBtn, yt.firstChild); }
+    else { if(yt.contains(avgBtn)) yt.removeChild(avgBtn); state.avg=false; }
+    avgBtn.classList.toggle('on', state.avg);
+  }
+  function includedKeys(){
+    return ALLKEYS.filter(k=>{
+      const p = k.split('-');
+      return (state.year.size===0||state.year.has(p[0])) && (state.sem.size===0||state.sem.has(p[1]));
+    });
+  }
+  function cval(c){
+    const ks = includedKeys(); let t=0; for(const k of ks) t+=(c.s[k]||0);
+    if(state.avg && state.year.size>=2) return t/state.year.size;
+    return t;
+  }
+  function fmt(v){ return Number.isInteger(v)? v : (Math.round(v*10)/10).toFixed(1); }
+
+  function renderAll(){
+    const list = COUNTRY.filter(c=>state.country.has(c.n)).map(c=>({n:c.n,u:c.u,v:cval(c)})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v);
+    const max = list.length? list[0].v : 1;
+    const unit = (state.avg && state.year.size>=2) ? '명/년' : '명';
+    const chart = document.getElementById('countryChart');
+    if(chart){
+      chart.innerHTML = list.length
+        ? list.map((d,i)=>'<div class="crow'+(i===0?' top':'')+'"><span class="cn">'+d.n+'</span>'+
+            '<div class="cwrap"><div class="cbr" style="width:'+(d.v/max*100)+'%"></div><span class="cv">'+fmt(d.v)+'</span></div></div>').join('')
+        : '<p class="qhint">선택한 조건에 해당하는 파견 기록이 없어요.</p>';
+    }
+    const ctab = document.getElementById('countryTable');
+    if(ctab){
+      ctab.innerHTML = list.length
+        ? list.map(d=>'<tr><td><b>'+d.n+'</b></td><td class="to">'+fmt(d.v)+unit+'</td><td>'+d.u+'</td></tr>').join('')
+        : '<tr><td colspan="3" style="text-align:center;color:var(--muted)">해당 조건의 파견 기록이 없어요.</td></tr>';
+    }
+    const fs = document.getElementById('fsummary');
+    if(fs){
+      const yTxt = state.year.size? [...state.year].sort().join('·')+'년' : '2023~2025 전체';
+      const sTxt = state.sem.size? [...state.sem].sort().map(s=>s+'학기').join('·') : '전체 학기';
+      if(state.avg && state.year.size>=2){
+        fs.innerHTML = '조건: <b>'+yTxt+'</b> · <b>'+sTxt+'</b> · 국가 <b>'+list.length+'개</b> · <b>연도 평균</b> 표시 ('+state.year.size+'개 연도 평균)';
+      } else {
+        const sum = list.reduce((a,b)=>a+b.v,0);
+        fs.innerHTML = '조건: <b>'+yTxt+'</b> · <b>'+sTxt+'</b> · 국가 <b>'+list.length+'개</b> · 총 <b>'+sum+'명</b>';
+      }
+    }
+  }
+
+  document.querySelectorAll('.ftags[data-f="year"], .ftags[data-f="sem"]').forEach(group=>{
+    const f = group.dataset.f;
+    group.addEventListener('click', e=>{
+      const b = e.target.closest('.ftag'); if(!b) return;
+      if(b.dataset.v==='__avg'){ state.avg=!state.avg; avgBtn.classList.toggle('on', state.avg); renderAll(); return; }
+      const v = b.dataset.v;
+      if(state[f].has(v)) state[f].delete(v); else state[f].add(v);
+      b.classList.toggle('on');
+      if(f==='year') updateAvgTag();
+      renderAll();
+    });
+  });
+  if(countryTags){
+    countryTags.addEventListener('click', e=>{
+      const b = e.target.closest('.ftag'); if(!b) return;
+      const v = b.dataset.v;
+      if(state.country.has(v)) state.country.delete(v); else state.country.add(v);
+      b.classList.toggle('on');
+      renderAll();
+    });
+  }
+  const selAll = document.getElementById('selAll'), selNone = document.getElementById('selNone');
+  if(selAll) selAll.addEventListener('click', ()=>{ state.country=new Set(COUNTRY.map(c=>c.n)); countryTags.querySelectorAll('.ftag').forEach(b=>b.classList.add('on')); renderAll(); });
+  if(selNone) selNone.addEventListener('click', ()=>{ state.country=new Set(); countryTags.querySelectorAll('.ftag').forEach(b=>b.classList.remove('on')); renderAll(); });
+
+  renderAll();
+
+  /* 해시 라우팅 */
+  const ids = ['home','route','country','voice','cases','diagnose','more'];
+  const h = location.hash.replace('#','');
+  if(ids.includes(h)) go(h);
+  else navitems.forEach(n=>n.classList.toggle('active', n.dataset.top==='main'));
+</script>
+</body>
+</html>
