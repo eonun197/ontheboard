@@ -356,11 +356,12 @@
     .lane .evt .lab .m{display:inline; margin-right:5px;}
     .calfoot{display:none;}
     /* 비교 표 → 세로 스택 */
+    .cmp{border:none; overflow:visible; background:transparent;}
     .cmphead{display:none;}
-    .cmprow{grid-template-columns:1fr;}
-    .cmprow .asp{background:var(--navy); color:#fff; padding:12px 16px; font-size:15.5px;}
-    .cmprow .cell{border-left:none; border-top:1px solid var(--line);}
-    .cmprow .cell .who{display:block;}
+    .cmprow{grid-template-columns:1fr; border:1px solid var(--line); border-radius:14px; overflow:hidden; margin-bottom:14px; box-shadow:0 2px 12px rgba(40,80,160,.05);}
+    .cmprow .asp{background:var(--navy); color:#fff; padding:13px 18px; font-size:15.5px;}
+    .cmprow .cell{border-left:none; border-top:1px solid var(--line); padding:16px 18px; font-size:16.5px; line-height:1.75;}
+    .cmprow .cell .who{display:block; font-size:13px; margin-bottom:7px;}
     .cmprow .cell.j{background:var(--yellow-soft);}
     .dropdown{right:0; left:auto;}
   }
@@ -764,6 +765,7 @@
 
   /* ===== 개별 가이드 — 태그 → 모집 일정 강조 + 시기차 안내 + 체크리스트 ===== */
   const dz = {curY:null, curT:null, goY:null, goT:null};
+  const gradeMsg = {1:'본교에서 1학기 이상은 수학해야 지원할 수 있어요!',2:'많이 준비하는 시기에요!',3:'많이 가는 시기에요!',4:'잔여학기가 있어야 지원할 수 있어요! (졸업 연기 1회 가능)'};
   const diffMsg = {
     0:['가장 빨리 지원할 수 있는 시기는 다음 학기에요!'],
     1:['지원을 아직 안 하셨다면, 조형대 교환학생을 지원할 수 있어요!'],
@@ -791,16 +793,20 @@
     const box = document.getElementById('dzResult');
     if(!box) return;
     let html = '';
-    if(dz.curY && dz.curT && dz.goY && dz.goT){
-      const diff = semIndex(dz.goY,dz.goT) - semIndex(dz.curY,dz.curT);
-      if(diff < 0){
-        html += '<div class="result"><div class="rrow">갈 시기가 현재보다 빠를 순 없어요. ‘갈 시기’를 다시 골라주세요.</div></div>';
-      } else {
-        const lines = diffMsg[Math.min(diff,4)];
-        html += '<div class="result"><div class="rrow"><span class="tg">갈 시기까지 '+diff+'학기</span>'+lines[0]+'</div>';
-        for(let i=1;i<lines.length;i++) html += '<div class="rrow" style="padding-left:8px">· '+lines[i]+'</div>';
-        html += '</div>';
+    if(dz.curY || (dz.curT && dz.goY && dz.goT)){
+      html += '<div class="result">';
+      if(dz.curY) html += '<div class="rrow"><span class="tg">현재 '+dz.curY+'학년</span>'+gradeMsg[dz.curY]+'</div>';
+      if(dz.curY && dz.curT && dz.goY && dz.goT){
+        const diff = semIndex(dz.goY,dz.goT) - semIndex(dz.curY,dz.curT);
+        if(diff < 0){
+          html += '<div class="rrow">갈 시기가 현재보다 빠를 순 없어요. ‘갈 시기’를 다시 골라주세요.</div>';
+        } else {
+          const lines = diffMsg[Math.min(diff,4)];
+          html += '<div class="rrow"><span class="tg">갈 시기까지 '+diff+'학기</span>'+lines[0]+'</div>';
+          for(let i=1;i<lines.length;i++) html += '<div class="rrow" style="padding-left:8px">· '+lines[i]+'</div>';
+        }
       }
+      html += '</div>';
     }
     box.innerHTML = html;
   }
