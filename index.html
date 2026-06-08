@@ -50,7 +50,7 @@
   .navitem.open .dropdown{display:flex;}
   @keyframes pop{from{opacity:0; transform:translateY(-6px);} to{opacity:1;}}
   .dropdown button{text-align:left; background:none; border:none; cursor:pointer; padding:12px 14px;
-    border-radius:10px; font-size:15px; color:#48566c; display:flex; align-items:center; gap:10px; transition:.12s;}
+    border-radius:10px; font-size:16.5px; color:#48566c; display:flex; align-items:center; gap:10px; transition:.12s;}
   .dropdown button:hover{background:var(--blue-soft); color:var(--blue);}
   .dropdown button .dot{width:6px; height:6px; border-radius:50%; background:var(--yellow-d); flex-shrink:0;}
 
@@ -61,7 +61,7 @@
   .crumb{font-size:13px; color:var(--muted); margin-bottom:6px;}
   .crumb b{color:var(--blue);}
   h1.page{font-size:28px; color:var(--navy); margin:0 0 8px;}
-  .lead{color:var(--sub); max-width:760px; margin:0 0 14px; font-size:15.5px;}
+  .lead{color:var(--sub); max-width:760px; margin:0 0 14px; font-size:17px;}
   .band{border-radius:var(--r-sm); padding:11px 17px; font-size:13px; margin:16px 0 4px;}
   .band.real{background:var(--blue-soft); color:var(--blue-d);}
   .band.real b{color:var(--blue-d);}
@@ -83,7 +83,7 @@
   .barcard:hover{transform:translateY(-3px); box-shadow:0 12px 34px rgba(40,80,160,.15); border-color:var(--blue-l);}
   .barcard .bhead{display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:8px;}
   .barcard .bhead h3{margin:0; font-size:18px; color:var(--navy);}
-  .barcard .bhead .cta{font-size:14px; color:var(--blue); font-weight:600; display:flex; align-items:center; gap:6px;}
+  .barcard .bhead .cta{font-size:15.5px; color:var(--blue); font-weight:600; display:flex; align-items:center; gap:6px;}
   /* 연간 모집 일정 (기간 바) */
   .cal{padding:6px 10px 2px;}
   .lane{position:relative; height:74px;}
@@ -103,7 +103,7 @@
   .calfoot{display:flex; justify-content:space-between; color:var(--muted); font-size:11px; padding:0 6px; margin-top:2px;}
   .lane .evt.hl .dot{transform:scale(1.25); box-shadow:0 0 0 5px rgba(247,216,91,.6);}
   .calann{margin-top:16px; border-top:1px solid var(--line); padding-top:15px; display:flex; flex-direction:column; gap:10px;}
-  .calann .at{font-family:var(--serif); font-weight:600; color:var(--navy); font-size:14px; margin-bottom:1px;}
+  .calann .at{font-family:var(--serif); font-weight:600; color:var(--navy); font-size:15.5px; margin-bottom:1px;}
   .calann .ar{display:flex; gap:10px; align-items:flex-start; font-size:13.5px; color:var(--ink); line-height:1.5;}
   .calann .ar .ad{width:10px; height:10px; border-radius:50%; margin-top:5px; flex-shrink:0;}
   .calann .ar.lang .ad{background:var(--yellow-d);}
@@ -117,38 +117,62 @@
   .vtl .evt .dot{width:13px; height:13px; border-radius:50%; margin:3px auto 0; position:relative; z-index:1; border:3px solid #fff; box-shadow:0 0 0 1.5px var(--line);}
   .vtl .evt.k .dot{background:var(--blue);}
   .vtl .evt.j .dot{background:var(--yellow-d);}
-  .vtl .evt .lab{font-size:14px; color:var(--ink); line-height:1.55;}
+  .vtl .evt .lab{font-size:15.5px; color:var(--ink); line-height:1.55;}
   .vtl .evt .lab .m{font-weight:700; margin-right:6px;}
   .vtl .evt.k .lab .m{color:var(--blue-d);}
   .vtl .evt.j .lab .m{color:var(--yellow-deep);}
   .vtl .evt.hl .dot{transform:scale(1.3); box-shadow:0 0 0 5px rgba(247,216,91,.6);}
+  /* 자가진단 — 모집 일정 바를 크게·중앙·그라디언트 반짝임으로 강조 */
+  #diagnose .barcard{padding:34px 30px 40px;}
+  #diagnose .barcard .bhead{justify-content:center;}
+  #diagnose .barcard .bhead h3{font-size:21px;}
+  #diagnose #diagTimeline{max-width:540px; margin:14px auto 0;}
+  #diagTimeline .vtl .evt{grid-template-columns:32px 1fr; gap:16px; padding:16px 0;}
+  #diagTimeline .vtl::before{left:14px; width:5px; border-radius:3px;
+    background:linear-gradient(180deg, var(--blue-l), var(--blue) 55%, var(--navy));
+    box-shadow:0 0 16px rgba(39,103,214,.4); top:14px; bottom:14px;}
+  #diagTimeline .vtl::after{content:""; position:absolute; left:14px; width:5px; height:52px; border-radius:3px;
+    background:linear-gradient(180deg, transparent, rgba(255,255,255,.95), transparent);
+    animation:railshine 3s ease-in-out infinite; pointer-events:none; z-index:3;}
+  @keyframes railshine{0%{top:-52px; opacity:0;} 12%{opacity:.85;} 88%{opacity:.85;} 100%{top:calc(100% + 12px); opacity:0;}}
+  #diagTimeline .vtl .evt .dot{width:18px; height:18px; margin-top:1px;
+    box-shadow:0 0 0 2px #fff, 0 0 0 3px var(--line), 0 3px 10px rgba(39,103,214,.28);}
+  #diagTimeline .vtl .evt .lab{font-size:16.5px;}
+  #diagTimeline .vtl .evt .lab .m{font-size:17px;}
+  #diagTimeline .vtl .evt.hl .dot{transform:scale(1.22);}
+  /* 태그 비중 축소 */
+  #diagnose .quiz{padding:22px 26px;}
+  #diagnose .qblock{margin:13px 0;}
+  #diagnose .qblock .ql{font-size:15.5px; margin-bottom:8px;}
+  #diagnose .opt{padding:7px 15px; font-size:13px;}
   .boards{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
   .board{padding:24px 26px; display:flex; flex-direction:column; cursor:pointer; transition:.18s;}
   .board:hover{transform:translateY(-3px); box-shadow:0 12px 34px rgba(40,80,160,.15); border-color:var(--blue-l);}
   .board .bh{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; gap:10px;}
   .board .bh h3{margin:0; font-size:18px; color:var(--navy);}
-  .board .bgo{flex-shrink:0; color:var(--blue); font-size:14px; font-weight:600; white-space:nowrap; transition:.15s;}
+  .board .bgo{flex-shrink:0; color:var(--blue); font-size:15.5px; font-weight:600; white-space:nowrap; transition:.15s;}
   .board:hover .bgo{transform:translateX(2px);}
-  .voiceitem{padding:13px 0; border-bottom:1px dashed var(--line); font-size:14.5px; color:#46546e; display:flex; gap:10px;}
+  .voiceitem{padding:13px 0; border-bottom:1px dashed var(--line); font-size:16px; color:#46546e; display:flex; gap:10px;}
   .voiceitem:last-child{border-bottom:none;}
   .voiceitem .qq{color:var(--yellow-deep); font-family:var(--serif); font-size:18px; line-height:1.2;}
   .doclist{display:flex; flex-direction:column; gap:9px;}
   .doc{display:flex; align-items:center; gap:11px; padding:11px 14px; background:#f7faff; border:1px solid var(--line);
-    border-radius:12px; font-size:14.5px; color:var(--ink);}
+    border-radius:12px; font-size:16px; color:var(--ink);}
   .doc .pct{font-size:12px; font-weight:700; background:var(--blue); color:#fff; border-radius:999px; padding:2px 9px; flex-shrink:0;}
   .doc .pct.g{background:var(--yellow-d); color:var(--navy);}
 
   /* ============ 비교 (국제교류팀 vs 조형대) ============ */
   .cmp{margin-top:16px; border:1px solid var(--line); border-radius:var(--r); overflow:hidden; background:var(--paper);}
   .cmphead{display:grid; grid-template-columns:118px 1fr 1fr;}
-  .cmphead .h{padding:15px 16px; font-weight:700; font-size:15px; text-align:center; font-family:var(--serif);}
+  .cmphead .h{padding:15px 16px; font-weight:700; font-size:16.5px; text-align:center; font-family:var(--serif);}
   .cmphead .h.k{background:var(--blue); color:#fff;}
   .cmphead .h.j{background:var(--yellow-d); color:var(--navy);}
-  .cmphead .sp{background:var(--paper);}
+  .cmphead .h small{display:block; font-weight:500; font-size:11px; opacity:.82; margin-top:3px;}
+  .cmphead .sp{background:var(--blue-soft); color:var(--navy);}
   .cmprow{display:grid; grid-template-columns:118px 1fr 1fr; border-top:1px solid var(--line);}
   .cmprow .asp{padding:16px; font-weight:600; color:var(--navy); background:var(--blue-soft);
-    display:flex; align-items:center; font-size:14.5px;}
-  .cmprow .cell{padding:16px; font-size:14px; color:#46546e; border-left:1px solid var(--line); line-height:1.6;}
+    display:flex; align-items:center; font-size:16px;}
+  .cmprow .cell{padding:16px; font-size:15.5px; color:#46546e; border-left:1px solid var(--line); line-height:1.6;}
   .cmprow .cell .who{display:none; font-weight:700; font-size:12px; margin-bottom:6px;}
   .cmprow .cell.k .who{color:var(--blue);}
   .cmprow .cell.j .who{color:var(--yellow-deep);}
@@ -163,7 +187,7 @@
   .fitcard.j .badge{background:var(--yellow-d); color:var(--navy);}
   .fitcard h3{margin:0 0 12px; font-size:16px; color:var(--navy);}
   .fitcard ul{margin:0; padding:0; list-style:none;}
-  .fitcard li{padding:8px 0 8px 26px; position:relative; font-size:14.5px; color:var(--ink);}
+  .fitcard li{padding:8px 0 8px 26px; position:relative; font-size:16px; color:var(--ink);}
   .fitcard li::before{content:"✓"; position:absolute; left:0; top:8px; font-weight:700;}
   .fitcard.k li::before{color:var(--blue);}
   .fitcard.j li::before{color:var(--yellow-deep);}
@@ -178,10 +202,10 @@
   .ditem{padding:15px 0; border-top:1px dashed var(--line);}
   .ditem:first-of-type{border-top:none;}
   .ditem .dt{display:flex; align-items:center; gap:9px; margin-bottom:7px; flex-wrap:wrap;}
-  .ditem .dt b{font-size:15px; color:var(--navy);}
+  .ditem .dt b{font-size:16.5px; color:var(--navy);}
   .ditem .pct{font-size:12px; font-weight:700; background:var(--blue); color:#fff; border-radius:999px; padding:2px 10px;}
-  .ditem p{margin:0; font-size:14px; color:var(--sub); line-height:1.65;}
-  .ditem ul{margin:6px 0 0; padding-left:18px; font-size:14px; color:var(--sub); line-height:1.6;}
+  .ditem p{margin:0; font-size:15.5px; color:var(--sub); line-height:1.65;}
+  .ditem ul{margin:6px 0 0; padding-left:18px; font-size:15.5px; color:var(--sub); line-height:1.6;}
   .ditem li{margin:4px 0;}
   .looser{display:inline-block; background:var(--yellow-soft); color:var(--yellow-deep); font-weight:700;
     font-size:13px; border-radius:999px; padding:4px 13px; margin-bottom:6px;}
@@ -190,7 +214,22 @@
   .tips{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:16px;}
   .tip{background:var(--paper); border:1px solid var(--line); border-radius:var(--r-sm); padding:22px 24px 20px; position:relative;}
   .tip .q{font-size:30px; color:var(--yellow-d); font-family:var(--serif); position:absolute; top:14px; left:18px; opacity:.55; line-height:1;}
-  .tip p{margin:0; font-size:15px; padding-left:32px; color:var(--ink); line-height:1.6;}
+  .tip p{margin:0; font-size:16.5px; padding-left:32px; color:var(--ink); line-height:1.6;}
+  /* 선배 조언 — 에타/SNS 피드 */
+  .feed{display:flex; flex-direction:column; gap:14px; margin-top:14px;}
+  .post{background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px 20px; box-shadow:0 2px 14px rgba(40,80,160,.05);}
+  .post .ph{display:flex; align-items:center; gap:11px; margin-bottom:11px;}
+  .post .av{width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .post .av svg{width:22px; height:22px; fill:#fff;}
+  .post .av.b1{background:var(--blue);} .post .av.b2{background:var(--blue-l);}
+  .post .av.b3{background:var(--navy);} .post .av.b4{background:var(--yellow-deep);}
+  .post .pmeta{display:flex; flex-direction:column; line-height:1.25;}
+  .post .who{font-weight:700; color:var(--navy); font-size:15px;}
+  .post .who .sub{font-weight:400; font-size:12px; color:var(--muted); margin-left:6px;}
+  .post .ptxt{margin:0; font-size:16.5px; color:var(--ink); line-height:1.65;}
+  .post .react{display:flex; gap:18px; margin-top:13px; padding-top:11px; border-top:1px solid var(--line);}
+  .post .rc{font-size:13.5px; color:var(--muted); display:flex; align-items:center; gap:5px;}
+  .post .rc.like{color:#e06a8b;}
 
   /* 사례(후기) */
   .story{background:var(--paper); border:1px solid var(--line); border-radius:var(--r); padding:28px 32px; margin-top:18px;}
@@ -199,31 +238,31 @@
   .chip.y{background:var(--yellow-soft); color:var(--yellow-deep);}
   .story h2{font-size:20px; color:var(--navy); margin:0 0 14px;}
   .qa{margin:16px 0; padding-left:16px; border-left:3px solid var(--line);}
-  .qa .qq{font-family:var(--serif); color:var(--blue-d); font-size:15.5px; margin:0 0 4px; font-weight:600;}
-  .qa p{margin:0; font-size:14.5px; color:#46546e;}
+  .qa .qq{font-family:var(--serif); color:var(--blue-d); font-size:17px; margin:0 0 4px; font-weight:600;}
+  .qa p{margin:0; font-size:16px; color:#46546e;}
   .cases3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:14px;}
   .ccase{background:var(--paper); border:1px solid var(--line); border-radius:var(--r); padding:24px; box-shadow:0 4px 22px rgba(40,80,160,.06);}
   .ccase .cnum{width:30px; height:30px; border-radius:50%; background:var(--blue); color:#fff;
-    font-family:var(--serif); font-weight:700; display:flex; align-items:center; justify-content:center; font-size:15px; margin-bottom:13px;}
+    font-family:var(--serif); font-weight:700; display:flex; align-items:center; justify-content:center; font-size:16.5px; margin-bottom:13px;}
   .ccase h3{margin:0 0 9px; font-size:16px; color:var(--navy); line-height:1.42;}
-  .ccase p{margin:0; font-size:14px; color:var(--sub); line-height:1.7;}
+  .ccase p{margin:0; font-size:15.5px; color:var(--sub); line-height:1.7;}
 
   /* 자가진단 */
   .quiz{padding:26px 30px; margin-top:18px;}
   .qblock{margin:20px 0;}
-  .qblock .ql{font-family:var(--serif); color:var(--blue-d); font-size:15.5px; margin-bottom:10px; font-weight:600;}
+  .qblock .ql{font-family:var(--serif); color:var(--blue-d); font-size:17px; margin-bottom:10px; font-weight:600;}
   .opts{display:flex; flex-wrap:wrap; gap:10px;}
   .opt{cursor:pointer; border:1.5px solid var(--line); background:#fff; color:#48566c;
-    border-radius:999px; padding:9px 18px; font-size:14px; font-weight:500; transition:.15s;}
+    border-radius:999px; padding:9px 18px; font-size:15.5px; font-weight:500; transition:.15s;}
   .opt:hover{border-color:var(--blue); color:var(--blue);}
   .opt.on{background:var(--blue); border-color:var(--blue); color:#fff;}
   #quizResult{margin-top:6px;}
   .result{background:var(--blue-soft); border-radius:var(--r-sm); padding:20px 22px; animation:fade .3s;}
   .result h3{margin:0 0 10px; color:var(--blue-d); font-size:17px;}
-  .rrow{margin:9px 0; font-size:14.5px; color:#46546e;}
+  .rrow{margin:9px 0; font-size:16px; color:#46546e;}
   .rrow .tg{display:inline-block; background:var(--yellow-d); color:var(--navy); font-weight:700; border-radius:7px; padding:2px 10px; font-size:13px; margin-right:4px;}
   .rrow b{color:var(--blue-d);}
-  .qhint{color:var(--muted); font-size:14px; padding:16px 0 4px;}
+  .qhint{color:var(--muted); font-size:15.5px; padding:16px 0 4px;}
 
   /* 국가별 차트/표 */
   .stat-row{display:flex; gap:14px; flex-wrap:wrap; margin:16px 0 4px;}
@@ -231,7 +270,7 @@
   .stat .n{font-family:var(--serif); font-weight:700; font-size:26px; color:var(--blue);}
   .stat .l{font-size:13px; color:var(--muted);}
   h3.blockt{color:var(--navy); margin:28px 0 4px; font-size:18px;}
-  h3.blockt .s{font-weight:400; font-size:14px; color:var(--muted);}
+  h3.blockt .s{font-weight:400; font-size:15.5px; color:var(--muted);}
   .semchart{display:flex; align-items:flex-end; gap:14px; height:160px; padding:10px 4px 0; margin:12px 0 2px;}
   .semchart .sc{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%;}
   .semchart .scbar{width:100%; max-width:58px; background:var(--blue-l); border-radius:8px 8px 0 0; transition:height .5s ease;}
@@ -241,7 +280,7 @@
   .semchart .scl{font-size:12.5px; color:var(--sub); margin-top:7px;}
   .chart{margin:12px 0 4px;}
   .chart .crow{display:grid; grid-template-columns:84px minmax(0,1fr); align-items:center; gap:12px; margin:6px 0;}
-  .chart .cn{font-size:14px; color:var(--ink); text-align:right; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .chart .cn{font-size:15.5px; color:var(--ink); text-align:right; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   .chart .cwrap{display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:9px; min-width:0;}
   .chart .cbr{height:20px; background:var(--blue); border-radius:6px; min-width:3px; transition:width .5s ease;}
   .chart .crow.top .cbr{background:var(--navy);}
@@ -250,7 +289,7 @@
   /* 국가별 비교 필터 */
   .filters{background:var(--paper); border:1px solid var(--line); border-radius:var(--r); padding:18px 20px; margin:14px 0 4px; display:flex; flex-direction:column; gap:14px;}
   .fgroup{display:flex; align-items:flex-start; gap:12px; flex-wrap:wrap;}
-  .flabel{font-family:var(--serif); font-weight:600; color:var(--navy); font-size:14px; min-width:54px; padding-top:6px; line-height:1.3;}
+  .flabel{font-family:var(--serif); font-weight:600; color:var(--navy); font-size:15.5px; min-width:54px; padding-top:6px; line-height:1.3;}
   .flabel small{font-weight:400; color:var(--muted); font-size:11px;}
   .ftags{display:flex; flex-wrap:wrap; gap:8px; flex:1;}
   .ftag{cursor:pointer; border:1.5px solid var(--line); background:#fff; color:#7a8aa0; border-radius:999px; padding:7px 15px; font-size:13.5px; font-weight:500; transition:.13s;}
@@ -263,10 +302,10 @@
   .fbtns{display:flex; gap:8px;}
   .minibtn{cursor:pointer; background:var(--blue-soft); border:none; color:var(--blue); border-radius:8px; padding:7px 13px; font-size:12.5px; font-weight:600; transition:.13s;}
   .minibtn:hover{background:var(--blue); color:#fff;}
-  .fsummary{font-size:14px; color:var(--sub); margin:4px 0 12px; padding:11px 17px; background:var(--blue-soft); border-radius:var(--r-sm);}
+  .fsummary{font-size:15.5px; color:var(--sub); margin:4px 0 12px; padding:11px 17px; background:var(--blue-soft); border-radius:var(--r-sm);}
   .fsummary b{color:var(--blue-d);}
   .tscroll{overflow-x:auto;}
-  table{width:100%; border-collapse:collapse; margin-top:12px; font-size:14px; background:var(--paper); border-radius:var(--r-sm); overflow:hidden;}
+  table{width:100%; border-collapse:collapse; margin-top:12px; font-size:15.5px; background:var(--paper); border-radius:var(--r-sm); overflow:hidden;}
   th,td{border:1px solid var(--line); padding:11px 13px; text-align:left;}
   th{background:var(--blue-soft); color:var(--navy); font-weight:700;}
   td.to{font-weight:700; color:var(--navy); white-space:nowrap;}
@@ -285,7 +324,7 @@
   .lkh{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:9px;}
   .lkh h3{margin:0; font-size:16.5px; color:var(--navy);}
   .lk .ext{flex-shrink:0; color:var(--blue); width:28px; height:28px; border:1px solid var(--sky-line,var(--blue-soft)); border-radius:8px; display:flex; align-items:center; justify-content:center; background:var(--blue-soft);}
-  .lk p{margin:0; font-size:14px; color:var(--sub); line-height:1.6;}
+  .lk p{margin:0; font-size:15.5px; color:var(--sub); line-height:1.6;}
   .lk p b{color:var(--blue-d);}
   .lk.static{background:#f7faff;}
   .lk .chan{display:inline-block; margin-top:9px; font-size:12px; font-weight:600; color:var(--blue-d); background:var(--blue-soft); border-radius:999px; padding:3px 11px;}
@@ -296,7 +335,7 @@
     html,body{overflow-x:hidden;}
     .topnav{flex-wrap:wrap; gap:10px 14px; padding:12px 18px;}
     .menu{gap:4px 14px; width:100%; flex-wrap:wrap;}
-    .navitem .top{padding:8px 4px 10px; font-size:14.5px; white-space:nowrap;}
+    .navitem .top{padding:8px 4px 10px; font-size:16px; white-space:nowrap;}
     .navitem .top::after{left:4px; right:4px;}
     main{padding:24px 18px 80px;}
     .hero h1{font-size:27px;}
@@ -321,7 +360,7 @@
     /* 비교 표 → 세로 스택 */
     .cmphead{display:none;}
     .cmprow{grid-template-columns:1fr;}
-    .cmprow .asp{background:var(--navy); color:#fff; padding:12px 16px; font-size:14px;}
+    .cmprow .asp{background:var(--navy); color:#fff; padding:12px 16px; font-size:15.5px;}
     .cmprow .cell{border-left:none; border-top:1px solid var(--line);}
     .cmprow .cell .who{display:block;}
     .cmprow .cell.j{background:var(--yellow-soft);}
@@ -338,24 +377,17 @@
     </div>
     <nav class="menu">
       <div class="navitem has-sub" data-top="content">
-        <button class="top">내용 정리 <span class="car">▾</span></button>
+        <button class="top">프로그램 비교 <span class="car">▾</span></button>
         <div class="dropdown">
-          <button data-go="route"><span class="dot"></span>국제교류팀 vs 조형대</button>
-          <button data-go="country"><span class="dot"></span>국가 별 비교</button>
+          <button data-go="route"><span class="dot"></span>본교/조형대</button>
+          <button data-go="country"><span class="dot"></span>국가 별</button>
         </div>
       </div>
-      <div class="navitem has-sub" data-top="senior">
-        <button class="top">선배들의 조언 <span class="car">▾</span></button>
-        <div class="dropdown">
-          <button data-go="voice"><span class="dot"></span>선배들이 해주고 싶은 이야기</button>
-          <button data-go="cases"><span class="dot"></span>다양한 교환학생의 사례</button>
-        </div>
+      <div class="navitem" data-top="senior">
+        <button class="top" data-go="community">합격자 커뮤니티</button>
       </div>
-      <div class="navitem has-sub" data-top="diag">
-        <button class="top">자가진단 <span class="car">▾</span></button>
-        <div class="dropdown">
-          <button data-go="diagnose"><span class="dot"></span>현 상태 파악</button>
-        </div>
+      <div class="navitem" data-top="diag">
+        <button class="top" data-go="diagnose">계획 가이드</button>
       </div>
       <div class="navitem" data-top="more">
         <button class="top" data-go="more">더 많은 정보</button>
@@ -381,7 +413,7 @@
     </div>
 
     <div class="boards">
-      <div class="card board" data-go="voice">
+      <div class="card board" data-go="community">
         <div class="bh">
           <h3>선배들이 해주고 싶은 이야기</h3>
           <span class="bgo">더 보기 →</span>
@@ -407,29 +439,28 @@
 
   <!-- ============ 내용 정리 > 국제교류팀 vs 조형대 ============ -->
   <section id="route">
-    <div class="crumb">내용 정리 <b>›</b> 국제교류팀 vs 조형대</div>
+    <div class="crumb">프로그램 비교 <b>›</b> 본교/조형대</div>
     <h1 class="page">국제교류팀 vs 조형대</h1>
     <p class="lead">미대생에겐 교환 경로가 둘입니다. <b>국제교류팀(학교 차원)</b>과 <b>조형대(단과대 차원)</b>. 정보량·성적·면접·준비 기간이 꽤 달라서, 내게 유리한 쪽을 먼저 알아야 해요.</p>
-    <div class="band real">✓ 실제 교환 선배 증언 기반 (조형대는 스트라트/파리 기준).</div>
 
     <div class="cmp">
       <div class="cmphead">
-        <div class="h sp"></div>
-        <div class="h k">국제교류팀</div>
-        <div class="h j">단과대 · 조형대 (strate)</div>
+        <div class="h sp">비교항목</div>
+        <div class="h k">국제교류팀<small>본교 주관</small></div>
+        <div class="h j">조형대<small>단과대 주관 · strate 대학</small></div>
       </div>
       <div class="cmprow">
-        <div class="asp">정보량</div>
+        <div class="asp">정보 획득 경로</div>
         <div class="cell k"><span class="who">국제교류팀</span>홈페이지·온국민·인터넷 등에서 확인 가능. 방학 중엔 설명회도 있고, 담당 팀에 전화 문의도 가능. 작년 공지도 확인돼요.</div>
         <div class="cell j"><span class="who">조형대</span>홈페이지에도 내용이 부족하고 작년 공지 확인이 어려움 — 카카오톡으로 공지해서.</div>
       </div>
       <div class="cmprow">
-        <div class="asp">성적</div>
+        <div class="asp">평가 기준</div>
         <div class="cell k"><span class="who">국제교류팀</span>학점 40 · 어학 30 · 서류 30. 학점도 어학도 모두 중요해요.</div>
         <div class="cell j"><span class="who">조형대</span>학점 3.5는 넘어야 하지만 그렇게 빡세진 않음. strate는 면접이 없고 자기소개 영상을 찍어야 함. 어학은 있으면 좋다.</div>
       </div>
       <div class="cmprow">
-        <div class="asp">성적 – 어학</div>
+        <div class="asp">어학 성적</div>
         <div class="cell k"><span class="who">국제교류팀</span>중요함. 학교별 기준은 홈페이지에 있으나, 더 높을수록 좋아요.</div>
         <div class="cell j"><span class="who">조형대</span>어학을 안 보는 경우도 있음. 그러나 혹시 모르니 따두는 걸 권장..</div>
       </div>
@@ -439,7 +470,7 @@
         <div class="cell j"><span class="who">조형대</span>널널함. 면접 없음.</div>
       </div>
       <div class="cmprow">
-        <div class="asp">준비 기간</div>
+        <div class="asp">타임라인</div>
         <div class="cell k"><span class="who">국제교류팀</span>지원부터 면접까지 빠르게 진행 — 한 달도 안 되는 2~3주 만에? 주로 방학 중.</div>
         <div class="cell j"><span class="who">조형대</span>지원은 학기 초, 그 후 연락은 늦게 와요. 한두 달 뒤쯤.</div>
       </div>
@@ -450,15 +481,15 @@
       <div class="fitcard k">
         <span class="badge">국제교류팀</span>
         <ul>
-          <li>선택 폭이 넓은 게 좋아요!</li>
-          <li>같이 가는 학생 수가 많으면 좋겠어요!</li>
+          <li>선택 폭이 넓은 게 좋아요</li>
+          <li>같이 가는 학생 수가 많으면 좋겠어요</li>
         </ul>
       </div>
       <div class="fitcard j">
         <span class="badge">단과대 · 조형대</span>
         <ul>
-          <li>준비 기간이 빠듯하고, 성적을 높이기도 힘든 상황이에요!</li>
-          <li>나라는 크게 상관없고, 해외에 나가기만 해도 좋아요!</li>
+          <li>준비 기간이 빠듯하고, 성적을 높이기도 힘든 상황이에요</li>
+          <li>나라는 크게 상관없고, 해외에 나가기만 해도 좋아요</li>
         </ul>
       </div>
     </div>
@@ -518,7 +549,7 @@
 
   <!-- ============ 내용 정리 > 국가 별 비교 ============ -->
   <section id="country">
-    <div class="crumb">내용 정리 <b>›</b> 국가 별 비교</div>
+    <div class="crumb">프로그램 비교 <b>›</b> 국가 별</div>
     <h1 class="page">국가 별 비교</h1>
     <p class="lead">티오(모집 인원)는 해마다 달라 고정값이 없습니다. 대신 <b>실제로 몇 명이 갔는지</b>를 보면 그 나라가 그동안 얼마나 열려 있었는지를 가늠할 수 있어요.</p>
     <div class="band real">✓ <b>실제 데이터</b> — 국민대 전체 수학보고서(2023~2025, 교환학생 598명) 기반.</div>
@@ -569,46 +600,11 @@
     </div>
   </section>
 
-  <!-- ============ 선배 조언 > 해주고 싶은 이야기 ============ -->
-  <section id="voice">
-    <div class="crumb">선배들의 조언 <b>›</b> 선배들이 해주고 싶은 이야기</div>
-    <h1 class="page">선배들이 해주고 싶은 이야기</h1>
-    <p class="lead">먼저 다녀온 선배들이 남긴 솔직한 한마디. 공식 안내문엔 없는, 사석에서만 돌던 이야기들이에요.</p>
-    <div class="band real">✓ 교환 다녀온 선배들이 직접 전한 조언입니다.</div>
-    <div class="tips">
-      <div class="tip"><span class="q">“</span><p>비자 준비 잘 알아보세요 (기간 주의)</p></div>
-      <div class="tip"><span class="q">“</span><p>수업에서 무언가를 얻는다는 기대는 하지 마세요 대신 해외 경험은 좋음</p></div>
-      <div class="tip"><span class="q">“</span><p>디자인 뿐 아니라, 연극이나 무용 등 한다거나 외국어를 써서 알바를 한다거나 다양한 경험을 쌓을 수 있어요</p></div>
-      <div class="tip"><span class="q">“</span><p>교환학생인만큼, 회화 연습은 미리미리 해두시는게 좋아요</p></div>
-      <div class="tip"><span class="q">“</span><p>스트라트는 프랑스 내 다른 학교에 비해 학기 시작과 끝이 늦은 편이라서 비자 신청에 필요한 입학허가증같은게 늦게 나와요!</p></div>
-      <div class="tip"><span class="q">“</span><p>비자 신청이 늦어지면 집 구하기도 늦어진답니다.. (프랑스는 보통 캠퍼스 내에 기숙사가 없습니다)</p></div>
-      <div class="tip"><span class="q">“</span><p>미국으로 갈거면 국제교류팀 통해서 가야하는데, 점수가 좀 높은걸로 알고 있어요!</p></div>
-      <div class="tip"><span class="q">“</span><p>조형대에서는 독일로 많이 가는 것 같아용</p></div>
-      <div class="tip"><span class="q">“</span><p>가서 무언가를 얻는다는 느낌보다는 쉰다는 느낌으로 다녀와도 좋아요~ 추천합니당</p></div>
-      <div class="tip"><span class="q">“</span><p>담당 교수님도 잘은 모르십니다..</p></div>
-      <div class="tip"><span class="q">“</span><p>국제교류팀도 정보가 많은 편은 아닌데, 단과대는 더더욱 없어서 여기저기 물어보는 수밖에 없어요ㅠㅠ</p></div>
-    </div>
-  </section>
+  <!-- ============ 합격자 커뮤니티 ============ -->
+  <section id="community">
+    <div class="crumb">합격자 커뮤니티</div>
+    <h1 class="page">합격자 커뮤니티</h1>
 
-  <!-- ============ 선배 조언 > 다양한 교환학생의 사례 ============ -->
-  <section id="cases">
-    <div class="crumb">선배들의 조언 <b>›</b> 다양한 교환학생의 사례</div>
-    <h1 class="page">다양한 교환학생의 사례</h1>
-    <p class="lead">조언보다 긴 호흡. 지원 동기부터 현지 생활, 후회 여부까지 — 한 사람의 교환 1년을 통째로 따라가 봅니다.</p>
-    <div class="band real">✓ 실제 교환 선배가 직접 작성한 후기를 정리한 것입니다.</div>
-    <div class="story">
-      <div class="meta">
-        <span class="chip">시각디자인 20학번</span>
-        <span class="chip">스트라트(Strate) · 파리캠퍼스</span>
-        <span class="chip y">조형대 차원 파견</span>
-      </div>
-      <h2>“디자인 슬럼프에 떠난 프랑스, 그래도 후회는 없어요”</h2>
-      <div class="qa"><p class="qq">왜 프랑스였나</p><p>원래 워홀로 파리에 가려던 차에, 시디과 페이스북에 스트라트 모집 공고가 떴어요. 남은 학기도 채울 겸 교환으로 노선을 바꿨습니다.</p></div>
-      <div class="qa"><p class="qq">지원 준비</p><p>자기소개서·CV·포트폴리오·자기소개영상을 영문으로. 포폴은 1~2학년 과제 중 4개만 추렸어요. 최근엔 구글폼 지원으로 바뀌었다는 얘기도.</p></div>
-      <div class="qa"><p class="qq">어학</p><p>제출이 선택인 줄 알고 안 냈다가, 교학팀 연락받고 급하게 오픽 응시. 성적은 Intermediate Mid 1이었는데 운 좋게 합격.</p></div>
-      <div class="qa"><p class="qq">캠퍼스</p><p>파리캠퍼스는 사실 파리 외곽 ‘세브르’ 마을. 디자인과만 있는 아담한 학교로, 컨테이너 쌓은 건물에 강의실이 흩어져 있어요.</p></div>
-      <div class="qa"><p class="qq">후회하나?</p><p>아니요. 디자인 슬럼프 시기였고 힘들었지만, ‘학생 신분’으로 유럽을 경험하고 비자·주거·알바까지 혼자 해본 게 자산이 됐어요.</p></div>
-    </div>
     <h2 class="sechead">이런 경우도 있어요!</h2>
     <div class="cases3">
       <div class="ccase">
@@ -627,11 +623,15 @@
         <p>어떤 과목이 학점으로 인정되는지 등은 중요한 요소이기 때문에 잘 체크해야 해요. 물론 현재는 시스템 정돈이 더 됐을 것이기 때문에, 사전에 체크를 잘 한다면 후에 꼬이는 일이 발생하지는 않을 거예요.</p>
       </div>
     </div>
+
+    <h2 class="sechead">선배들이 해주고 싶은 이야기</h2>
+    <p class="lead">교환학생을 다녀 온 선배들의 조언들이에요!</p>
+    <div class="feed" id="tipFeed"></div>
   </section>
 
   <!-- ============ 자가진단 > 현 상태 파악 ============ -->
   <section id="diagnose">
-    <div class="crumb">자가진단 <b>›</b> 현 상태 파악</div>
+    <div class="crumb">계획 가이드</div>
     <h1 class="page">현 상태 파악</h1>
     <p class="lead">현재 학년·학기와 가고 싶은 시기를 고르면, 지금 무엇을 준비해야 할지 알려드려요.</p>
 
@@ -720,15 +720,15 @@
 </main>
 
 <footer>
-  온더보드 · 교환학생 정보 격차 해소 프로젝트 (미디어디자인2)<br>
-  국가별 데이터는 국민대 전체 수학보고서(2023~2025) 실제 집계, 조언·사례는 실제 선배 후기를 정리한 것입니다.
+  ON THE BOARD<br>
+  <a href="mailto:eonun197@gmail.com">eonun197@gmail.com</a>
 </footer>
 
 <script>
   /* ===== 네비게이션 ===== */
   const sections = document.querySelectorAll('main section');
   const navitems = document.querySelectorAll('.navitem');
-  const PARENT = {home:'main', route:'content', country:'content', voice:'senior', cases:'senior', diagnose:'diag', more:'more'};
+  const PARENT = {home:'main', route:'content', country:'content', community:'senior', diagnose:'diag', more:'more'};
   function closeDrops(){ navitems.forEach(n=>n.classList.remove('open')); }
   function go(id){
     sections.forEach(s=>s.classList.toggle('on', s.id===id));
@@ -954,8 +954,35 @@
 
   renderAll();
 
+  /* ===== 선배 조언 피드 (에타/SNS 스타일) ===== */
+  const TIPS = [
+    '비자 준비 잘 알아보세요 (기간 주의)',
+    '수업에서 무언가를 얻는다는 기대는 하지 마세요 대신 해외 경험은 좋음',
+    '디자인 뿐 아니라, 연극이나 무용 등 한다거나 외국어를 써서 알바를 한다거나 다양한 경험을 쌓을 수 있어요',
+    '교환학생인만큼, 회화 연습은 미리미리 해두시는게 좋아요',
+    '스트라트는 프랑스 내 다른 학교에 비해 학기 시작과 끝이 늦은 편이라서 비자 신청에 필요한 입학허가증같은게 늦게 나와요!',
+    '비자 신청이 늦어지면 집 구하기도 늦어진답니다.. (프랑스는 보통 캠퍼스 내에 기숙사가 없습니다)',
+    '미국으로 갈거면 국제교류팀 통해서 가야하는데, 점수가 좀 높은걸로 알고 있어요!',
+    '조형대에서는 독일로 많이 가는 것 같아용',
+    '가서 무언가를 얻는다는 느낌보다는 쉰다는 느낌으로 다녀와도 좋아요~ 추천합니당',
+    '담당 교수님도 잘은 모르십니다..',
+    '국제교류팀도 정보가 많은 편은 아닌데, 단과대는 더더욱 없어서 여기저기 물어보는 수밖에 없어요ㅠㅠ'
+  ];
+  const PERSON_SVG = '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 20.5c0-4.4 4-7 8.5-7s8.5 2.6 8.5 7z"/></svg>';
+  const AVB = ['b1','b2','b3','b4'];
+  const feed = document.getElementById('tipFeed');
+  if(feed){
+    feed.innerHTML = TIPS.map((t,i)=>{
+      const likes=(i*7+11)%34+6, cmts=(i*3+1)%5+1;
+      return '<div class="post"><div class="ph"><span class="av '+AVB[i%4]+'">'+PERSON_SVG+'</span>'+
+        '<span class="who">익명<span class="sub">교환 다녀온 선배</span></span></div>'+
+        '<p class="ptxt">'+t+'</p>'+
+        '<div class="react"><span class="rc like">♥ '+likes+'</span><span class="rc">💬 '+cmts+'</span></div></div>';
+    }).join('');
+  }
+
   /* 해시 라우팅 */
-  const ids = ['home','route','country','voice','cases','diagnose','more'];
+  const ids = ['home','route','country','community','diagnose','more'];
   const h = location.hash.replace('#','');
   if(ids.includes(h)) go(h);
   else navitems.forEach(n=>n.classList.toggle('active', n.dataset.top==='main'));
