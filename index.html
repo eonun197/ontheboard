@@ -216,6 +216,31 @@
   .looser{display:inline-block; background:var(--yellow-soft); color:var(--yellow-deep); font-weight:700;
     font-size:13px; border-radius:999px; padding:4px 13px; margin-bottom:6px;}
 
+  /* ===== 본교/조형대 — 질문형 타이틀 카드 뷰 ===== */
+  h1.page.big{font-size:33px; line-height:1.34; margin-bottom:10px;}
+  .qcard{background:var(--paper); border:1px solid var(--line); border-radius:var(--r);
+    padding:28px 30px; margin-top:18px; box-shadow:0 4px 22px rgba(40,80,160,.06);}
+  .qcard-t{font-family:var(--serif); font-weight:800; color:var(--navy); font-size:33px;
+    margin:0 0 20px; line-height:1.28; letter-spacing:-0.3px;}
+  .cbcmp{padding:17px 19px; border-radius:13px; margin-top:14px; border-left:4px solid;
+    font-size:17.5px; color:#46546e; line-height:1.78; word-break:keep-all;}
+  .cbcmp:first-of-type{margin-top:0;}
+  .cbcmp.k{background:var(--blue-soft); border-left-color:var(--blue);}
+  .cbcmp.j{background:var(--yellow-soft); border-left-color:var(--yellow-d);}
+  .cbcmp .clab{font-weight:800; font-size:19.5px; margin-right:4px;}
+  .cbcmp.k .clab{color:var(--blue-d);}
+  .cbcmp.j .clab{color:var(--yellow-deep);}
+  .recwrap{display:flex; flex-direction:column; gap:13px;}
+  .rec{padding:18px 20px; border-radius:13px; border:1.5px solid; font-size:17.5px; color:#46546e;
+    line-height:1.78; word-break:keep-all;}
+  .rec.k{background:var(--blue-soft); border-color:var(--blue);}
+  .rec.j{background:var(--yellow-soft); border-color:var(--yellow-d);}
+  .rec .recto{margin:0 5px; color:var(--muted); font-weight:700;}
+  .rec .recres{font-weight:800; font-size:19px;}
+  .recnote{margin:14px 0 0; font-size:14.5px; color:var(--muted); line-height:1.6; word-break:keep-all;}
+  .rec.k .recres{color:var(--blue-d);}
+  .rec.j .recres{color:var(--yellow-deep);}
+
   /* 조언 카드 */
   .tips{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:16px;}
   .tip{background:var(--paper); border:1px solid var(--line); border-radius:var(--r-sm); padding:22px 24px 20px; position:relative;}
@@ -521,110 +546,34 @@
   <!-- ============ 내용 정리 > 국제교류팀 vs 조형대 ============ -->
   <section id="route">
     <div class="crumb">프로그램 비교 <b>›</b> 본교/조형대</div>
-    <h1 class="page">국제교류팀 vs 조형대</h1>
-    <p class="lead">미대생에겐 교환 경로가 둘입니다. <b>국제교류팀(학교 차원)</b>과 <b>조형대(단과대 차원)</b>. 정보량·성적·면접·준비 기간이 꽤 달라서, 내게 유리한 쪽을 먼저 알아야 해요.</p>
+    <h1 class="page big">국제교류팀vs단과대, 어떤 점이 다른거지?</h1>
+    <p class="lead">국교팀을 통해 다녀온 선배와 단과대 국교팀을 통해 다녀온 선배들의 후기를 바탕으로 정리된 내용을 통해 알아보자!</p>
 
-    <div class="cmp">
-      <div class="cmphead">
-        <div class="h sp">비교항목</div>
-        <div class="h k">국제교류팀<small>본교 주관</small></div>
-        <div class="h j">조형대<small>단과대 주관 · strate 대학</small></div>
-      </div>
-      <div class="cmprow">
-        <div class="asp">정보 획득<br>경로</div>
-        <div class="cell k"><span class="who">국제교류팀</span>공식 홈페이지, 온국민 포털, 인터넷 커뮤니티 등을 통한 상시 확인 가능. 방학 중 오프라인 설명회 개최 및 담당 부서 유선 문의 활성화. 과년도 모집 공지 상시 열람 가능.</div>
-        <div class="cell j"><span class="who">조형대</span>공식 홈페이지 내 안내 정보 부족. 모집 공지가 카카오톡 플러스친구 등을 통해 제한적으로 전파되어 과년도 공지 확인 및 아카이빙 불가.</div>
-      </div>
-      <div class="cmprow">
-        <div class="asp">평가 기준</div>
-        <div class="cell k"><span class="who">국제교류팀</span>학점 40% + 어학 30% + 서류 30% 반영. 정량 평가 비중이 높아 학점과 어학 성적 모두 균형 있는 관리 필수.</div>
-        <div class="cell j"><span class="who">조형대</span>평균 학점 3.5 이상 충족 시 지원 가능. 정량적 점수 경쟁 압박은 다소 낮은 편. (Strate 대학의 경우 면접 없이 자체 자기소개 영상 제출로 대체.)</div>
-      </div>
-      <div class="cmprow">
-        <div class="asp">어학 성적</div>
-        <div class="cell k"><span class="who">국제교류팀</span>선발에 미치는 영향력 매우 높음. 홈페이지 기재 기준은 최저 자격 요건일 뿐이며, 합격 안정권 확보를 위해 기준점 이상의 고고익선 점수 취득 필요.</div>
-        <div class="cell j"><span class="who">조형대</span>중요도 상대적으로 낮음. 운이 좋은 경우 어학성적을 제출하지 않아도 붙는 경우가 있음. 다만 현지 수학 및 행정 리스크 방지를 위한 사전 취득 권장.</div>
-      </div>
-      <div class="cmprow">
-        <div class="asp">면접</div>
-        <div class="cell k"><span class="who">국제교류팀</span>높은 난이도의 심층 면접. 단순 질의응답 외에 집단 토론 형식 도입으로 철저한 사전 대비 요망.</div>
-        <div class="cell j"><span class="who">조형대</span>대면 면접 전형 없음. 평가 부담 없는 원만한 진행.</div>
-      </div>
-      <div class="cmprow">
-        <div class="asp">타임라인</div>
-        <div class="cell k"><span class="who">국제교류팀</span>주로 방학 기간 중 진행. 지원서 접수부터 면접까지 약 2~3주(한 달 이내) 소요되는 단기 프로세스.</div>
-        <div class="cell j"><span class="who">조형대</span>학기 초 지원서 접수. 접수 마감 후 최종 결과 통보까지 약 1~2개월 소요되는 장기 대기형 프로세스.</div>
-      </div>
+    <div class="qcard">
+      <h2 class="qcard-t">1. 국가와 학교</h2>
+      <p class="cbcmp k"><span class="clab">국제교류팀은..</span> 다양한 국가와 학교가 있어서 선택의 폭이 넓어요! 자세한 내용은 학교 홈페이지와 수학보고서에서 확인이 그낭해요.</p>
+      <p class="cbcmp j"><span class="clab">조형대는..</span> 크게 프랑스의 strate(스트라트), 독일의 포르츠하임 이렇게 두 학교 정도가 있어요. 포르츠하임은 공지가 자주 뜨는 편은 아니고 2년에 한 번꼴로 올라오는 것 같습니다. 주로 strate가 학기마다 올라오는 편으로, 파리지점과 리옹지점이 있습니다. 파리지점은 파리 외곽 '세브르'라는 마을에 위치합니다.</p>
     </div>
 
-    <h2 class="sechead">이런 분들께 좋아요!</h2>
-    <div class="fit">
-      <div class="fitcard k">
-        <span class="badge">국제교류팀</span>
-        <ul>
-          <li>선택 폭이 넓은 게 좋아요</li>
-          <li>같이 가는 학생 수가 많으면 좋겠어요</li>
-        </ul>
-      </div>
-      <div class="fitcard j">
-        <span class="badge">단과대 · 조형대</span>
-        <ul>
-          <li>준비 기간이 빠듯하고, 성적을 높이기도 힘든 상황이에요</li>
-          <li>나라는 크게 상관없고, 해외에 나가기만 해도 좋아요</li>
-        </ul>
-      </div>
+    <div class="qcard">
+      <h2 class="qcard-t">2. 성적과 스펙 반영</h2>
+      <p class="cbcmp k"><span class="clab">국제교류팀은..</span> 학점 40%+어학30%+서류30%의 비율로 성적을 반영합니다. 경쟁률이 높은 편이기 때문에, 홈페이지에 나온 커트라인보다는 넉넉한 성적을 취득해두는 것이 좋아요!</p>
+      <p class="cbcmp j"><span class="clab">조형대는..</span> 상대적으로 널널한 편입니다. 후술되겠지만 포트폴리오보다 자소서와 학점이 중요하다고 추정됩니다. 어학의 경우 어학 성적으로 인정하는 시험의 폭도 더 넓고 (토익, 오픽 포함) 간혹 어학 성적표를 준비하지 못한 경우에도 합격하는 경우가 있어요! 물론 따두는 것이 안전합니다. 소통 조금 할 수 있구나 정도로 보여주면 되는 것 같아요. </p>
     </div>
 
-    <h2 class="sechead">지원 서류 비교</h2>
-    <div class="docs2">
-      <div class="doccol k">
-        <h3>🏫 국제교류팀</h3>
-        <p class="sub">학점 40% · 어학 30% · 기타 서류 30%</p>
-        <div class="ditem">
-          <div class="dt"><b>학점</b><span class="pct">40%</span></div>
-          <p>평점 3.0 이상 시 지원 가능. 단, 3.0 근접 시 합격 불안정 — 가능한 한 철저한 사전 관리 필수.</p>
-        </div>
-        <div class="ditem">
-          <div class="dt"><b>어학</b><span class="pct">30%</span></div>
-          <ul>
-            <li>주로 토플·아이엘츠 등 토익 대비 고난도 시험 요구.</li>
-            <li>응시 종목 사전 확인 및 준비 기간 고려한 조기 취득 필요.</li>
-            <li>실물 성적표 제출 요건 고려 필수.</li>
-          </ul>
-        </div>
-        <div class="ditem">
-          <div class="dt"><b>기타 지원 서류</b><span class="pct">30%</span><span style="font-size:12px;color:var(--muted)">포트폴리오 X</span></div>
-          <ul>
-            <li>본교 지원서 내 포트폴리오 미포함.</li>
-            <li>지원 동기 등 서류 작성 비중 높음.</li>
-            <li>예상보다 공들여야 하는 과정으로 사전 작성 권장.</li>
-          </ul>
-        </div>
+    <div class="qcard">
+      <h2 class="qcard-t">3. 포트폴리오와 면접 준비</h2>
+      <p class="cbcmp k"><span class="clab">국제교류팀은..</span> 면접 준비를 잘 해두어야 하나, 서류를 제출하고 면접을 보기까지의 시간이 짧기 때문에 미리미리 회화 연습을 해두는 것이 좋아요! 또한 국민대에 제출하는 서류에는 포트폴리오가 포함되어 있지 않습니다. 파견교에는 제출해야하는 경우가 존재할 수 있으나, 30% 반영되는 서류에는 포트폴리오가 포함되어 있지 않아요! </p>
+      <p class="cbcmp j"><span class="clab">조형대는..</span> 포트폴리오를 제출하긴 하나, 거의 안 보는 것에 가깝습니다. 있어야 하는 것은 맞으나, 퀄리티를 크게 따지지 않았어요. 형식 제한도 없었습니다. 면접은 보지 않고, 영상 제출을 하면 됐습니다.</p>
+    </div>
+
+    <div class="qcard">
+      <h2 class="qcard-t">4. 그렇다면 나는?</h2>
+      <div class="recwrap">
+        <div class="rec k">선택할 수 있는 국가와 학교의 폭이 넓고 우리 학교에서 같이 파견 나가는 학생 수가 많으면 좋겠다!<span class="recto">-&gt;</span><b class="recres">국제교류팀 추천</b></div>
+        <div class="rec j">준비 기간이 빠듯해 높은 어학 성적 준비가 힘들거나 국가나 학교는 큰 상관없다!<span class="recto">-&gt;</span><b class="recres">단과대 추천</b></div>
       </div>
-      <div class="doccol j">
-        <h3>🎨 조형대 <span style="font-size:13px;color:var(--muted)">(strate 기준)</span></h3>
-        <p class="sub">전반적으로 여유로운 편 — 국제교류팀 대비 낮은 부담</p>
-        <div class="ditem">
-          <span class="looser">전반적으로 널널</span>
-          <p>국제교류팀 대비 전반적으로 여유로운 지원 기준.</p>
-        </div>
-        <div class="ditem">
-          <div class="dt"><b>어학</b></div>
-          <ul>
-            <li>미소지 합격 사례 존재. 단, 소지 시 유리.</li>
-            <li>토익·토플·오픽·아이엘츠 등 공공기관 공식 성적표 발급 시험 인정.</li>
-            <li>향후 기준 강화 가능성 존재로 낮은 점수라도 사전 취득 권장 (토익 700점대 수준).</li>
-          </ul>
-        </div>
-        <div class="ditem">
-          <div class="dt"><b>포트폴리오</b></div>
-          <ul>
-            <li>평가 비중 매우 낮음.</li>
-            <li>제출은 필수이나 형식 제한 및 퀄리티 심사 미비.</li>
-            <li>포트폴리오 &lt; 자소서·학점 순의 영향력으로 추정.</li>
-          </ul>
-        </div>
-      </div>
+      <p class="recnote">특징에 따른 추천일 뿐, 절대적인 추천은 아니기에  참고용으로 적합합니다.</p>
     </div>
   </section>
 
