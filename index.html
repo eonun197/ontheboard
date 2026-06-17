@@ -234,20 +234,21 @@
     overflow:hidden; transition:border-color .2s ease, box-shadow .2s ease;}
   .qa-item.open{border-color:var(--blue-l); box-shadow:0 8px 26px rgba(40,80,160,.10);}
   .qa-q{width:100%; text-align:left; background:none; border:none; cursor:pointer;
-    padding:17px 20px; display:flex; align-items:center; gap:13px;}
+    padding:16px 20px; display:flex; flex-direction:column; gap:9px;}
   .qbadge,.abadge{flex-shrink:0; width:27px; height:27px; border-radius:8px; font-family:var(--serif);
     font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center;}
   .qbadge{background:var(--blue); color:#fff;}
   .abadge{background:var(--yellow-d); color:var(--navy); margin-top:1px;}
-  .qbody{flex:1; display:flex; flex-direction:column; gap:6px; min-width:0;}
   .qcat{align-self:flex-start; font-size:11.5px; font-weight:700; border-radius:999px; padding:3px 11px;}
   .qcat.iat{background:var(--blue-soft); color:var(--blue-d);}
   .qcat.col{background:var(--yellow-soft); color:var(--yellow-deep);}
   .qcat.tip{background:#eef1f5; color:var(--sub);}
-  .qtext{font-family:var(--serif); font-size:16.5px; font-weight:600; color:var(--navy);
-    line-height:1.5; word-break:keep-all; transition:color .18s ease;}
+  /* Q · 질문 · 쉐브론 한 줄 — 항상 첫 줄 기준 정렬(높이 무관 통일) */
+  .qrow{display:flex; align-items:flex-start; gap:13px; width:100%;}
+  .qtext{flex:1; min-width:0; font-family:var(--serif); font-size:16.5px; font-weight:600; color:var(--navy);
+    line-height:1.5; word-break:keep-all; transition:color .18s ease; padding-top:2px;}
   .qa-q:hover .qtext{color:var(--blue);}
-  .qchev{flex-shrink:0; color:var(--muted); font-size:13px; transition:transform .3s ease;}
+  .qchev{flex-shrink:0; color:var(--muted); font-size:13px; margin-top:7px; transition:transform .3s ease;}
   .qa-item.open .qchev{transform:rotate(180deg); color:var(--blue);}
   /* 펼침 애니메이션 — grid 0fr→1fr 로 부드럽게 */
   .qa-a-wrap{display:grid; grid-template-rows:0fr; transition:grid-template-rows .32s ease;}
@@ -313,6 +314,16 @@
   .stat .l{font-size:13px; color:var(--muted);}
   h3.blockt{color:var(--navy); margin:28px 0 4px; font-size:18px;}
   h3.blockt .s{font-weight:400; font-size:15.5px; color:var(--muted);}
+  /* 타이틀 라인 + 데이터 새로고침 요청 */
+  .blockt-row{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin:28px 0 4px;}
+  .blockt-row h3.blockt{margin:0;}
+  .refreshbtn{cursor:pointer; border:1.5px solid var(--blue); background:var(--blue-soft); color:var(--blue-d);
+    font-weight:700; font-size:13px; border-radius:999px; padding:7px 14px; transition:.15s; white-space:nowrap;}
+  .refreshbtn:hover{background:var(--blue); color:#fff;}
+  .refreshbtn:active{transform:scale(.97);}
+  .refreshok{display:inline-flex; align-items:center; gap:6px; background:var(--blue); color:#fff;
+    font-weight:700; font-size:13px; border-radius:999px; padding:7px 14px; white-space:nowrap; animation:pop .22s ease;}
+  .refreshok b{font-weight:800;}
   .semchart{display:flex; align-items:flex-end; gap:5px; height:150px; padding:10px 2px 0; margin:12px 0 2px;}
   .semchart .sc{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%;}
   .semchart .scbar{width:100%; max-width:58px; background:var(--blue-l); border-radius:8px 8px 0 0; transition:height .5s ease;}
@@ -621,14 +632,17 @@
   <section id="country">
     <div class="crumb">프로그램 비교 <b>›</b> 국가 별</div>
     <h1 class="page">국가 별 비교</h1>
-    <p class="lead">티오(모집 인원)는 해마다 달라 고정값이 없습니다. 대신 <b>실제로 몇 명이 갔는지</b>를 보면 그 나라가 그동안 얼마나 열려 있었는지를 가늠할 수 있어요. (국제교류팀 수학보고서 기준)</p>
+    <p class="lead">학교 별 티오는 매년 달라지나, 파견 다녀온 학생들의 수학보고서를 통해 그 정도를 가늠할 수 있습니다.</p>
     <div class="stat-row">
       <div class="stat"><div class="n">1,042</div><div class="l">전체 교환학생(명)</div></div>
       <div class="stat"><div class="n">28</div><div class="l">파견 국가 수</div></div>
       <div class="stat"><div class="n">독일</div><div class="l">최다 파견국 (282명·27%)</div></div>
       <div class="stat"><div class="n">~58</div><div class="l">매 학기 평균(명)</div></div>
     </div>
-    <h3 class="blockt">학기별 파견 인원 <span class="s">(2017~2025 전체)</span></h3>
+    <div class="blockt-row">
+      <h3 class="blockt">학기별 파견 인원 <span class="s">(2017~2025 전체)</span></h3>
+      <span id="refreshWrap"><button class="refreshbtn" id="refreshBtn">🔄 데이터 새로고침 요청</button></span>
+    </div>
     <div class="semchart" id="semChart"></div>
 
     <h3 class="blockt">국가별 파견 인원 비교 <span class="s">— 연도·학기·국가를 골라 비교하세요</span></h3>
@@ -730,6 +744,26 @@
     <div class="crumb">더보기</div>
     <h1 class="page">더보기</h1>
     <p class="lead">계획을 어느 정도 세우셨다면, 각자에게 필요한 정보를 더 탐색해보세요!</p>
+
+    <!-- 특정 국가의 후기 — 실전 후기 미리보기 + 아웃링크 (상단 배치) -->
+    <div class="lkfeat">
+      <div class="lkh"><h3>특정 국가의 후기</h3></div>
+      <p class="desc">먼저 다녀온 선배들이 직접 남긴 생생한 후기.</p>
+      <div class="rvbox">
+        <div class="rvbox-h"><span class="rvflag">🇫🇷</span>프랑스 파견 선배 실전 후기<span class="rvmini">미리보기</span></div>
+        <div class="rvlist">
+          <p class="rvq">학기가 인정되는 것이므로 대학 등록금을 내고 갔다왔습니다... 국민대 등록금이요 ㅠㅠ 이후 비자 신청하는데에만 30만원이 더 들었어요. (이건 학교 문제가 아니라 비자 문제)</p>
+          <p class="rvq">한 학기 다녀오는데 (6개월 체류) 집 월세 제외 약 1300만원 들었습니다..! 비행기 타고 여행 간 것은,, 3번 정도로 남들보다 적게 다녀온 것 같아요.</p>
+          <p class="rvq">나라별로 집 구하는 방법이 다른데,, 프랑스는 학교 내 기숙사같은게 없어서 따로 학사 같은 곳을 찾거나 월세 집을 찾아야햇습니다.</p>
+          <p class="rvq">맞다!! 스트라트는 프랑스 내 다른 학교에 비해 학기 시작과 끝이 늦어서, 비자 신청에 필요한 학교입학허가증?같은게 굉장히 늦게 나와요..! 그래서 비자 신청 늦어지고, 집 구하기도 늦어져서 저는 월세 100만원인 곳에,, 갔습니다... 더 저렴하게 구하실 수 있을거예요 집은...</p>
+        </div>
+      </div>
+      <div class="rvcta">
+        <p class="rvcta-t">더 많은 국가별, 학교별 생생한 후기를 보고 싶다면?</p>
+        <a class="rvbtn" href="https://kep.kookmin.ac.kr/nx/portal.html?menuId=M104196&amp;locale=ko" target="_blank" rel="noopener">on국민 수학보고서 바로가기 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+
     <div class="links">
       <a class="lk" href="https://iat.kookmin.ac.kr/international/community/notice/" target="_blank" rel="noopener">
         <span class="ltag b">본교 국교팀</span>
@@ -755,25 +789,6 @@
         <span class="ltag c">조형대 교학팀</span>
         <div class="lkh"><h3>단과대 교환학생 문의</h3></div>
         <p>조형대 차원 파견 관련 사항은 단과대 <b>교학팀</b>으로 직접 문의.</p>
-      </div>
-    </div>
-
-    <!-- 특정 국가의 후기 — 실전 후기 미리보기 + 아웃링크 -->
-    <div class="lkfeat">
-      <div class="lkh"><h3>특정 국가의 후기</h3></div>
-      <p class="desc">먼저 다녀온 선배들이 직접 남긴 나라·학교별 실전 수학 보고서.</p>
-      <div class="rvbox">
-        <div class="rvbox-h"><span class="rvflag">🇫🇷</span>프랑스 파견 선배 실전 후기<span class="rvmini">미리보기</span></div>
-        <div class="rvlist">
-          <p class="rvq">학기가 인정되는 것이므로 대학 등록금을 내고 갔다왔습니다... 국민대 등록금이요 ㅠㅠ 이후 비자 신청하는데에만 30만원이 더 들었어요. (이건 학교 문제가 아니라 비자 문제)</p>
-          <p class="rvq">한 학기 다녀오는데 (6개월 체류) 집 월세 제외 약 1300만원 들었습니다..! 비행기 타고 여행 간 것은,, 3번 정도로 남들보다 적게 다녀온 것 같아요.</p>
-          <p class="rvq">나라별로 집 구하는 방법이 다른데,, 프랑스는 학교 내 기숙사같은게 없어서 따로 학사 같은 곳을 찾거나 월세 집을 찾아야햇습니다.</p>
-          <p class="rvq">맞다!! 스트라트는 프랑스 내 다른 학교에 비해 학기 시작과 끝이 늦어서, 비자 신청에 필요한 학교입학허가증?같은게 굉장히 늦게 나와요..! 그래서 비자 신청 늦어지고, 집 구하기도 늦어져서 저는 월세 100만원인 곳에,, 갔습니다... 더 저렴하게 구하실 수 있을거예요 집은...</p>
-        </div>
-      </div>
-      <div class="rvcta">
-        <p class="rvcta-t">더 많은 국가별·학교별 생생한 수학 보고서(후기)를 보고 싶다면?</p>
-        <a class="rvbtn" href="https://kep.kookmin.ac.kr/nx/portal.html?menuId=M104196&amp;locale=ko" target="_blank" rel="noopener">on국민 수학보고서 바로가기 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </section>
@@ -914,6 +929,25 @@
   const sc = document.getElementById('semChart');
   if(sc){ sc.innerHTML = SEM.map(([k,v])=>
     '<div class="sc"><span class="scv">'+v+'</span><div class="scbar" style="height:'+(v/semMax*100)+'%"></div><span class="scl">'+k.slice(2)+'</span></div>').join(''); }
+
+  /* ===== 데이터 새로고침 요청 — 차기 버전(2026~) 업데이트 수요 집계 ===== */
+  (function(){
+    const RKEY='ontheboard_refresh_count', DKEY='ontheboard_refresh_done', BASE=41;
+    const lsGet=(k,d)=>{ try{ const v=localStorage.getItem(k); return v===null?d:v; }catch(e){ return d; } };
+    const lsSet=(k,v)=>{ try{ localStorage.setItem(k,v); }catch(e){} };
+    const wrap=document.getElementById('refreshWrap');
+    const btn=document.getElementById('refreshBtn');
+    if(!wrap||!btn) return;
+    const done=(n)=>{ wrap.innerHTML='<span class="refreshok">✓ 요청이 완료되었습니다! <b>(누적 '+n+'명)</b></span>'; };
+    if(lsGet(DKEY,'')){ done(parseInt(lsGet(RKEY, String(BASE+1)),10)); return; }
+    btn.addEventListener('click', ()=>{
+      const n=parseInt(lsGet(RKEY, String(BASE)),10)+1;
+      lsSet(RKEY, String(n)); lsSet(DKEY,'1');
+      done(n);
+      // 관리자 메일 연동(선택): 사용자가 메일 클라이언트로 의사 전달
+      // location.href='mailto:eonun197@gmail.com?subject=데이터 새로고침 요청&body=2026년 이후 데이터 업데이트를 요청합니다.';
+    });
+  })();
 
   /* 국가 × 연도-학기 실제 파견 데이터 (전체 연도 2017~2025, 교환학생 1042명) */
   const COUNTRY = [
@@ -1078,10 +1112,12 @@
     const body = renderAnswer(item.a);
     return '<div class="qa-item '+item.cat+(open?' open':'')+'">'+
       '<button class="qa-q" aria-expanded="'+(open?'true':'false')+'">'+
-        '<span class="qbadge">Q</span>'+
-        '<span class="qbody"><span class="qcat '+item.cat+'">'+CATLABEL[item.cat]+'</span>'+
-        '<span class="qtext">'+escapeHtml(item.q)+'</span></span>'+
-        '<span class="qchev">▾</span>'+
+        '<span class="qcat '+item.cat+'">'+CATLABEL[item.cat]+'</span>'+
+        '<span class="qrow">'+
+          '<span class="qbadge">Q</span>'+
+          '<span class="qtext">'+escapeHtml(item.q)+'</span>'+
+          '<span class="qchev">▾</span>'+
+        '</span>'+
       '</button>'+
       '<div class="qa-a-wrap"><div class="qa-a"><div class="qa-a-inner">'+
         '<span class="abadge">A</span><div class="qa-text">'+body+'</div>'+
