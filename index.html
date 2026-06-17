@@ -221,13 +221,47 @@
   .tip{background:var(--paper); border:1px solid var(--line); border-radius:var(--r-sm); padding:22px 24px 20px; position:relative;}
   .tip .q{font-size:30px; color:var(--yellow-d); font-family:var(--serif); position:absolute; top:14px; left:18px; opacity:.55; line-height:1;}
   .tip p{margin:0; font-size:16.5px; padding-left:32px; color:var(--ink); line-height:1.6;}
-  /* 선배 조언 — 에타/SNS 피드 */
-  .feed{display:flex; flex-direction:column; margin-top:12px; border-top:1px solid var(--line);}
-  .post{background:transparent; border:none; border-bottom:1px solid var(--line); border-radius:0; padding:18px 4px; box-shadow:none;}
-  .post .pcountry{display:inline-block; font-size:12px; font-weight:600; color:var(--sub); background:#eef1f5; border-radius:6px; padding:2px 9px; margin-bottom:8px;}
-  .post .ptitle{display:block; font-size:17px; font-weight:700; color:var(--navy); margin:0 0 5px;}
-  .post .ptxt{margin:0 0 9px; font-size:15.5px; color:var(--sub); line-height:1.55; word-break:keep-all;}
-  .post .pmeta{font-size:12.5px; color:var(--muted);}
+  /* 선배 실전 팁 — 지식인 스타일 아코디언 Q&A */
+  .acc{display:flex; flex-direction:column; gap:12px; margin-top:16px; transition:opacity .18s ease, transform .18s ease;}
+  .acc.switching{opacity:0; transform:translateY(6px);}
+  /* 카테고리 필터 칩 */
+  .qfilter{display:flex; flex-wrap:wrap; gap:9px; margin-top:18px;}
+  .qchip{cursor:pointer; border:1.5px solid var(--line); background:#fff; color:#5b6b82;
+    border-radius:999px; padding:9px 17px; font-size:14.5px; font-weight:600; transition:.15s;}
+  .qchip:hover{border-color:var(--blue); color:var(--blue);}
+  .qchip.on{background:var(--blue); border-color:var(--blue); color:#fff;}
+  .qa-item{background:var(--paper); border:1px solid var(--line); border-radius:var(--r-sm);
+    overflow:hidden; transition:border-color .2s ease, box-shadow .2s ease;}
+  .qa-item.open{border-color:var(--blue-l); box-shadow:0 8px 26px rgba(40,80,160,.10);}
+  .qa-q{width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    padding:17px 20px; display:flex; align-items:center; gap:13px;}
+  .qbadge,.abadge{flex-shrink:0; width:27px; height:27px; border-radius:8px; font-family:var(--serif);
+    font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center;}
+  .qbadge{background:var(--blue); color:#fff;}
+  .abadge{background:var(--yellow-d); color:var(--navy); margin-top:1px;}
+  .qbody{flex:1; display:flex; flex-direction:column; gap:6px; min-width:0;}
+  .qcat{align-self:flex-start; font-size:11.5px; font-weight:700; border-radius:999px; padding:3px 11px;}
+  .qcat.iat{background:var(--blue-soft); color:var(--blue-d);}
+  .qcat.col{background:var(--yellow-soft); color:var(--yellow-deep);}
+  .qcat.tip{background:#eef1f5; color:var(--sub);}
+  .qtext{font-family:var(--serif); font-size:16.5px; font-weight:600; color:var(--navy);
+    line-height:1.5; word-break:keep-all; transition:color .18s ease;}
+  .qa-q:hover .qtext{color:var(--blue);}
+  .qchev{flex-shrink:0; color:var(--muted); font-size:13px; transition:transform .3s ease;}
+  .qa-item.open .qchev{transform:rotate(180deg); color:var(--blue);}
+  /* 펼침 애니메이션 — grid 0fr→1fr 로 부드럽게 */
+  .qa-a-wrap{display:grid; grid-template-rows:0fr; transition:grid-template-rows .32s ease;}
+  .qa-item.open .qa-a-wrap{grid-template-rows:1fr;}
+  .qa-a{overflow:hidden; min-height:0;}
+  .qa-a-inner{display:flex; gap:13px; padding:4px 20px 22px;}
+  .qa-text{flex:1; min-width:0;}
+  .qa-text p{margin:0 0 11px; font-size:15.5px; color:#46546e; line-height:1.72; word-break:keep-all;}
+  .qa-text b{color:var(--navy); font-weight:700;}
+  .qa-ul{margin:0 0 11px; padding-left:19px; display:flex; flex-direction:column; gap:9px;}
+  .qa-ul li{font-size:15.5px; color:#46546e; line-height:1.72; word-break:keep-all;}
+  .qa-ul li b{color:var(--navy); font-weight:700;}
+  .qa-note{margin:0 0 11px; font-style:italic; color:var(--muted); font-size:14.5px; line-height:1.65; word-break:keep-all;}
+  .qa-text > *:last-child{margin-bottom:0;}
 
   /* 사례(후기) */
   .story{background:var(--paper); border:1px solid var(--line); border-radius:var(--r); padding:28px 32px; margin-top:18px;}
@@ -254,12 +288,22 @@
     border-radius:999px; padding:9px 18px; font-size:15.5px; font-weight:500; transition:.15s;}
   .opt:hover{border-color:var(--blue); color:var(--blue);}
   .opt.on{background:var(--blue); border-color:var(--blue); color:#fff;}
-  #quizResult{margin-top:6px;}
-  .result{background:var(--blue-soft); border-radius:var(--r-sm); padding:20px 22px; animation:fade .3s;}
-  .result h3{margin:0 0 10px; color:var(--blue-d); font-size:17px;}
-  .rrow{margin:9px 0; font-size:16px; color:#46546e;}
-  .rrow .tg{display:inline-block; background:var(--yellow-d); color:var(--navy); font-weight:700; border-radius:7px; padding:2px 10px; font-size:13px; margin-right:4px;}
-  .rrow b{color:var(--blue-d);}
+  /* 개별 가이드 — 진단 결과 항목별 카드 */
+  .dzcards{display:flex; flex-direction:column; gap:14px; margin-top:6px; animation:fade .3s;}
+  .dzcard{background:var(--paper); border:1px solid var(--line); border-left:4px solid var(--blue);
+    border-radius:var(--r-sm); padding:17px 20px; box-shadow:0 3px 16px rgba(40,80,160,.05);}
+  .dzcard.strat{border-left-color:var(--yellow-d);}
+  .dzcard.warn{border-left-color:#d64545; background:#fdf2f2;}
+  .dzcard-h{display:flex; align-items:center; gap:9px; font-family:var(--serif); font-weight:700; color:var(--navy); font-size:16.5px;}
+  .dzicon{flex-shrink:0; width:24px; height:24px; border-radius:7px; background:var(--blue); color:#fff;
+    font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center;}
+  .dzcard.strat .dzicon{background:var(--yellow-d); color:var(--navy);}
+  .dzcard.warn .dzicon{background:#d64545;}
+  .dzcard-meta{display:inline-block; margin:11px 0 9px; background:var(--blue-soft); color:var(--blue-d);
+    font-weight:700; border-radius:8px; padding:4px 12px; font-size:13px;}
+  .dzcard-body{margin:0; font-size:15.5px; color:#46546e; line-height:1.68; word-break:keep-all;}
+  .dzlist{margin:0; padding-left:18px; display:flex; flex-direction:column; gap:8px;}
+  .dzlist li{font-size:15.5px; color:#46546e; line-height:1.62; word-break:keep-all;}
   .qhint{color:var(--muted); font-size:15.5px; padding:16px 0 4px;}
 
   /* 국가별 차트/표 */
@@ -326,6 +370,27 @@
   .lk p b{color:var(--blue-d);}
   .lk.static{background:#f7faff;}
   .lk .chan{display:inline-block; margin-top:9px; font-size:12px; font-weight:600; color:var(--blue-d); background:var(--blue-soft); border-radius:999px; padding:3px 11px;}
+  /* 더보기 — 부서 태그 뱃지 */
+  .ltag{display:inline-block; font-size:11.5px; font-weight:700; border-radius:999px; padding:3px 11px; margin-bottom:10px;}
+  .ltag.b{background:var(--blue-soft); color:var(--blue-d);}
+  .ltag.p{background:#e9edf7; color:var(--navy);}
+  .ltag.c{background:var(--yellow-soft); color:var(--yellow-deep);}
+  /* 더보기 — 후기 미리보기 피처 카드 */
+  .lkfeat{background:var(--paper); border:1px solid var(--line); border-radius:var(--r); padding:24px 26px; margin-top:16px; box-shadow:0 4px 22px rgba(40,80,160,.06);}
+  .lkfeat .lkh{margin-bottom:5px;}
+  .lkfeat .desc{margin:0 0 15px; font-size:15.5px; color:var(--sub); line-height:1.6;}
+  .rvbox{background:#f7faff; border:1px solid var(--line); border-radius:var(--r-sm); padding:16px 18px;}
+  .rvbox-h{display:flex; align-items:center; gap:8px; font-family:var(--serif); font-weight:700; color:var(--navy); font-size:14.5px; margin-bottom:12px;}
+  .rvflag{font-size:16px; line-height:1;}
+  .rvbox-h .rvmini{margin-left:auto; font-size:11px; font-weight:700; color:var(--blue-d); background:var(--blue-soft); border-radius:999px; padding:2px 9px;}
+  .rvlist{display:flex; flex-direction:column; gap:10px;}
+  .rvq{margin:0; padding:11px 14px; background:#fff; border:1px solid var(--line); border-left:3px solid var(--blue-l);
+    border-radius:10px; font-size:14.5px; color:#46546e; line-height:1.66; word-break:keep-all;}
+  .rvcta{margin-top:18px; text-align:center;}
+  .rvcta-t{margin:0 0 12px; font-size:15.5px; font-weight:600; color:var(--navy); word-break:keep-all;}
+  .rvbtn{display:inline-flex; align-items:center; gap:8px; background:var(--blue); color:#fff; font-weight:700;
+    font-size:15.5px; border-radius:999px; padding:13px 26px; transition:.16s; box-shadow:0 6px 18px rgba(39,103,214,.28);}
+  .rvbtn:hover{background:var(--blue-d); transform:translateY(-2px); box-shadow:0 11px 26px rgba(39,103,214,.34); text-decoration:none;}
   footer{border-top:1px solid var(--line); margin-top:60px; padding:22px; color:var(--muted); font-size:12.5px; text-align:center; line-height:1.7;}
 
   /* ============ 모바일 (≤880px) ============ */
@@ -364,6 +429,12 @@
     .cmprow .cell .who{display:block; font-size:13px; margin-bottom:7px;}
     .cmprow .cell.j{background:var(--yellow-soft);}
     .dropdown{right:0; left:auto;}
+    /* 더보기 후기 피처 카드 — 모바일 여백 축소 */
+    .lkfeat{padding:20px 18px;}
+    /* 아코디언 — 모바일 여백 축소 */
+    .qa-q{padding:15px 16px; gap:11px;}
+    .qa-a-inner{padding:4px 16px 18px; gap:11px;}
+    .qtext{font-size:16px;}
   }
 </style>
 </head>
@@ -383,7 +454,7 @@
         </div>
       </div>
       <div class="navitem" data-top="senior">
-        <button class="top" data-go="community">합격자 커뮤니티</button>
+        <button class="top" data-go="community">선배들의 실전 팁</button>
       </div>
       <div class="navitem" data-top="diag">
         <button class="top" data-go="diagnose">계획 가이드</button>
@@ -414,7 +485,7 @@
     <div class="boards">
       <div class="card board" data-go="community">
         <div class="bh">
-          <h3>합격자 커뮤니티</h3>
+          <h3>선배들의 실전 팁</h3>
           <span class="bgo">더 보기 →</span>
         </div>
         <div class="voiceitem"><span class="qq">“</span><span>비자 준비 잘 알아보세요 (기간 주의)</span></div>
@@ -550,7 +621,7 @@
   <section id="country">
     <div class="crumb">프로그램 비교 <b>›</b> 국가 별</div>
     <h1 class="page">국가 별 비교</h1>
-    <p class="lead">티오(모집 인원)는 해마다 달라 고정값이 없습니다. 대신 <b>실제로 몇 명이 갔는지</b>를 보면 그 나라가 그동안 얼마나 열려 있었는지를 가늠할 수 있어요. <span style="color:var(--muted)">(국제교류팀 수학보고서 기준)</span></p>
+    <p class="lead">티오(모집 인원)는 해마다 달라 고정값이 없습니다. 대신 <b>실제로 몇 명이 갔는지</b>를 보면 그 나라가 그동안 얼마나 열려 있었는지를 가늠할 수 있어요. (국제교류팀 수학보고서 기준)</p>
     <div class="stat-row">
       <div class="stat"><div class="n">1,042</div><div class="l">전체 교환학생(명)</div></div>
       <div class="stat"><div class="n">28</div><div class="l">파견 국가 수</div></div>
@@ -584,41 +655,23 @@
     </div>
     <div class="fsummary" id="fsummary"></div>
     <div id="countryChart" class="chart"></div>
-    <div class="tscroll">
-      <table>
-        <thead><tr><th>국가</th><th>파견 인원</th><th>실제 최다 파견 대학</th></tr></thead>
-        <tbody id="countryTable"></tbody>
-      </table>
-    </div>
   </section>
 
-  <!-- ============ 합격자 커뮤니티 ============ -->
+  <!-- ============ 선배들의 실전 팁 ============ -->
   <section id="community">
-    <div class="crumb">합격자 커뮤니티</div>
-    <h1 class="page">합격자 커뮤니티</h1>
+    <div class="crumb">선배들의 실전 팁</div>
+    <h1 class="page">선배들의 실전 팁</h1>
+    <p class="lead">검색창에 나오는 현지 생활 후기는 온국민 ‘수학보고서’를 참고하세요. 온더보드는 포털에 기록되지 않는 실전 준비 과정의 변수, 스펙 커트라인의 진실을 선배들의 진짜 인터뷰 데이터를 통해 투명하게 공개합니다.</p>
 
-    <h2 class="sechead">이런 경우도 있어요!</h2>
-    <div class="cases3">
-      <div class="ccase">
-        <div class="cnum">1</div>
-        <h3>교환학생을 1년 가는 경우</h3>
-        <p>한 학기를 먼저 가고, 해외에서 연장 신청을 합니다. 이 경우에는 서류도 또 작성해야 하고, 면접도 보는 등의 절차를 거칩니다.</p>
-      </div>
-      <div class="ccase">
-        <div class="cnum">2</div>
-        <h3>두 나라를 가는 경우</h3>
-        <p>말 그대로 교환학생을 한 번 다녀오고 한 번 더 신청해, 두 나라에서의 교환을 경험해볼 수도 있어요.</p>
-      </div>
-      <div class="ccase">
-        <div class="cnum">3</div>
-        <h3>학점 인정이 안 돼, 다녀온 후 학점을 많이 들은 경우</h3>
-        <p>어떤 과목이 학점으로 인정되는지 등은 중요한 요소이기 때문에 잘 체크해야 해요. 물론 현재는 시스템 정돈이 더 됐을 것이기 때문에, 사전에 체크를 잘 한다면 후에 꼬이는 일이 발생하지는 않을 거예요.</p>
-      </div>
+    <h2 class="sechead">선배 인터뷰 Q&amp;A</h2>
+    <p class="lead">궁금한 카테고리를 고르고, 질문을 눌러 답변을 펼쳐 보세요.</p>
+    <div class="qfilter" id="qaFilter">
+      <button class="qchip on" data-filter="all">전체</button>
+      <button class="qchip" data-filter="iat">국제교류팀</button>
+      <button class="qchip" data-filter="col">단과대(조형대)</button>
+      <button class="qchip" data-filter="tip">파견/행정 꿀팁</button>
     </div>
-
-    <h2 class="sechead">선배들의 경험담</h2>
-    <p class="lead">교환학생을 다녀 온 선배들의 조언들이에요!</p>
-    <div class="feed" id="tipFeed"></div>
+    <div class="acc" id="qaAcc"></div>
   </section>
 
   <!-- ============ 자가진단 > 현 상태 파악 ============ -->
@@ -679,34 +732,48 @@
     <p class="lead">계획을 어느 정도 세우셨다면, 각자에게 필요한 정보를 더 탐색해보세요!</p>
     <div class="links">
       <a class="lk" href="https://iat.kookmin.ac.kr/international/community/notice/" target="_blank" rel="noopener">
+        <span class="ltag b">본교 국교팀</span>
         <div class="lkh"><h3>설명회 신청</h3><span class="ext"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></div>
-        <p>설명회에선 지원 자격·지원 서류, 지원 방법, 선발 과정, 프로그램 정보 확인법, 프로그램별 주요사항, FAQ, 실시간 Q&amp;A까지 상세히 다뤄요.</p>
-        <span class="chan">학교 공지사항 참고</span>
+        <p>지원 자격·서류·선발 과정·FAQ 등 준비 전반을 다루는 공식 설명회 안내.</p>
       </a>
       <a class="lk" href="https://iat.kookmin.ac.kr/international/find" target="_blank" rel="noopener">
+        <span class="ltag b">본교 국교팀</span>
         <div class="lkh"><h3>국가별 대학 · 어학 점수</h3><span class="ext"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></div>
-        <p>나라별 파견 가능 대학과 요구 어학 점수를 확인하세요.</p>
-        <span class="chan">학교 공식 홈페이지</span>
+        <p>나라별 파견 가능 대학 및 요구 어학 점수 조회.</p>
       </a>
       <a class="lk" href="https://iat.kookmin.ac.kr/international/tuition" target="_blank" rel="noopener">
+        <span class="ltag b">본교 국교팀</span>
         <div class="lkh"><h3>등록금 · 장학금 안내</h3><span class="ext"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></div>
-        <p>파견 시 등록금 처리와 장학금 정보를 확인하세요.</p>
-        <span class="chan">학교 공식 홈페이지</span>
-      </a>
-      <a class="lk" href="https://kep.kookmin.ac.kr/nx/portal.html?menuId=M104196&amp;locale=ko" target="_blank" rel="noopener">
-        <div class="lkh"><h3>특정 국가의 후기</h3><span class="ext"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></div>
-        <p>먼저 다녀온 선배들의 후기를 가고 싶은 나라·학교별로 직접 검색해 보세요.</p>
-        <span class="chan">on국민 수학보고서</span>
+        <p>파견 시 등록금 처리 방식 및 장학금 정보 안내.</p>
       </a>
       <a class="lk" href="https://iat.kookmin.ac.kr/international/community/qna/?sc=" target="_blank" rel="noopener">
-        <div class="lkh"><h3>국제교류팀 교환학생 문의하고 싶어요!</h3><span class="ext"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></div>
-        <p>국제교류팀 Q&amp;A 게시판에 질문하세요.</p>
-        <span class="chan">국제교류 Q&amp;A</span>
+        <span class="ltag b">본교 국교팀</span>
+        <div class="lkh"><h3>국제교류팀 교환학생 문의</h3><span class="ext"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></div>
+        <p>국제교류팀 Q&amp;A 게시판을 통한 공식 문의 창구.</p>
       </a>
       <div class="lk static">
-        <div class="lkh"><h3>단과대 교환학생 문의하고 싶어요!</h3></div>
-        <p>조형대 차원 파견은 단과대 <b>교학팀</b>에 직접 문의하세요.</p>
-        <span class="chan">조형대 교학팀</span>
+        <span class="ltag c">조형대 교학팀</span>
+        <div class="lkh"><h3>단과대 교환학생 문의</h3></div>
+        <p>조형대 차원 파견 관련 사항은 단과대 <b>교학팀</b>으로 직접 문의.</p>
+      </div>
+    </div>
+
+    <!-- 특정 국가의 후기 — 실전 후기 미리보기 + 아웃링크 -->
+    <div class="lkfeat">
+      <div class="lkh"><h3>특정 국가의 후기</h3></div>
+      <p class="desc">먼저 다녀온 선배들이 직접 남긴 나라·학교별 실전 수학 보고서.</p>
+      <div class="rvbox">
+        <div class="rvbox-h"><span class="rvflag">🇫🇷</span>프랑스 파견 선배 실전 후기<span class="rvmini">미리보기</span></div>
+        <div class="rvlist">
+          <p class="rvq">학기가 인정되는 것이므로 대학 등록금을 내고 갔다왔습니다... 국민대 등록금이요 ㅠㅠ 이후 비자 신청하는데에만 30만원이 더 들었어요. (이건 학교 문제가 아니라 비자 문제)</p>
+          <p class="rvq">한 학기 다녀오는데 (6개월 체류) 집 월세 제외 약 1300만원 들었습니다..! 비행기 타고 여행 간 것은,, 3번 정도로 남들보다 적게 다녀온 것 같아요.</p>
+          <p class="rvq">나라별로 집 구하는 방법이 다른데,, 프랑스는 학교 내 기숙사같은게 없어서 따로 학사 같은 곳을 찾거나 월세 집을 찾아야햇습니다.</p>
+          <p class="rvq">맞다!! 스트라트는 프랑스 내 다른 학교에 비해 학기 시작과 끝이 늦어서, 비자 신청에 필요한 학교입학허가증?같은게 굉장히 늦게 나와요..! 그래서 비자 신청 늦어지고, 집 구하기도 늦어져서 저는 월세 100만원인 곳에,, 갔습니다... 더 저렴하게 구하실 수 있을거예요 집은...</p>
+        </div>
+      </div>
+      <div class="rvcta">
+        <p class="rvcta-t">더 많은 국가별·학교별 생생한 수학 보고서(후기)를 보고 싶다면?</p>
+        <a class="rvbtn" href="https://kep.kookmin.ac.kr/nx/portal.html?menuId=M104196&amp;locale=ko" target="_blank" rel="noopener">on국민 수학보고서 바로가기 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </section>
@@ -765,13 +832,18 @@
 
   /* ===== 개별 가이드 — 태그 → 모집 일정 강조 + 시기차 안내 + 체크리스트 ===== */
   const dz = {curY:null, curT:null, goY:null, goT:null};
-  const gradeMsg = {1:'본교에서 1학기 이상은 수학해야 지원할 수 있어요!',2:'많이 준비하는 시기에요!',3:'많이 가는 시기에요!',4:'잔여학기가 있어야 지원할 수 있어요! (졸업 연기 1회 가능)'};
+  const gradeMsg = {
+    1:'본교 1학기 이상 수학 기준 충족으로 지원 자격 확보. (최소 1학기 수학 필요)',
+    2:'교환학생 사전 준비에 적합한 시기.',
+    3:'실제 파견이 가장 활발한 시기.',
+    4:'잔여 학기 보유 시 지원 가능. (졸업 연기 1회 가능)'
+  };
   const diffMsg = {
-    0:['가장 빨리 지원할 수 있는 시기는 다음 학기에요!'],
-    1:['지원을 아직 안 하셨다면, 조형대 교환학생을 지원할 수 있어요!'],
-    2:['국교팀, 조형대 교환학생 모두 지원 준비를 할 수 있어요!','어학성적이 없으시다면, 학점을 챙길 수 있는 선에서 최대한 빠른 시일 내에 준비하는걸 권장해요!'],
-    3:['국교팀, 조형대 교환학생 모두 지원 준비를 할 수 있어요!','다음 학기 방학에 어학성적을 미리 따두는 것을 권장해요!'],
-    4:['국교팀, 조형대 교환학생 모두 지원 준비를 할 수 있어요!','국교팀에 지원하실 예정이라면 학점과 어학이 모두 중요하기 때문에 잘 준비해두시면 좋아요!']
+    0:['가장 빠른 지원 가능 시기는 다음 학기.'],
+    1:['미지원 시 조형대 교환학생 지원 가능.'],
+    2:['국교팀·조형대 교환학생 모두 지원 준비 가능.','어학 성적 미보유 시 학점 관리가 가능한 선에서 조속한 취득 권장.'],
+    3:['국교팀·조형대 교환학생 모두 지원 준비 가능.','다음 학기 방학 중 어학 성적 사전 취득 권장.'],
+    4:['국교팀·조형대 교환학생 모두 지원 준비 가능.','국교팀 지망 시 학점·어학 정량 평가 비중이 높으므로 철저한 사전 관리 요망.']
   };
   function semIndex(y,t){ return (y-1)*2 + t; }
   function buildChecklist(){
@@ -792,18 +864,34 @@
     }
     const box = document.getElementById('dzResult');
     if(!box) return;
+    const hasGrade = !!dz.curY;
+    const hasPath = dz.curY && dz.curT && dz.goY && dz.goT;
     let html = '';
-    if(dz.curY || (dz.curT && dz.goY && dz.goT)){
-      html += '<div class="result">';
-      if(dz.curY) html += '<div class="rrow"><span class="tg">현재 '+dz.curY+'학년</span>'+gradeMsg[dz.curY]+'</div>';
-      if(dz.curY && dz.curT && dz.goY && dz.goT){
+    if(hasGrade || hasPath){
+      html += '<div class="dzcards">';
+      // ① 지원 자격
+      if(hasGrade){
+        html += '<div class="dzcard cap">'+
+          '<div class="dzcard-h"><span class="dzicon">1</span>지원 자격</div>'+
+          '<span class="dzcard-meta">현재 '+dz.curY+'학년</span>'+
+          '<p class="dzcard-body">'+gradeMsg[dz.curY]+'</p>'+
+        '</div>';
+      }
+      // ② 남은 기간 및 전략
+      if(hasPath){
         const diff = semIndex(dz.goY,dz.goT) - semIndex(dz.curY,dz.curT);
         if(diff < 0){
-          html += '<div class="rrow">갈 시기가 현재보다 빠를 순 없어요. ‘갈 시기’를 다시 골라주세요.</div>';
+          html += '<div class="dzcard warn">'+
+            '<div class="dzcard-h"><span class="dzicon">!</span>입력 확인 필요</div>'+
+            '<p class="dzcard-body">갈 시기는 현재 시점보다 빠를 수 없음. ‘갈 학년·학기’ 재선택 요망.</p>'+
+          '</div>';
         } else {
           const lines = diffMsg[Math.min(diff,4)];
-          html += '<div class="rrow"><span class="tg">갈 시기까지 '+diff+'학기</span>'+lines[0]+'</div>';
-          for(let i=1;i<lines.length;i++) html += '<div class="rrow" style="padding-left:8px">· '+lines[i]+'</div>';
+          html += '<div class="dzcard strat">'+
+            '<div class="dzcard-h"><span class="dzicon">2</span>남은 기간 및 전략</div>'+
+            '<span class="dzcard-meta">갈 시기까지 '+diff+'학기</span>'+
+            '<ul class="dzlist">'+lines.map(l=>'<li>'+l+'</li>').join('')+'</ul>'+
+          '</div>';
         }
       }
       html += '</div>';
@@ -887,19 +975,12 @@
   function renderAll(){
     const list = COUNTRY.filter(c=>state.country.has(c.n)).map(c=>({n:c.n,u:c.u,v:cval(c)})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v);
     const max = list.length? list[0].v : 1;
-    const unit = state.avg ? '명/년' : '명';
     const chart = document.getElementById('countryChart');
     if(chart){
       chart.innerHTML = list.length
         ? list.map((d,i)=>'<div class="crow'+(i===0?' top':'')+'"><span class="cn">'+d.n+'</span>'+
             '<div class="cwrap"><div class="cbr" style="width:'+(d.v/max*100)+'%"></div><span class="cv">'+fmt(d.v)+'</span></div></div>').join('')
         : '<p class="qhint">선택한 조건에 해당하는 파견 기록이 없어요.</p>';
-    }
-    const ctab = document.getElementById('countryTable');
-    if(ctab){
-      ctab.innerHTML = list.length
-        ? list.map(d=>'<tr><td><b>'+d.n+'</b></td><td class="to">'+fmt(d.v)+unit+'</td><td>'+d.u+'</td></tr>').join('')
-        : '<tr><td colspan="3" style="text-align:center;color:var(--muted)">해당 조건의 파견 기록이 없어요.</td></tr>';
     }
     const fs = document.getElementById('fsummary');
     if(fs){
@@ -940,31 +1021,102 @@
 
   renderAll();
 
-  /* ===== 선배 후기 피드 — 형식: {country, title, body} ===== */
-  const PERSON_SVG = '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 20.5c0-4.4 4-7 8.5-7s8.5 2.6 8.5 7z"/></svg>';
-  const POSTS = [
-    {country:'프랑스', title:'수업 기대는 낮추기', body:'수업에서 무언가를 얻는다는 기대는 하지 마세요 대신 해외 경험은 좋음'},
-    {country:'프랑스', title:'다양한 경험 쌓기', body:'국민대에서 하던거 절반만 해도 충분하고, 디자인 뿐 아니라, 연극이나 무용 등 한다거나 외국어를 써서 알바를 한다거나 다양한 경험을 쌓을 수 있어요'},
-    {country:'일본', title:'회화 연습은 미리미리', body:'교환학생인만큼, 회화 연습은 미리미리 해두시는게 좋아요'},
-    {country:'일본', title:'면접 준비 기간', body:'면접 준비 기간이 체감상 그렇게 길지는 않을거에용'},
-    {country:'프랑스', title:'strate는 입학허가증이 늦어요', body:'strate는 프랑스 내 다른 학교에 비해 학기 시작과 끝이 늦은 편이라서 비자 신청에 필요한 입학허가증같은게 늦게 나와요!'},
-    {country:'프랑스', title:'비자가 늦으면 집도 늦어요', body:'비자 신청이 늦어지면 집 구하기도 늦어진답니다.. (프랑스는 보통 캠퍼스 내에 기숙사가 없습니다)'},
-    {country:'프랑스', title:'조형대는 거의 strate 공지', body:'조형대에서는 거의 프랑스 strate 대학 공지만 떠요'},
-    {country:'프랑스', title:'미국은 국교팀으로', body:'미국으로 갈거면 국교팀 통해서 가야하는데, 점수가 좀 높은걸로 알고 있어요!'},
-    {country:'스페인', title:'조형대는 독일을 많이 가요', body:'조형대에서는 독일로 많이 가는 것 같아용 아니면 프랑스? 유럽이 이곳저곳 돌아다니기 좋아서 그런듯'},
-    {country:'독일', title:'쉬다 온다는 느낌으로', body:'가서 무언가를 얻는다는 느낌보다는 쉰다는 느낌으로 다녀와도 좋아요~ 추천합니당'},
-    {country:'프랑스', title:'정보는 직접 발품', body:'국제교류팀도 정보가 많은 편은 아닌데, 단과대는 더더욱 없어서 여기저기 물어봐야해요'},
-    {country:'프랑스', title:'교수님도 잘 모를 수 있어요', body:'담당 교수님도 잘 모르실 확률이 높음 애초에 풀린 정보가 많이 없어서..'}
+  /* ===== 선배 인터뷰 Q&A — 지식인 스타일 아코디언 + 카테고리 필터 =====
+     형식: {cat:'iat'|'col'|'tip', q, a}  (a는 문자열 또는 문단 배열)
+     iat=국제교류팀/파랑, col=단과대(조형대)/노랑, tip=파견·행정 꿀팁/뉴트럴
+     ※ 아래 11개 질문·답변은 선배 인터뷰 원문 그대로(Verbatim). 임의 수정 금지. */
+  const CATLABEL = {iat:'국제교류팀', col:'단과대(조형대)', tip:'파견/행정 꿀팁'};
+  const QA = [
+    {cat:'tip', q:`관련 정보는 교수님께 문의하면 더 알 수 있나요?`,
+      a:`교수님께 문의하기보다, 담당 부서인 국제교류팀에 문의하시는 것이 좋습니다!`},
+    {cat:'tip', q:`해외 대학의 디자인 전공은 어떤 점이 다른가요? 다른 대학을 다니는 동안 어떤걸 목표로 삼으면 좋을까요?`,
+      a:`교환학생을 통해선는 학문적인 얻음보다 경험적인 얻음을 목표로 하시는게 더 좋습니다! 국민대에서 하던거 절반만 해도 충분합니다..`},
+    {cat:'tip', q:`국제교류팀으로 가는 것과, 단과대를 통해 가는 것은 무슨 차이가 있나요?`,
+      a:`교환학생 파견을 주관하는 곳이 다르기 때문에 관련 자료나 문의 등을 열람할 수 있는 곳이 다릅니다! 또한, 단과대마다 필요한 어학성적이나 포트폴리오 등 차이를 보일 수 있기 때문에 한 곳을 정하시면, 정한 부서를 중심으로 찾아보시는 것을 권장합니다!`},
+    {cat:'col', q:`단과대는 어느 학교로 가는지, 어학 성적 커트라인은 무엇인지 볼 수 없나요?`,
+      a:`네, 국제교류팀처럼 공식적으로 나외있거나 하지 않고, 학기마다 카카오톡으로 모집공고가 올라오는 편입니다. 상대적으로 정보량이 적다고 볼 수 있어요!`},
+    {cat:'col', q:`조형대 공지에는 명확한 어학 성적 기준이 없던데, 어느 정도여야 하나요?`,
+      a:`조형대 교환학생의 경우, 국제교류팀에 비해 굉장히 널널한 편입니다! 토플, 아이엘츠 뿐 아니라 토익이나 오픽 등의 어학 시험도 인정하며 간혹 어학 성적표를 준비하지 못 한 경우 어학 성적 없이도 합격하는 경우가 있답니다~ 다만, 언제나 그러한 것은 아니기 때문에 아예 보지 않는 것은 권장하지 않아습니다.`},
+    {cat:'iat', q:`국제교류팀의 경우, 학점 3.0이상이면 갈 수 있다는데 정말인가요?`,
+      a:`홈페이지에 명시된 '평점 3.0 이상'은 지원을 하기 위한 최소한의 자격 요건일 뿐, 합격을 보장하는 커트라인이 절대 아닙니다! 본교 국제교류팀 프로그램은 학점 40%, 어학 30%, 서류 30%를 반영하는 정량 평가 중심이라 스펙 경쟁이 꽤 치열해요. 특히 학점이 3.0에 근접하면 서류나 면접으로 뒤집기가 현실적으로 어렵기 때문에, 학점과 어학 성적 모두 기준보다 최대한 높게 받아두셔야 합격 안정권에 들 수 있습니다!`},
+    {cat:'iat', q:`제 상황(스펙, 준비 기간)에 맞춰서 국교팀과 단과대 중 하나를 딱 정하고 싶어요. 선배들은 어떤 기준으로 골랐나요?`,
+      a:[
+        `국교팀과 단과대의 각 특징을 알아두면 좋아요~`,
+        {bullet:true, b:`단과대(조형대) 주관을 강력 추천하는 경우:`, t:`  "현재 준비 기간이 너무 빠듯해서 당장 토플/아이엘츠 같은 고난도 어학 성적을 높이기 힘들다!", 혹은 "특정 국가나 학교는 크게 상관없고, 디자인 과목 수강이나 해외 경험 자체에 목적이 있다!" 하시는 분들께 딱 맞습니다. 전체적으로 전형이 널널해서 부담이 적어요. 면접 대신 영상 제출이기도 하고요!`},
+        {bullet:true, b:`국제교류팀(본교) 주관을 강력 추천하는 경우:`, t:` "선택할 수 있는 국가와 파견 학교의 폭이 무조건 넓었으면 좋겠다!", 혹은 "외롭지 않게 우리 학교에서 같이 파견 나가는 학생 수가 많았으면 좋겠다!" 하시는 분들께 추천합니다.`},
+        {note:`※ 물론 이것도 매 학기 지원자 수나 열리는 티오에 따라 변수가 많으니, 나에게 맞는 성향을 체크하는 참고용으로만 봐주세요!`}
+      ]},
+    {cat:'col', q:`교환학생 합격 후에도 이것저것 신경 써야할게 많겠죠?ㅠㅠ`,
+      a:`네, 비자 발급 기한, 기숙사가 캠퍼스 내에 없는 경우 거주 시설에 대한 고민도 있습니다ㅠㅠ 나라에 따라, 학교에 따라 경우가 다를 수 있으므로 ‘on국민’-’수학보고서’를 통해 내가 원하는 학교에 다녀온 선배들의 후기 참고를 추천합니다!`},
+    {cat:'tip', q:`주로 어느 나라를 많이 가나요?`,
+      a:`조형대 내에서는 유럽을 많이 갑니다! 특히 독일을 많이 가요! 학교 전체로 보았을 때는 독일, 미국, 일본, 스페인 등의 나라를 많이 가는 편입니다. 교환학생은 타 학교에서의 배움보다 해외 경험이라는 것이 굉장히 메리트이기 때문에 많은 곳을 이동할 수 있는 유럽이 인기가 많습니다. 특히 유럽은 미술과 같은 문화를 즐기기 좋아서 그런 것도 있는 것 같아요.`},
+    {cat:'tip', q:`미술로 교환을 가는거면 포트폴리오가 중요하겠죠? 포트폴리오 준비 팁이 있나요?`,
+      a:`우선 국교팀의 경우, 본교에 제출하는 서류에 포트폴리오가 포함되어 있지는 않습니다. 파견교에서 요구할 수는 있지만 기본적으로는 요구하지 않아요. 조형대의 경우, 말씀드린 바와 같이 기준이 굉장히 널널하기 때문에 기본만 해도 괜찮습니다. 조형대 내라고 더 깐깐하게 보거나… 그런 건 없는 것 같아요.`},
+    {cat:'tip', q:`주로 1학기를 많이 가죠? 더 길게 갈 수는 없나요?`,
+      a:`1학기 수학 후 연장을 통해 더 있을 수 있습니다. 한 번 다녀오고 다시, 다른 국가로의 교환을 떠나도 좋고 한 국가에서 1년 정도 길게 있는 것도 좋습니다~`}
   ];
-  const feed = document.getElementById('tipFeed');
-  if(feed){
-    feed.innerHTML = POSTS.map(p=>
-      '<div class="post">'+
-        '<span class="pcountry">'+p.country+'</span>'+
-        '<span class="ptitle">'+p.title+'</span>'+
-        '<p class="ptxt">'+p.body+'</p>'+
-        '<div class="pmeta">익명 · 교환 다녀온 선배</div>'+
-      '</div>').join('');
+
+  const accEl = document.getElementById('qaAcc');
+  const filterEl = document.getElementById('qaFilter');
+  let curFilter = 'all';
+
+  function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  /* 답변 렌더: 문자열=문단 / {bullet,b,t}=굵은 라벨+불릿 / {note}=기울임 안내. 연속 불릿은 하나의 <ul>로 묶음 */
+  function renderAnswer(a){
+    const paras = Array.isArray(a) ? a : [a];
+    let html = '', bullets = [];
+    const flush = ()=>{ if(bullets.length){ html += '<ul class="qa-ul">'+bullets.join('')+'</ul>'; bullets = []; } };
+    paras.forEach(p=>{
+      if(typeof p === 'string'){ flush(); html += '<p>'+escapeHtml(p)+'</p>'; }
+      else if(p && p.bullet){ bullets.push('<li>'+(p.b?'<b>'+escapeHtml(p.b)+'</b> ':'')+escapeHtml(p.t||'')+'</li>'); }
+      else if(p && p.note){ flush(); html += '<p class="qa-note">'+escapeHtml(p.note)+'</p>'; }
+    });
+    flush();
+    return html;
+  }
+  function qaItemHtml(item, open){
+    const body = renderAnswer(item.a);
+    return '<div class="qa-item '+item.cat+(open?' open':'')+'">'+
+      '<button class="qa-q" aria-expanded="'+(open?'true':'false')+'">'+
+        '<span class="qbadge">Q</span>'+
+        '<span class="qbody"><span class="qcat '+item.cat+'">'+CATLABEL[item.cat]+'</span>'+
+        '<span class="qtext">'+escapeHtml(item.q)+'</span></span>'+
+        '<span class="qchev">▾</span>'+
+      '</button>'+
+      '<div class="qa-a-wrap"><div class="qa-a"><div class="qa-a-inner">'+
+        '<span class="abadge">A</span><div class="qa-text">'+body+'</div>'+
+      '</div></div></div></div>';
+  }
+  function renderQA(){
+    if(!accEl) return;
+    const list = QA.filter(it=> curFilter==='all' || it.cat===curFilter);
+    accEl.innerHTML = list.length
+      ? list.map((it,i)=>qaItemHtml(it, i===0)).join('')   // 필터된 목록 중 첫 항목 기본 펼침
+      : '<p class="qhint">해당 카테고리의 질문이 아직 없어요.</p>';
+  }
+
+  if(accEl){
+    renderQA();
+    accEl.addEventListener('click', e=>{
+      const btn = e.target.closest('.qa-q'); if(!btn) return;
+      const item = btn.parentElement;
+      const willOpen = !item.classList.contains('open');
+      accEl.querySelectorAll('.qa-item').forEach(it=>{
+        it.classList.remove('open');
+        it.querySelector('.qa-q').setAttribute('aria-expanded','false');
+      });
+      if(willOpen){ item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+    });
+  }
+  if(filterEl){
+    filterEl.addEventListener('click', e=>{
+      const chip = e.target.closest('.qchip'); if(!chip) return;
+      if(chip.dataset.filter===curFilter) return;
+      curFilter = chip.dataset.filter;
+      filterEl.querySelectorAll('.qchip').forEach(c=>c.classList.toggle('on', c===chip));
+      accEl.classList.add('switching');                    // 페이드 아웃 → 재렌더 → 페이드 인
+      setTimeout(()=>{ renderQA(); accEl.classList.remove('switching'); }, 170);
+    });
   }
 
   /* 비교 셀·서류: 온점(". ") 뒤 줄바꿈 (단어 중간은 keep-all로 처리) */
