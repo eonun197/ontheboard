@@ -238,6 +238,72 @@
   .rec .recto{margin:0 5px; color:var(--muted); font-weight:700;}
   .rec .recres{font-weight:800; font-size:19px;}
   .recnote{margin:14px 0 0; font-size:14.5px; color:var(--muted); line-height:1.6; word-break:keep-all;}
+
+  /* ===================== 인포그래픽 포스터 모드 (route / country) ===================== */
+  .ig-hero{padding:34px 0 8px;}
+  .ig-title{font-family:var(--serif); font-weight:800; color:var(--navy);
+    font-size:clamp(36px,6.4vw,58px); line-height:1.1; letter-spacing:-1.4px; margin:0 0 18px;}
+  .ig-title .vs{color:var(--blue); font-style:italic; margin:0 4px;}
+  .ig-title .pt{color:var(--blue);}
+  .ig-sub{font-size:18px; color:var(--sub); line-height:1.65; max-width:660px; margin:0; word-break:keep-all;}
+  .ig-sec{position:relative; padding:46px 0 6px;}
+  .ig-ghost{font-family:var(--serif); font-weight:800; font-size:70px; line-height:.9;
+    color:var(--blue); opacity:.14; letter-spacing:-2px; margin-bottom:2px;}
+  .ig-h{font-family:var(--serif); font-weight:800; color:var(--navy);
+    font-size:clamp(28px,4.6vw,40px); line-height:1.18; letter-spacing:-1px; margin:0 0 24px;}
+  .ig-h.sm{font-size:clamp(22px,3.4vw,29px); margin:0;}
+  .ig-h.sm span{font-weight:700; color:var(--blue); font-size:.62em; margin-left:6px;}
+  .ig-cmp{display:flex; flex-direction:column; gap:26px;}
+  .ig-line{margin:0; font-size:18px; line-height:1.85; color:var(--ink); padding-left:20px;
+    border-left:3px solid; word-break:keep-all;}
+  .ig-line.k{border-left-color:var(--blue);}
+  .ig-line.j{border-left-color:var(--yellow-d);}
+  .ig-key{display:block; font-size:26px; font-weight:800; letter-spacing:-0.6px; margin-bottom:8px;}
+  .ig-line.k .ig-key{color:var(--blue);}
+  .ig-line.j .ig-key{color:var(--yellow-deep);}
+  .ig-rec{display:flex; flex-direction:column; gap:24px;}
+  .ig-recrow{margin:0; font-size:18px; line-height:1.7; color:var(--ink); word-break:keep-all;}
+  .ig-recrow .ig-cond{display:block; margin-bottom:10px;}
+  .ig-recrow .ig-res{font-family:var(--serif); font-size:27px; font-weight:800; letter-spacing:-0.5px;}
+  .ig-recrow .ig-arrow{color:var(--muted); font-weight:700; margin-right:5px;}
+  .ig-recrow.k .ig-res{color:var(--blue);}
+  .ig-recrow.j .ig-res{color:var(--yellow-deep);}
+  .ig-note{margin:30px 0 0; font-size:14.5px; color:var(--muted); line-height:1.6; word-break:keep-all;}
+  .ig-stats{display:flex; flex-wrap:wrap; gap:26px 46px; padding:30px 0 4px;}
+  .ig-stat{display:flex; flex-direction:column;}
+  .ig-statn{font-family:var(--serif); font-weight:800; font-size:clamp(40px,7.2vw,60px); line-height:.95;
+    color:var(--blue); letter-spacing:-1.5px;}
+  .ig-stat:nth-child(3) .ig-statn{color:var(--navy);}
+  .ig-statl{font-size:13.5px; color:var(--sub); margin-top:9px; font-weight:600;}
+  .ig-bars{display:flex; flex-direction:column; gap:11px; margin-top:6px;}
+  .ig-bar{position:relative; display:flex; align-items:center; min-height:52px; padding:0 8px; overflow:hidden;}
+  .ig-fill{position:absolute; left:0; top:0; bottom:0; background:var(--blue-l); opacity:.42;
+    border-radius:11px; transition:width .65s cubic-bezier(.2,.8,.2,1);}
+  .ig-bar.top .ig-fill{background:linear-gradient(90deg,var(--blue),var(--navy)); opacity:1;}
+  .ig-rank{position:relative; z-index:1; width:24px; flex-shrink:0; font-size:13px; font-weight:800;
+    color:var(--navy); opacity:.5; text-align:center;}
+  .ig-bar.top .ig-rank{color:#fff; opacity:.85;}
+  .ig-name{position:relative; z-index:1; font-size:22px; font-weight:800; color:var(--navy); letter-spacing:-0.4px;}
+  .ig-bar.top .ig-name{color:#fff;}
+  .ig-val{position:relative; z-index:1; margin-left:auto; padding-right:8px; font-size:19px; font-weight:800; color:var(--navy);}
+  .ig-bar.top .ig-val{color:#fff;}
+  .ig-val i{font-style:normal; font-size:12.5px; font-weight:600; opacity:.7; margin-left:2px;}
+  .ig-expand{display:inline-flex; align-items:center; gap:7px; cursor:pointer; margin-top:18px;
+    background:none; border:none; color:var(--blue); font-weight:800; font-size:15px; padding:4px 0;}
+  .ig-expand:hover{color:var(--navy);}
+  #country .filters{background:none; border:none; border-radius:0; padding:4px 0 2px; margin:6px 0 4px; gap:15px;}
+  #country .fsummary{background:none; padding:0; margin:14px 0 10px; font-size:15px; color:var(--sub);}
+  #country .fsummary b{color:var(--blue-d);}
+  @media(max-width:880px){
+    .ig-stats{gap:18px 30px;}
+    .ig-sec{padding:36px 0 6px;}
+    .ig-ghost{font-size:56px;}
+  }
+  /* 인포그래픽 통일 — 나머지 탭 카드 헤딩 확대 & 박스 완화 */
+  .barcard .bhead h3, .board .bh h3{font-size:20px; letter-spacing:-0.4px;}
+  .card.barcard, .card.board, .card.quiz{box-shadow:0 3px 18px rgba(40,80,160,.05);}
+  #home .voiceitem{font-size:16.5px;}
+  #diagnose .quiz{border-color:var(--line);}
   .rec.k .recres{color:var(--blue-d);}
   .rec.j .recres{color:var(--yellow-deep);}
 
@@ -506,8 +572,9 @@
 
   <!-- ============ 메인 대시보드 ============ -->
   <section id="home" class="on">
-    <div class="hero">
-      <p>준비하기 막막한 교환학생 준비 과정을 돕는 온더보드입니다.<br>교환학생을 가고 싶다는 막연한 생각만 들고 뭘 어떻게 해야할지 모르겠다면, 온더보드를 따라 준비해보아요!</p>
+    <div class="ig-hero">
+      <h1 class="ig-title">막막한 교환학생 준비,<br><span class="pt">온더보드</span>와 함께 시작해요</h1>
+      <p class="ig-sub">준비하기 막막한 교환학생 준비 과정을 돕는 온더보드입니다. 교환학생을 가고 싶다는 막연한 생각만 들고 뭘 어떻게 해야할지 모르겠다면, 온더보드를 따라 준비해보아요!</p>
     </div>
 
     <div class="card barcard" data-go="diagnose">
@@ -546,88 +613,112 @@
   <!-- ============ 내용 정리 > 국제교류팀 vs 조형대 ============ -->
   <section id="route">
     <div class="crumb">프로그램 비교 <b>›</b> 본교/조형대</div>
-    <h1 class="page big">국제교류팀vs단과대, 어떤 점이 다른거지?</h1>
-    <p class="lead">국교팀을 통해 다녀온 선배와 단과대 국교팀을 통해 다녀온 선배들의 후기를 바탕으로 정리된 내용을 통해 알아보자!</p>
-
-    <div class="qcard">
-      <h2 class="qcard-t">1. 국가와 학교</h2>
-      <p class="cbcmp k"><span class="clab">국제교류팀은..</span> 다양한 국가와 학교가 있어서 선택의 폭이 넓어요! 자세한 내용은 학교 홈페이지와 수학보고서에서 확인이 그낭해요.</p>
-      <p class="cbcmp j"><span class="clab">조형대는..</span> 크게 프랑스의 strate(스트라트), 독일의 포르츠하임 이렇게 두 학교 정도가 있어요. 포르츠하임은 공지가 자주 뜨는 편은 아니고 2년에 한 번꼴로 올라오는 것 같습니다. 주로 strate가 학기마다 올라오는 편으로, 파리지점과 리옹지점이 있습니다. 파리지점은 파리 외곽 '세브르'라는 마을에 위치합니다.</p>
+    <div class="ig-hero">
+      <h1 class="ig-title">국제교류팀<span class="vs">vs</span>단과대,<br>어떤 점이 다를까?</h1>
+      <p class="ig-sub">국교팀을 통해 다녀온 선배와 단과대 국교팀을 통해 다녀온 선배들의 후기를 바탕으로 정리된 내용을 통해 알아보자!</p>
     </div>
 
-    <div class="qcard">
-      <h2 class="qcard-t">2. 성적과 스펙 반영</h2>
-      <p class="cbcmp k"><span class="clab">국제교류팀은..</span> 학점 40%+어학30%+서류30%의 비율로 성적을 반영합니다. 경쟁률이 높은 편이기 때문에, 홈페이지에 나온 커트라인보다는 넉넉한 성적을 취득해두는 것이 좋아요!</p>
-      <p class="cbcmp j"><span class="clab">조형대는..</span> 상대적으로 널널한 편입니다. 후술되겠지만 포트폴리오보다 자소서와 학점이 중요하다고 추정됩니다. 어학의 경우 어학 성적으로 인정하는 시험의 폭도 더 넓고 (토익, 오픽 포함) 간혹 어학 성적표를 준비하지 못한 경우에도 합격하는 경우가 있어요! 물론 따두는 것이 안전합니다. 소통 조금 할 수 있구나 정도로 보여주면 되는 것 같아요. </p>
-    </div>
-
-    <div class="qcard">
-      <h2 class="qcard-t">3. 포트폴리오와 면접 준비</h2>
-      <p class="cbcmp k"><span class="clab">국제교류팀은..</span> 면접 준비를 잘 해두어야 하나, 서류를 제출하고 면접을 보기까지의 시간이 짧기 때문에 미리미리 회화 연습을 해두는 것이 좋아요! 또한 국민대에 제출하는 서류에는 포트폴리오가 포함되어 있지 않습니다. 파견교에는 제출해야하는 경우가 존재할 수 있으나, 30% 반영되는 서류에는 포트폴리오가 포함되어 있지 않아요! </p>
-      <p class="cbcmp j"><span class="clab">조형대는..</span> 포트폴리오를 제출하긴 하나, 거의 안 보는 것에 가깝습니다. 있어야 하는 것은 맞으나, 퀄리티를 크게 따지지 않았어요. 형식 제한도 없었습니다. 면접은 보지 않고, 영상 제출을 하면 됐습니다.</p>
-    </div>
-
-    <div class="qcard">
-      <h2 class="qcard-t">4. 그렇다면 나는?</h2>
-      <div class="recwrap">
-        <div class="rec k">선택할 수 있는 국가와 학교의 폭이 넓고 우리 학교에서 같이 파견 나가는 학생 수가 많으면 좋겠다!<span class="recto">-&gt;</span><b class="recres">국제교류팀 추천</b></div>
-        <div class="rec j">준비 기간이 빠듯해 높은 어학 성적 준비가 힘들거나 국가나 학교는 큰 상관없다!<span class="recto">-&gt;</span><b class="recres">단과대 추천</b></div>
+    <div class="ig-sec">
+      <div class="ig-ghost">01</div>
+      <h2 class="ig-h">국가와 학교</h2>
+      <div class="ig-cmp">
+        <p class="ig-line k"><span class="ig-key">국제교류팀은..</span>다양한 국가와 학교가 있어서 선택의 폭이 넓어요! 자세한 내용은 학교 홈페이지와 수학보고서에서 확인이 가능해요.</p>
+        <p class="ig-line j"><span class="ig-key">조형대는..</span>크게 프랑스의 strate(스트라트), 독일의 포르츠하임 이렇게 두 학교 정도가 있어요. 포르츠하임은 공지가 자주 뜨는 편은 아니고 2년에 한 번꼴로 올라오는 것 같습니다. 주로 strate가 학기마다 올라오는 편으로, 파리지점과 리옹지점이 있습니다. 파리지점은 파리 외곽 Sèvres(세브르)라는 마을에 위치합니다.</p>
       </div>
-      <p class="recnote">특징에 따른 추천일 뿐, 절대적인 추천은 아니기에  참고용으로 적합합니다.</p>
+    </div>
+
+    <div class="ig-sec">
+      <div class="ig-ghost">02</div>
+      <h2 class="ig-h">성적과 스펙 반영</h2>
+      <div class="ig-cmp">
+        <p class="ig-line k"><span class="ig-key">국제교류팀은..</span>학점 40%+어학30%+서류30%의 비율로 성적을 반영합니다. 경쟁률이 높은 편이기 때문에, 홈페이지에 나온 커트라인보다는 넉넉한 성적을 취득해두는 것이 좋아요!</p>
+        <p class="ig-line j"><span class="ig-key">조형대는..</span>상대적으로 널널한 편입니다. 후술되겠지만 포트폴리오보다 자소서와 학점이 중요하다고 추정됩니다. 어학의 경우 어학 성적으로 인정하는 시험의 폭도 더 넓고 (토익, 오픽 포함) 간혹 어학 성적표를 준비하지 못한 경우에도 합격하는 경우가 있어요! 물론 따두는 것이 안전합니다. 소통 조금 할 수 있구나 정도로 보여주면 되는 것 같아요. </p>
+      </div>
+    </div>
+
+    <div class="ig-sec">
+      <div class="ig-ghost">03</div>
+      <h2 class="ig-h">포트폴리오와 면접 준비</h2>
+      <div class="ig-cmp">
+        <p class="ig-line k"><span class="ig-key">국제교류팀은..</span>면접 준비를 잘 해두어야 하나, 서류를 제출하고 면접을 보기까지의 시간이 짧기 때문에 미리미리 회화 연습을 해두는 것이 좋아요! 또한 국민대에 제출하는 서류에는 포트폴리오가 포함되어 있지 않습니다. 파견교에는 제출해야하는 경우가 존재할 수 있으나, 30% 반영되는 서류에는 포트폴리오가 포함되어 있지 않아요! </p>
+        <p class="ig-line j"><span class="ig-key">조형대는..</span>포트폴리오를 제출하긴 하나, 거의 안 보는 것에 가깝습니다. 있어야 하는 것은 맞으나, 퀄리티를 크게 따지지 않았어요. 형식 제한도 없었습니다. 면접은 보지 않고, 영상 제출을 하면 됐습니다.</p>
+      </div>
+    </div>
+
+    <div class="ig-sec">
+      <div class="ig-ghost">04</div>
+      <h2 class="ig-h">그렇다면 나는?</h2>
+      <div class="ig-rec">
+        <p class="ig-recrow k"><span class="ig-cond">선택할 수 있는 국가와 학교의 폭이 넓고 우리 학교에서 같이 파견 나가는 학생 수가 많으면 좋겠다!</span><span class="ig-res"><span class="ig-arrow">-&gt;</span>국제교류팀 추천</span></p>
+        <p class="ig-recrow j"><span class="ig-cond">준비 기간이 빠듯해 높은 어학 성적 준비가 힘들거나 국가나 학교는 큰 상관없다!</span><span class="ig-res"><span class="ig-arrow">-&gt;</span>단과대 추천</span></p>
+      </div>
+      <p class="ig-note">특징에 따른 추천일 뿐, 절대적인 추천은 아니기에 참고용으로 봐주세요.</p>
     </div>
   </section>
 
   <!-- ============ 내용 정리 > 국가 별 비교 ============ -->
   <section id="country">
     <div class="crumb">프로그램 비교 <b>›</b> 국가 별</div>
-    <h1 class="page">국가 별 비교</h1>
-    <p class="lead">학교 별 티오는 매년 달라지나, 파견 다녀온 학생들의 수학보고서를 통해 그 정도를 가늠할 수 있습니다.</p>
-    <div class="stat-row">
-      <div class="stat"><div class="n">1,042</div><div class="l">전체 교환학생(명)</div></div>
-      <div class="stat"><div class="n">28</div><div class="l">파견 국가 수</div></div>
-      <div class="stat"><div class="n">독일</div><div class="l">최다 파견국 (282명·27%)</div></div>
-      <div class="stat"><div class="n">~58</div><div class="l">매 학기 평균(명)</div></div>
+    <div class="ig-hero">
+      <h1 class="ig-title">우리 학교 학생들은<br>주로 <span class="pt">어느 나라</span>를 많이 갈까?</h1>
+      <p class="ig-sub">학교 별 티오는 매년 달라지나, 파견 다녀온 학생들의 수학보고서를 통해 그 정도를 가늠할 수 있습니다.</p>
     </div>
-    <div class="blockt-row">
-      <h3 class="blockt">학기별 파견 인원 <span class="s">(2017~2025 전체)</span></h3>
-      <span id="refreshWrap"><button class="refreshbtn" id="refreshBtn">🔄 데이터 새로고침 요청</button></span>
-    </div>
-    <div class="semchart" id="semChart"></div>
 
-    <h3 class="blockt">국가별 파견 인원 비교 <span class="s">— 연도·학기·국가를 골라 비교하세요</span></h3>
-    <div class="filters">
-      <div class="fgroup">
-        <span class="flabel">연도</span>
-        <div class="ftags" data-f="year" id="yearTags"></div>
+    <div class="ig-stats">
+      <div class="ig-stat"><span class="ig-statn">1,042</span><span class="ig-statl">전체 교환학생(명)</span></div>
+      <div class="ig-stat"><span class="ig-statn">28</span><span class="ig-statl">파견 국가 수</span></div>
+      <div class="ig-stat"><span class="ig-statn">독일</span><span class="ig-statl">최다 파견국 (282명·27%)</span></div>
+      <div class="ig-stat"><span class="ig-statn">~58</span><span class="ig-statl">매 학기 평균(명)</span></div>
+    </div>
+
+    <div class="ig-sec">
+      <div class="blockt-row">
+        <h2 class="ig-h sm">학기별 파견 인원 <span>2017~2025</span></h2>
+        <span id="refreshWrap"><button class="refreshbtn" id="refreshBtn">🔄 데이터 새로고침 요청</button></span>
       </div>
-      <div class="fgroup">
-        <span class="flabel">학기</span>
-        <div class="ftags" data-f="sem">
-          <button class="ftag" data-v="1">1학기</button>
-          <button class="ftag" data-v="2">2학기</button>
+      <div class="semchart" id="semChart"></div>
+    </div>
+
+    <div class="ig-sec">
+      <h2 class="ig-h sm">국가별 파견 인원 <span>Top 5</span></h2>
+      <p class="ig-sub" style="font-size:15px; margin:10px 0 18px">연도·학기·국가를 골라 비교하세요.</p>
+      <div class="filters">
+        <div class="fgroup">
+          <span class="flabel">연도</span>
+          <div class="ftags" data-f="year" id="yearTags"></div>
+        </div>
+        <div class="fgroup">
+          <span class="flabel">학기</span>
+          <div class="ftags" data-f="sem">
+            <button class="ftag" data-v="1">1학기</button>
+            <button class="ftag" data-v="2">2학기</button>
+          </div>
+        </div>
+        <div class="fgroup">
+          <span class="flabel">국가<br><small>뺄 국가만 해제</small></span>
+          <div class="ftags ctags" data-f="country" id="countryTags"></div>
+        </div>
+        <div class="fgroup">
+          <span class="flabel"></span>
+          <div class="fbtns"><button class="minibtn" id="selAll">국가 전체 선택</button><button class="minibtn" id="selNone">전체 해제</button></div>
         </div>
       </div>
-      <div class="fgroup">
-        <span class="flabel">국가<br><small>뺄 국가만 해제</small></span>
-        <div class="ftags ctags" data-f="country" id="countryTags"></div>
-      </div>
-      <div class="fgroup">
-        <span class="flabel"></span>
-        <div class="fbtns"><button class="minibtn" id="selAll">국가 전체 선택</button><button class="minibtn" id="selNone">전체 해제</button></div>
-      </div>
+      <div class="fsummary" id="fsummary"></div>
+      <div id="countryChart" class="ig-bars"></div>
+      <button class="ig-expand" id="expandBtn" style="display:none"></button>
     </div>
-    <div class="fsummary" id="fsummary"></div>
-    <div id="countryChart" class="chart"></div>
   </section>
 
   <!-- ============ 선배들의 실전 팁 ============ -->
   <section id="community">
     <div class="crumb">선배들의 실전 팁</div>
-    <h1 class="page">선배들의 실전 팁</h1>
-    <p class="lead">검색창에 나오는 현지 생활 후기는 온국민 ‘수학보고서’를 참고하세요. 온더보드는 포털에 기록되지 않는 실전 준비 과정의 변수, 스펙 커트라인의 진실을 선배들의 진짜 인터뷰 데이터를 통해 투명하게 공개합니다.</p>
+    <div class="ig-hero">
+      <h1 class="ig-title">선배들의 <span class="pt">실전 팁</span></h1>
+      <p class="ig-sub">검색창에 나오는 현지 생활 후기는 온국민 ‘수학보고서’를 참고하세요. 온더보드는 포털에 기록되지 않는 실전 준비 과정의 변수, 스펙 커트라인의 진실을 선배들의 진짜 인터뷰 데이터를 통해 투명하게 공개합니다.</p>
+    </div>
 
-    <h2 class="sechead">선배 인터뷰 Q&amp;A</h2>
-    <p class="lead">궁금한 카테고리를 고르고, 질문을 눌러 답변을 펼쳐 보세요.</p>
+    <h2 class="ig-h sm" style="margin-top:30px">선배 인터뷰 <span>Q&amp;A</span></h2>
+    <p class="ig-sub" style="font-size:15px; margin:10px 0 18px">궁금한 카테고리를 고르고, 질문을 눌러 답변을 펼쳐 보세요.</p>
     <div class="qfilter" id="qaFilter">
       <button class="qchip on" data-filter="all">전체</button>
       <button class="qchip" data-filter="iat">국제교류팀</button>
@@ -640,8 +731,10 @@
   <!-- ============ 자가진단 > 현 상태 파악 ============ -->
   <section id="diagnose">
     <div class="crumb">계획 가이드</div>
-    <h1 class="page">개별 가이드</h1>
-    <p class="lead">현재 상황과 가고 싶은 시기를 고르면, 아래 모집 일정에 내 시점이 표시돼요.</p>
+    <div class="ig-hero">
+      <h1 class="ig-title">나는 <span class="pt">언제</span> 가야 할까?</h1>
+      <p class="ig-sub">현재 상황과 가고 싶은 시기를 고르면, 아래 모집 일정에 내 시점이 표시돼요.</p>
+    </div>
 
     <div class="card quiz">
       <div class="qrow">
@@ -684,15 +777,17 @@
 
     <div id="dzResult" style="margin-top:6px"></div>
 
-    <h2 class="sechead" style="text-align:center; margin-top:34px">교환학생 모집 일정</h2>
+    <h2 class="ig-h sm" style="text-align:center; margin-top:40px">교환학생 <span>모집 일정</span></h2>
     <div class="cal" id="diagTimeline"></div>
   </section>
 
   <!-- ============ 더보기 ============ -->
   <section id="more">
     <div class="crumb">더보기</div>
-    <h1 class="page">더보기</h1>
-    <p class="lead">계획을 어느 정도 세우셨다면, 각자에게 필요한 정보를 더 탐색해보세요!</p>
+    <div class="ig-hero">
+      <h1 class="ig-title">더 <span class="pt">알아보기</span></h1>
+      <p class="ig-sub">계획을 어느 정도 세우셨다면, 각자에게 필요한 정보를 더 탐색해보세요!</p>
+    </div>
 
     <!-- 특정 국가의 후기 — 실전 후기 미리보기 + 아웃링크 (상단 배치) -->
     <div class="lkfeat">
@@ -879,22 +974,25 @@
   if(sc){ sc.innerHTML = SEM.map(([k,v])=>
     '<div class="sc"><span class="scv">'+v+'</span><div class="scbar" style="height:'+(v/semMax*100)+'%"></div><span class="scl">'+k.slice(2)+'</span></div>').join(''); }
 
-  /* ===== 데이터 새로고침 요청 — 차기 버전(2026~) 업데이트 수요 집계 ===== */
+  /* ===== 데이터 새로고침 요청 — 관리자 메일(eonun197@gmail.com) 발송 ===== */
   (function(){
-    const RKEY='ontheboard_refresh_count', DKEY='ontheboard_refresh_done', BASE=41;
-    const lsGet=(k,d)=>{ try{ const v=localStorage.getItem(k); return v===null?d:v; }catch(e){ return d; } };
-    const lsSet=(k,v)=>{ try{ localStorage.setItem(k,v); }catch(e){} };
     const wrap=document.getElementById('refreshWrap');
     const btn=document.getElementById('refreshBtn');
     if(!wrap||!btn) return;
-    const done=(n)=>{ wrap.innerHTML='<span class="refreshok">✓ 요청이 완료되었습니다! <b>(누적 '+n+'명)</b></span>'; };
-    if(lsGet(DKEY,'')){ done(parseInt(lsGet(RKEY, String(BASE+1)),10)); return; }
     btn.addEventListener('click', ()=>{
-      const n=parseInt(lsGet(RKEY, String(BASE)),10)+1;
-      lsSet(RKEY, String(n)); lsSet(DKEY,'1');
-      done(n);
-      // 관리자 메일 연동(선택): 사용자가 메일 클라이언트로 의사 전달
-      // location.href='mailto:eonun197@gmail.com?subject=데이터 새로고침 요청&body=2026년 이후 데이터 업데이트를 요청합니다.';
+      // 백그라운드 발송(fire-and-forget): 메일 클라이언트를 띄우지 않고 즉시 완료 처리
+      try{
+        fetch('https://formsubmit.co/ajax/eonun197@gmail.com', {
+          method:'POST',
+          headers:{'Content-Type':'application/json', 'Accept':'application/json'},
+          body: JSON.stringify({
+            _subject:'[온더보드] 데이터 새로고침 요청',
+            message:'2026년 이후 최신 교환학생 데이터로 새로고침(업데이트)을 요청합니다.',
+            page: location.href
+          })
+        }).catch(()=>{});
+      }catch(e){}
+      wrap.innerHTML='<span class="refreshok">✓ 요청이 완료되었습니다!</span>';
     });
   })();
 
@@ -931,7 +1029,7 @@
   ];
   const YEARS = ['2025','2024','2023','2022','2021','2020','2019','2018','2017'];
   const ALLKEYS = []; YEARS.forEach(y=>['1','2'].forEach(s=>ALLKEYS.push(y+'-'+s)));
-  const state = {year:new Set(), sem:new Set(), country:new Set(COUNTRY.map(c=>c.n)), avg:false};
+  const state = {year:new Set(), sem:new Set(), country:new Set(COUNTRY.map(c=>c.n)), avg:false, expanded:false};
 
   // 연도 태그 + 상시 평균 태그
   const yearTags = document.getElementById('yearTags');
@@ -959,11 +1057,30 @@
     const list = COUNTRY.filter(c=>state.country.has(c.n)).map(c=>({n:c.n,u:c.u,v:cval(c)})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v);
     const max = list.length? list[0].v : 1;
     const chart = document.getElementById('countryChart');
+    const expandBtn = document.getElementById('expandBtn');
     if(chart){
-      chart.innerHTML = list.length
-        ? list.map((d,i)=>'<div class="crow'+(i===0?' top':'')+'"><span class="cn">'+d.n+'</span>'+
-            '<div class="cwrap"><div class="cbr" style="width:'+(d.v/max*100)+'%"></div><span class="cv">'+fmt(d.v)+'</span></div></div>').join('')
-        : '<p class="qhint">선택한 조건에 해당하는 파견 기록이 없어요.</p>';
+      if(!list.length){
+        chart.innerHTML = '<p class="qhint">선택한 조건에 해당하는 파견 기록이 없어요.</p>';
+        if(expandBtn) expandBtn.style.display='none';
+      } else {
+        const shown = state.expanded ? list : list.slice(0,5);
+        const unit = state.avg ? '명/년' : '명';
+        chart.innerHTML = shown.map((d,i)=>{
+          const w = Math.max(d.v/max*100, 7);
+          return '<div class="ig-bar'+(i===0?' top':'')+'">'+
+            '<div class="ig-fill" style="width:'+w+'%"></div>'+
+            '<span class="ig-rank">'+(i+1)+'</span>'+
+            '<span class="ig-name">'+d.n+'</span>'+
+            '<span class="ig-val">'+fmt(d.v)+'<i>'+unit+'</i></span>'+
+          '</div>';
+        }).join('');
+        if(expandBtn){
+          if(list.length>5){
+            expandBtn.style.display='';
+            expandBtn.textContent = state.expanded ? '▲ Top 5만 보기' : ('▼ 전체 '+list.length+'개국 보기');
+          } else { expandBtn.style.display='none'; }
+        }
+      }
     }
     const fs = document.getElementById('fsummary');
     if(fs){
@@ -1001,6 +1118,8 @@
   const selAll = document.getElementById('selAll'), selNone = document.getElementById('selNone');
   if(selAll) selAll.addEventListener('click', ()=>{ state.country=new Set(COUNTRY.map(c=>c.n)); countryTags.querySelectorAll('.ftag').forEach(b=>b.classList.add('on')); renderAll(); });
   if(selNone) selNone.addEventListener('click', ()=>{ state.country=new Set(); countryTags.querySelectorAll('.ftag').forEach(b=>b.classList.remove('on')); renderAll(); });
+  const expandBtn = document.getElementById('expandBtn');
+  if(expandBtn) expandBtn.addEventListener('click', ()=>{ state.expanded = !state.expanded; renderAll(); });
 
   renderAll();
 
