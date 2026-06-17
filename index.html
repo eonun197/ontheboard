@@ -17,6 +17,7 @@
     --serif:"Pretendard","Apple SD Gothic Neo",sans-serif;
   }
   *{box-sizing:border-box;}
+  html{scrollbar-gutter:stable; overflow-x:hidden;}
   body{margin:0; background:var(--bg); color:var(--ink);
     font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",sans-serif; line-height:1.6;}
   h1,h2,h3{font-family:var(--serif); font-weight:600; letter-spacing:0;}
@@ -25,16 +26,16 @@
 
   /* ============ 상단 네비 ============ */
   header{background:var(--paper); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:100;}
-  .topnav{max-width:760px; margin:0 auto; padding:24px 32px; display:flex; align-items:center; gap:40px;}
+  .topnav{max-width:760px; margin:0 auto; padding:26px 32px; display:flex; align-items:center; gap:44px;}
   .brand{display:flex; align-items:center; gap:11px; cursor:pointer;}
   .brand .logo{height:38px; width:auto; display:block; transition:.15s;}
   .brand:hover .logo{opacity:.72;}
   .brand .bt{font-family:var(--serif); font-weight:800; font-size:20px; color:var(--navy); line-height:1.04; display:flex; flex-direction:column;}
   .brand .bt small{font-size:9.5px; font-weight:600; color:var(--muted); letter-spacing:1.4px; margin-top:2px;}
-  .menu{display:flex; align-items:center; gap:20px; flex:1;}
+  .menu{display:flex; align-items:center; gap:26px; flex:1;}
   .navitem{position:relative;}
-  .navitem .top{cursor:pointer; background:none; border:none; padding:8px 6px 11px;
-    font-weight:600; font-size:16.5px; color:#46546e; display:flex; align-items:center; gap:6px;
+  .navitem .top{cursor:pointer; background:none; border:none; padding:9px 6px 12px;
+    font-weight:600; font-size:18.5px; color:#46546e; display:flex; align-items:center; gap:6px;
     position:relative; transition:color .2s ease;}
   .navitem .top::after{content:""; position:absolute; left:6px; right:6px; bottom:0; height:3px;
     background:var(--blue); border-radius:2px; transform:scaleX(0); transform-origin:center; transition:transform .24s ease;}
@@ -49,8 +50,8 @@
     padding:8px; min-width:236px; display:none; flex-direction:column; gap:2px; z-index:120; animation:pop .16s ease;}
   .navitem.open .dropdown{display:flex;}
   @keyframes pop{from{opacity:0; transform:translateY(-6px);} to{opacity:1;}}
-  .dropdown button{text-align:left; background:none; border:none; cursor:pointer; padding:12px 14px;
-    border-radius:10px; font-size:16.5px; color:#48566c; display:flex; align-items:center; gap:10px; transition:.12s;}
+  .dropdown button{text-align:left; background:none; border:none; cursor:pointer; padding:13px 15px;
+    border-radius:10px; font-size:17.5px; color:#48566c; display:flex; align-items:center; gap:10px; transition:.12s;}
   .dropdown button:hover{background:var(--blue-soft); color:var(--blue);}
   .dropdown button .dot{width:6px; height:6px; border-radius:50%; background:var(--yellow-d); flex-shrink:0;}
 
@@ -58,7 +59,7 @@
   main{max-width:760px; margin:0 auto; padding:34px 28px 96px;}
   section{display:none;} section.on{display:block; animation:fade .28s ease;}
   @keyframes fade{from{opacity:0; transform:translateY(10px);} to{opacity:1;}}
-  .crumb{font-size:13px; color:var(--muted); margin-bottom:6px;}
+  .crumb{display:none;}
   .crumb b{color:var(--blue);}
   h1.page{font-size:28px; color:var(--navy); margin:0 0 8px;}
   .lead{color:var(--sub); max-width:760px; margin:0 0 14px; font-size:17px;}
@@ -81,6 +82,8 @@
   .hero p{color:var(--sub); font-size:16px; max-width:640px; margin:0;}
   .barcard{padding:26px 30px; cursor:pointer; transition:.18s; margin-bottom:22px;}
   .barcard:hover{transform:translateY(-3px); box-shadow:0 12px 34px rgba(40,80,160,.15); border-color:var(--blue-l);}
+  .barcard.noclick{cursor:default;}
+  .barcard.noclick:hover{transform:none; box-shadow:0 4px 22px rgba(40,80,160,.06); border-color:var(--line);}
   .barcard .bhead{display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:8px;}
   .barcard .bhead h3{margin:0; font-size:18px; color:var(--navy);}
   .barcard .bhead .cta{font-size:15.5px; color:var(--blue); font-weight:600; display:flex; align-items:center; gap:6px;}
@@ -126,11 +129,11 @@
   .vtl .evt.chk .lab{color:var(--yellow-deep); font-weight:600;}
   .vtl .evt.chk .lab .m{color:var(--yellow-deep);}
   /* 계획 가이드 — 태그 축소 */
-  #diagnose .quiz{padding:18px 22px;}
+  #diagnose .quiz{padding:26px 28px;}
   #diagnose .qrow{display:flex; gap:22px; flex-wrap:wrap;}
   #diagnose .qrow .qblock{flex:1; min-width:150px; margin:8px 0;}
-  #diagnose .qblock .ql{font-size:14px; margin-bottom:7px;}
-  #diagnose .opt{padding:6px 13px; font-size:12.5px;}
+  #diagnose .qblock .ql{font-size:17.5px; margin-bottom:11px;}
+  #diagnose .opt{padding:10px 19px; font-size:16.5px;}
   /* 모집 일정 — 페이지를 가르는 큰 세로 타임라인(연혁형, 중앙 레일·좌우 교차) */
   #diagTimeline{max-width:700px; margin:8px auto 0;}
   #diagTimeline .vtl{position:relative; padding:6px 0;}
@@ -157,12 +160,23 @@
   .board .bh h3{margin:0; font-size:18px; color:var(--navy);}
   .board .bgo{flex-shrink:0; color:var(--blue); font-size:15.5px; font-weight:600; white-space:nowrap; transition:.15s;}
   .board:hover .bgo{transform:translateX(2px);}
+  /* 후기 작성/광고 카드 (지원 서류 카드 대체) */
+  .revcard{cursor:default;}
+  .revcard:hover{transform:none; box-shadow:0 3px 18px rgba(40,80,160,.05); border-color:var(--line);}
+  .revbtn{display:flex; align-items:center; justify-content:center; text-align:center;
+    background:var(--blue); color:#fff; font-weight:800; font-size:16.5px;
+    border-radius:12px; padding:16px; transition:.15s;}
+  .revbtn:hover{background:var(--blue-d); color:#fff; transform:translateY(-1px); text-decoration:none;}
+  .revbanner{display:flex; align-items:center; justify-content:center; margin-top:12px;
+    min-height:58px; border:1.5px dashed #c8d6ea; border-radius:12px; background:#f7faff; transition:.15s;}
+  .revbanner:hover{border-color:var(--blue-l); background:#fff; text-decoration:none;}
+  .revbanner span{font-size:12.5px; color:var(--muted); font-weight:600;}
   .voiceitem{padding:13px 0; border-bottom:1px dashed var(--line); font-size:16px; color:#46546e; display:flex; gap:10px;}
   .voiceitem:last-child{border-bottom:none;}
   .voiceitem .qq{color:var(--yellow-deep); font-family:var(--serif); font-size:18px; line-height:1.2;}
   .doclist{display:flex; flex-direction:column; gap:9px;}
   .doc{display:flex; align-items:center; gap:11px; padding:11px 14px; background:#f7faff; border:1px solid var(--line);
-    border-radius:12px; font-size:16px; color:var(--ink);}
+    border-radius:12px; font-size:17px; color:var(--ink);}
   .doc .pct{font-size:12px; font-weight:700; background:var(--blue); color:#fff; border-radius:999px; padding:2px 9px; flex-shrink:0;}
   .doc .pct.g{background:var(--yellow-d); color:var(--navy);}
 
@@ -302,16 +316,13 @@
   /* 인포그래픽 통일 — 나머지 탭 카드 헤딩 확대 & 박스 완화 */
   .barcard .bhead h3, .board .bh h3{font-size:20px; letter-spacing:-0.4px;}
   .card.barcard, .card.board, .card.quiz{box-shadow:0 3px 18px rgba(40,80,160,.05);}
-  #home .voiceitem{font-size:16.5px;}
+  #home .voiceitem{font-size:17.5px;}
   #diagnose .quiz{border-color:var(--line);}
+  #home .ig-title{font-size:clamp(27px,4.4vw,39px); line-height:1.22; letter-spacing:-1px;}
   .rec.k .recres{color:var(--blue-d);}
   .rec.j .recres{color:var(--yellow-deep);}
 
   /* 조언 카드 */
-  .tips{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:16px;}
-  .tip{background:var(--paper); border:1px solid var(--line); border-radius:var(--r-sm); padding:22px 24px 20px; position:relative;}
-  .tip .q{font-size:30px; color:var(--yellow-d); font-family:var(--serif); position:absolute; top:14px; left:18px; opacity:.55; line-height:1;}
-  .tip p{margin:0; font-size:16.5px; padding-left:32px; color:var(--ink); line-height:1.6;}
   /* 선배 실전 팁 — 지식인 스타일 아코디언 Q&A */
   .acc{display:flex; flex-direction:column; gap:12px; margin-top:16px; transition:opacity .18s ease, transform .18s ease;}
   .acc.switching{opacity:0; transform:translateY(6px);}
@@ -325,7 +336,7 @@
     overflow:hidden; transition:border-color .2s ease, box-shadow .2s ease;}
   .qa-item.open{border-color:var(--blue-l); box-shadow:0 8px 26px rgba(40,80,160,.10);}
   .qa-q{width:100%; text-align:left; background:none; border:none; cursor:pointer;
-    padding:16px 20px; display:flex; flex-direction:column; gap:9px;}
+    padding:14px 20px; display:flex; flex-direction:column; gap:7px;}
   .qbadge,.abadge{flex-shrink:0; width:27px; height:27px; border-radius:8px; font-family:var(--serif);
     font-weight:800; font-size:15px; display:flex; align-items:center; justify-content:center;}
   .qbadge{background:var(--blue); color:#fff;}
@@ -336,7 +347,7 @@
   .qcat.tip{background:#eef1f5; color:var(--sub);}
   /* Q · 질문 · 쉐브론 한 줄 — 항상 첫 줄 기준 정렬(높이 무관 통일) */
   .qrow{display:flex; align-items:flex-start; gap:13px; width:100%;}
-  .qtext{flex:1; min-width:0; font-family:var(--serif); font-size:16.5px; font-weight:600; color:var(--navy);
+  .qtext{flex:1; min-width:0; font-family:var(--serif); font-size:18px; font-weight:600; color:var(--navy);
     line-height:1.5; word-break:keep-all; transition:color .18s ease; padding-top:2px;}
   .qa-q:hover .qtext{color:var(--blue);}
   .qchev{flex-shrink:0; color:var(--muted); font-size:13px; margin-top:7px; transition:transform .3s ease;}
@@ -345,14 +356,14 @@
   .qa-a-wrap{display:grid; grid-template-rows:0fr; transition:grid-template-rows .32s ease;}
   .qa-item.open .qa-a-wrap{grid-template-rows:1fr;}
   .qa-a{overflow:hidden; min-height:0;}
-  .qa-a-inner{display:flex; gap:13px; padding:4px 20px 22px;}
+  .qa-a-inner{display:flex; gap:13px; padding:2px 20px 18px;}
   .qa-text{flex:1; min-width:0;}
-  .qa-text p{margin:0 0 11px; font-size:15.5px; color:#46546e; line-height:1.72; word-break:keep-all;}
+  .qa-text p{margin:0 0 10px; font-size:18px; color:#46546e; line-height:1.75; word-break:keep-all;}
   .qa-text b{color:var(--navy); font-weight:700;}
   .qa-ul{margin:0 0 11px; padding-left:19px; display:flex; flex-direction:column; gap:9px;}
-  .qa-ul li{font-size:15.5px; color:#46546e; line-height:1.72; word-break:keep-all;}
+  .qa-ul li{font-size:17.5px; color:#46546e; line-height:1.78; word-break:keep-all;}
   .qa-ul li b{color:var(--navy); font-weight:700;}
-  .qa-note{margin:0 0 11px; font-style:italic; color:var(--muted); font-size:14.5px; line-height:1.65; word-break:keep-all;}
+  .qa-note{margin:0 0 11px; font-style:italic; color:var(--muted); font-size:15.5px; line-height:1.65; word-break:keep-all;}
   .qa-text > *:last-child{margin-bottom:0;}
 
   /* 사례(후기) */
@@ -393,9 +404,9 @@
   .dzcard.warn .dzicon{background:#d64545;}
   .dzcard-meta{display:inline-block; margin:11px 0 9px; background:var(--blue-soft); color:var(--blue-d);
     font-weight:700; border-radius:8px; padding:4px 12px; font-size:13px;}
-  .dzcard-body{margin:0; font-size:15.5px; color:#46546e; line-height:1.68; word-break:keep-all;}
+  .dzcard-body{margin:0; font-size:17.5px; color:#46546e; line-height:1.74; word-break:keep-all;}
   .dzlist{margin:0; padding-left:18px; display:flex; flex-direction:column; gap:8px;}
-  .dzlist li{font-size:15.5px; color:#46546e; line-height:1.62; word-break:keep-all;}
+  .dzlist li{font-size:17.5px; color:#46546e; line-height:1.7; word-break:keep-all;}
   .qhint{color:var(--muted); font-size:15.5px; padding:16px 0 4px;}
 
   /* 국가별 차트/표 */
@@ -468,7 +479,7 @@
   .lkh{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:9px;}
   .lkh h3{margin:0; font-size:16.5px; color:var(--navy);}
   .lk .ext{flex-shrink:0; color:var(--blue); width:28px; height:28px; border:1px solid var(--sky-line,var(--blue-soft)); border-radius:8px; display:flex; align-items:center; justify-content:center; background:var(--blue-soft);}
-  .lk p{margin:0; font-size:15.5px; color:var(--sub); line-height:1.6;}
+  .lk p{margin:0; font-size:17px; color:var(--sub); line-height:1.65;}
   .lk p b{color:var(--blue-d);}
   .lk.static{background:#f7faff;}
   .lk .chan{display:inline-block; margin-top:9px; font-size:12px; font-weight:600; color:var(--blue-d); background:var(--blue-soft); border-radius:999px; padding:3px 11px;}
@@ -487,20 +498,40 @@
   .rvbox-h .rvmini{margin-left:auto; font-size:11px; font-weight:700; color:var(--blue-d); background:var(--blue-soft); border-radius:999px; padding:2px 9px;}
   .rvlist{display:flex; flex-direction:column; gap:10px;}
   .rvq{margin:0; padding:11px 14px; background:#fff; border:1px solid var(--line); border-left:3px solid var(--blue-l);
-    border-radius:10px; font-size:14.5px; color:#46546e; line-height:1.66; word-break:keep-all;}
+    border-radius:10px; font-size:16.5px; color:#46546e; line-height:1.7; word-break:keep-all;}
   .rvcta{margin-top:18px; text-align:center;}
   .rvcta-t{margin:0 0 12px; font-size:15.5px; font-weight:600; color:var(--navy); word-break:keep-all;}
   .rvbtn{display:inline-flex; align-items:center; gap:8px; background:var(--blue); color:#fff; font-weight:700;
     font-size:15.5px; border-radius:999px; padding:13px 26px; transition:.16s; box-shadow:0 6px 18px rgba(39,103,214,.28);}
   .rvbtn:hover{background:var(--blue-d); transform:translateY(-2px); box-shadow:0 11px 26px rgba(39,103,214,.34); text-decoration:none;}
-  footer{border-top:1px solid var(--line); margin-top:60px; padding:22px; color:var(--muted); font-size:12.5px; text-align:center; line-height:1.7;}
+  /* 후기 기부 & 광고 배너 존 */
+  .adzone{border-top:1px solid var(--line); background:var(--paper);}
+  .adzone-inner{max-width:760px; margin:0 auto; padding:48px 28px 42px;}
+  .adzone-title{font-family:var(--serif); font-weight:800; color:var(--navy); font-size:clamp(24px,4vw,32px);
+    line-height:1.25; margin:0 0 10px; letter-spacing:-0.8px;}
+  .adzone-title .pt{color:var(--blue);}
+  .adzone-sub{font-size:16px; color:var(--sub); line-height:1.65; margin:0 0 20px; max-width:580px; word-break:keep-all;}
+  .adzone-cta{display:inline-flex; align-items:center; gap:8px; background:var(--yellow-d); color:var(--navy);
+    font-weight:800; font-size:16px; border-radius:999px; padding:14px 26px; box-shadow:0 6px 20px rgba(237,193,47,.45); transition:.16s;}
+  .adzone-cta:hover{background:var(--yellow-deep); color:#fff; transform:translateY(-2px); text-decoration:none;}
+  .adgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:28px;}
+  .adslot{position:relative; aspect-ratio:16/10; border:1.5px dashed #c8d6ea; border-radius:14px;
+    background:#f7faff; display:flex; align-items:center; justify-content:center; overflow:hidden; transition:.15s;}
+  .adslot:hover{border-color:var(--blue-l); background:#fff;}
+  .adslot .adtag{position:absolute; top:9px; left:9px; font-size:10px; font-weight:800; color:var(--muted);
+    background:#fff; border:1px solid var(--line); border-radius:6px; padding:2px 7px; letter-spacing:1.5px;}
+  .adslot .adph{text-align:center; color:var(--muted); font-size:13.5px; font-weight:700; line-height:1.5; padding:0 10px;}
+  .adslot .adph small{display:block; font-weight:500; font-size:11.5px; margin-top:4px;}
+  .adpolicy{margin:18px 0 0; font-size:11.5px; color:var(--muted); line-height:1.55; word-break:keep-all;}
+  @media(max-width:880px){ .adgrid{grid-template-columns:1fr 1fr;} .adzone-inner{padding:38px 18px 34px;} }
+  footer{border-top:1px solid var(--line); margin-top:0; padding:22px; color:var(--muted); font-size:12.5px; text-align:center; line-height:1.7;}
 
   /* ============ 모바일 (≤880px) ============ */
   @media(max-width:880px){
     html,body{overflow-x:hidden;}
     .topnav{flex-wrap:wrap; gap:10px 14px; padding:12px 18px;}
     .menu{gap:4px 14px; width:100%; flex-wrap:wrap;}
-    .navitem .top{padding:8px 4px 10px; font-size:16px; white-space:nowrap;}
+    .navitem .top{padding:8px 4px 10px; font-size:17px; white-space:nowrap;}
     .navitem .top::after{left:4px; right:4px;}
     main{padding:24px 18px 80px;}
     .hero h1{font-size:27px;}
@@ -548,18 +579,15 @@
       <span class="bt">온더보드<small>ON THE BOARD</small></span>
     </div>
     <nav class="menu">
+      <div class="navitem" data-top="senior">
+        <button class="top" data-go="community">선배들의 실전 팁</button>
+      </div>
       <div class="navitem has-sub" data-top="content">
         <button class="top">프로그램 비교 <span class="car">▾</span></button>
         <div class="dropdown">
           <button data-go="route"><span class="dot"></span>본교/조형대</button>
           <button data-go="country"><span class="dot"></span>국가 별</button>
         </div>
-      </div>
-      <div class="navitem" data-top="senior">
-        <button class="top" data-go="community">선배들의 실전 팁</button>
-      </div>
-      <div class="navitem" data-top="diag">
-        <button class="top" data-go="diagnose">계획 가이드</button>
       </div>
       <div class="navitem" data-top="more">
         <button class="top" data-go="more">더보기</button>
@@ -573,14 +601,13 @@
   <!-- ============ 메인 대시보드 ============ -->
   <section id="home" class="on">
     <div class="ig-hero">
-      <h1 class="ig-title">막막한 교환학생 준비,<br><span class="pt">온더보드</span>와 함께 시작해요</h1>
-      <p class="ig-sub">준비하기 막막한 교환학생 준비 과정을 돕는 온더보드입니다. 교환학생을 가고 싶다는 막연한 생각만 들고 뭘 어떻게 해야할지 모르겠다면, 온더보드를 따라 준비해보아요!</p>
+      <h1 class="ig-title">준비하기 막막한 교환학생,<br><span class="pt">무엇부터</span> 시작해야 할지 모르겠다면?</h1>
+      <p class="ig-sub">실제 교환학생을 다녀온 선배들의 뼈 때리는 후기와 실전 데이터를 기반으로 제작된 온더보드가 여러분의 막연한 준비 과정을 확실한 가이드로 채워드립니다!</p>
     </div>
 
-    <div class="card barcard" data-go="diagnose">
+    <div class="card barcard noclick">
       <div class="bhead">
         <h3>교환학생 모집 일정</h3>
-        <span class="cta">눌러서 내 상황 진단하기 →</span>
       </div>
       <div class="cal" id="mainTimeline"></div>
     </div>
@@ -595,17 +622,12 @@
         <div class="voiceitem"><span class="qq">“</span><span>교환학생인만큼, 회화 연습은 미리미리 해두시는게 좋아요</span></div>
         <div class="voiceitem"><span class="qq">“</span><span>국제교류팀도 정보가 많은 편은 아닌데, 단과대는 더더욱 없어서 여기저기 물어보는 수밖에 없어요ㅠㅠ</span></div>
       </div>
-      <div class="card board" data-go="route">
+      <div class="card board revcard">
         <div class="bh">
-          <h3>지원 서류 한눈에 <span style="font-size:13px;color:var(--muted);font-weight:400">· 국제교류팀</span></h3>
-          <span class="bgo">더 보기 →</span>
+          <h3>후기 작성하러 가기</h3>
         </div>
-        <div class="doclist">
-          <div class="doc"><span class="pct">40%</span> 학점 — 평점 3.0 이상</div>
-          <div class="doc"><span class="pct">30%</span> 어학 — 토플·아이엘츠</div>
-          <div class="doc"><span class="pct">30%</span> 기타 서류 — 자소서·지원동기 (포폴 X)</div>
-          <div class="doc"><span class="pct g">널널</span> 조형대(strate)는 전반적으로 여유로운 편</div>
-        </div>
+        <a class="revbtn" href="https://docs.google.com/forms/d/e/1FAIpQLSdlDuM7hLbNmKBoam3mQGKrWJOhB0LZXuoBXlkolKLu6-F-Xw/viewform?usp=publish-editor" target="_blank" rel="noopener">후기 작성하고 광고걸기!</a>
+        <a class="revbanner" href="https://docs.google.com/forms/d/e/1FAIpQLSdlDuM7hLbNmKBoam3mQGKrWJOhB0LZXuoBXlkolKLu6-F-Xw/viewform?usp=publish-editor" target="_blank" rel="noopener"><span>내 광고가 들어올 자리</span></a>
       </div>
     </div>
   </section>
@@ -714,7 +736,7 @@
     <div class="crumb">선배들의 실전 팁</div>
     <div class="ig-hero">
       <h1 class="ig-title">선배들의 <span class="pt">실전 팁</span></h1>
-      <p class="ig-sub">검색창에 나오는 현지 생활 후기는 온국민 ‘수학보고서’를 참고하세요. 온더보드는 포털에 기록되지 않는 실전 준비 과정의 변수, 스펙 커트라인의 진실을 선배들의 진짜 인터뷰 데이터를 통해 투명하게 공개합니다.</p>
+      <p class="ig-sub">검색창에 나오는 현지 생활 후기는 온국민 ‘수학보고서’를 참고하세요.</p>
     </div>
 
     <h2 class="ig-h sm" style="margin-top:30px">선배 인터뷰 <span>Q&amp;A</span></h2>
@@ -728,58 +750,7 @@
     <div class="acc" id="qaAcc"></div>
   </section>
 
-  <!-- ============ 자가진단 > 현 상태 파악 ============ -->
-  <section id="diagnose">
-    <div class="crumb">계획 가이드</div>
-    <div class="ig-hero">
-      <h1 class="ig-title">나는 <span class="pt">언제</span> 가야 할까?</h1>
-      <p class="ig-sub">현재 상황과 가고 싶은 시기를 고르면, 아래 모집 일정에 내 시점이 표시돼요.</p>
-    </div>
 
-    <div class="card quiz">
-      <div class="qrow">
-        <div class="qblock">
-          <div class="ql">현재 학년</div>
-          <div class="opts" data-key="curY">
-            <button class="opt" data-v="1">1학년</button>
-            <button class="opt" data-v="2">2학년</button>
-            <button class="opt" data-v="3">3학년</button>
-            <button class="opt" data-v="4">4학년+</button>
-          </div>
-        </div>
-        <div class="qblock">
-          <div class="ql">현재 시기</div>
-          <div class="opts" data-key="curT">
-            <button class="opt" data-v="1">1학기</button>
-            <button class="opt" data-v="2">2학기</button>
-          </div>
-        </div>
-      </div>
-      <div class="qrow">
-        <div class="qblock">
-          <div class="ql">갈 학년</div>
-          <div class="opts" data-key="goY">
-            <button class="opt" data-v="1">1학년</button>
-            <button class="opt" data-v="2">2학년</button>
-            <button class="opt" data-v="3">3학년</button>
-            <button class="opt" data-v="4">4학년+</button>
-          </div>
-        </div>
-        <div class="qblock">
-          <div class="ql">갈 학기</div>
-          <div class="opts" data-key="goT">
-            <button class="opt" data-v="1">1학기</button>
-            <button class="opt" data-v="2">2학기</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="dzResult" style="margin-top:6px"></div>
-
-    <h2 class="ig-h sm" style="text-align:center; margin-top:40px">교환학생 <span>모집 일정</span></h2>
-    <div class="cal" id="diagTimeline"></div>
-  </section>
 
   <!-- ============ 더보기 ============ -->
   <section id="more">
@@ -839,6 +810,22 @@
 
 </main>
 
+<!-- 후기 기부 & 광고 배너 존 (전 페이지 하단 공통) -->
+<div class="adzone">
+  <div class="adzone-inner">
+    <h2 class="adzone-title">선배들의 진짜 꿀팁, <span class="pt">나눠주실래요?</span></h2>
+    <p class="adzone-sub">양질의 후기를 기부해 주시면, 이 자리에 선배님의 포트폴리오·외주 채널·동아리를 홍보할 수 있어요. 후배에게는 정보를, 선배에게는 노출을.</p>
+    <!-- ↓↓↓ 아래 href의 '여기에_구글폼_링크_넣으세요'를 실제 구글폼 주소로 교체하세요 -->
+    <a class="adzone-cta" href="여기에_구글폼_링크_넣으세요" target="_blank" rel="noopener">선배들의 진짜 꿀팁 기부하고 내 광고 걸기 🎁</a>
+    <div class="adgrid">
+      <div class="adslot"><span class="adtag">AD</span><div class="adph">광고 자리<small>포트폴리오 · 외주 채널</small></div></div>
+      <div class="adslot"><span class="adtag">AD</span><div class="adph">광고 자리<small>동아리 · 모임 홍보</small></div></div>
+      <div class="adslot"><span class="adtag">AD</span><div class="adph">광고 자리<small>당신의 채널</small></div></div>
+    </div>
+    <p class="adpolicy">※ 본 구역은 양질의 후기를 기부해 주신 선배님들의 개인 홍보 공간입니다. (최소 2일 노출 보장 및 릴레이 롤링 운영)</p>
+  </div>
+</div>
+
 <footer>
   ON THE BOARD<br>
   <a href="mailto:eonun197@gmail.com">eonun197@gmail.com</a>
@@ -848,7 +835,7 @@
   /* ===== 네비게이션 ===== */
   const sections = document.querySelectorAll('main section');
   const navitems = document.querySelectorAll('.navitem');
-  const PARENT = {home:'main', route:'content', country:'content', community:'senior', diagnose:'diag', more:'more'};
+  const PARENT = {home:'main', route:'content', country:'content', community:'senior', more:'more'};
   function closeDrops(){ navitems.forEach(n=>n.classList.remove('open')); }
   function go(id){
     sections.forEach(s=>s.classList.toggle('on', s.id===id));
@@ -1155,7 +1142,18 @@
     {cat:'tip', q:`미술로 교환을 가는거면 포트폴리오가 중요하겠죠? 포트폴리오 준비 팁이 있나요?`,
       a:`우선 국교팀의 경우, 본교에 제출하는 서류에 포트폴리오가 포함되어 있지는 않습니다. 파견교에서 요구할 수는 있지만 기본적으로는 요구하지 않아요. 조형대의 경우, 말씀드린 바와 같이 기준이 굉장히 널널하기 때문에 기본만 해도 괜찮습니다. 조형대 내라고 더 깐깐하게 보거나… 그런 건 없는 것 같아요.`},
     {cat:'tip', q:`주로 1학기를 많이 가죠? 더 길게 갈 수는 없나요?`,
-      a:`1학기 수학 후 연장을 통해 더 있을 수 있습니다. 한 번 다녀오고 다시, 다른 국가로의 교환을 떠나도 좋고 한 국가에서 1년 정도 길게 있는 것도 좋습니다~`}
+      a:`1학기 수학 후 연장을 통해 더 있을 수 있습니다. 한 번 다녀오고 다시, 다른 국가로의 교환을 떠나도 좋고 한 국가에서 1년 정도 길게 있는 것도 좋습니다~`},
+    {cat:'tip', q:`디자인과는 무조건 디자인으로 파견가나요?`,
+      a:[
+        `만일 단과대에서 간다면 디자인으로 가겠지만, 국제교류팀을 통한다면 다른 전공도 가능합니다! 영화학과와 같이 디자인 전공이 아니더라도 충분히 가능합니다.`,
+        `물론 이러한 경우, 전공 학점이 어느정도 인정되는지 확실하게 알아보시는 것을 권장합니다.`
+      ]},
+    {cat:'iat', q:`어학은 어느 정도 따야할까요? 국교팀이 조금 더 빡센 편인건 아는데 어느 정도인지 모르겠어요.`,
+      a:`커트라인을 넘는다면, 커트라인을 압도적으로 넘는 것이 아니어도 가능합니다. 다만, 영어권 학교의 경우 조금 더 경쟁률이 높다고 들었어요! 그렇기에 영어권을 희망하신다면 좀 넉넉한 점수를 준비하시는 것이 좋을 것입니다!`},
+    {cat:'tip', q:`학교를 고르는데 있어서 팁이 있나요?`,
+      a:`지난 학기 기록을 봤을 때 2차 모집까지 실시한 대학에 지원한다면 비교적 경쟁률이 낮은 편이라 합격할 가능성을 조금 더 확보할 수 있어요!! 물론 학기마다 선호도나 티오에 변동이 있기에 절대적이지는 않지만 영미권과 같이 인기가 많은 대학을 지원할 때 꼭 합격하고 싶다면 해당 방법을 추천합니다.`},
+    {cat:'tip', q:`국가별로 편차가 심한가요?`,
+      a:`특히 인기 있는 국가로 영어권 국가가 있는데, 영어권 국가를 준비한다면 학점과 어학이 상당히 높아야 합격할 수 있습니다.`}
   ];
 
   const accEl = document.getElementById('qaAcc');
@@ -1239,7 +1237,7 @@
   });
 
   /* 해시 라우팅 */
-  const ids = ['home','route','country','community','diagnose','more'];
+  const ids = ['home','route','country','community','more'];
   const h = location.hash.replace('#','');
   if(ids.includes(h)) go(h);
   else navitems.forEach(n=>n.classList.toggle('active', n.dataset.top==='main'));
