@@ -860,10 +860,9 @@
   function semIndex(y,t){ return (y-1)*2 + t; }
   function buildChecklist(){
     if(!dz.goT) return [];
-    const M = dz.goT===1 ? 8 : 2, langM = ((M-6+11)%12)+1, certM = ((M-1+11)%12)+1;
+    const M = dz.goT===1 ? 8 : 2, langM = ((M-6+11)%12)+1;
     return [
-      {month:langM, m:langM+'월', t:'어학성적 미리 따두기', lane:'chk'},
-      {month:certM, m:certM+'월', t:'실물 성적표 준비', lane:'chk'}
+      {month:langM, m:langM+'월', t:'어학성적 미리 따두기', lane:'chk'}
     ];
   }
   function renderDz(){
